@@ -1,0 +1,32 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.heading {
+  text-align: center;
+}
+.form {
+  margin-top: 20px;
+}
+.link {
+  color: rgb(0, 153, 255);
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.btn-submit {
+  margin-top: 20px;
+}
+
+.note {
+  text-align: center;
+  margin-top: 20px;
+  & > * {
+    margin-left: 5px;
+  }
+}
+.policy {
+  margin-top: 15px;
+}

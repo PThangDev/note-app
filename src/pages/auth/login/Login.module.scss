@@ -1,0 +1,33 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+}
+.heading {
+  text-align: center;
+}
+.form {
+  margin-top: 20px;
+}
+.options {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 15px;
+}
+.link {
+  color: rgb(0, 153, 255);
+  &:hover {
+    text-decoration: underline;
+  }
+}
+.btn-login {
+  margin-top: 20px;
+}
+
+.note {
+  text-align: center;
+  margin-top: 20px;
+  & > * {
+    margin-left: 5px;
+  }
+}

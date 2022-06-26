@@ -1,0 +1,54 @@
+.button {
+  cursor: pointer;
+  padding: 10px 12px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.4s;
+  &:hover {
+    opacity: 0.85;
+  }
+  & + .button {
+    margin-left: 10px;
+  }
+
+  & > * {
+    margin-right: 8px;
+  }
+
+  &--primary {
+    background-color: #3498db;
+    color: var(--color-white);
+  }
+  &--disabled {
+    background-color: #7f8c8d;
+    cursor: not-allowed;
+    &:hover {
+      opacity: 1;
+    }
+  }
+
+  &--loading {
+    background-color: #7f8c8d;
+    cursor: not-allowed;
+    &:hover {
+      opacity: 1;
+    }
+  }
+
+  &--full-width {
+    width: 100%;
+  }
+}
+.icon-loading {
+  animation: animateSpin 1s infinite linear;
+}
+@keyframes animateSpin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

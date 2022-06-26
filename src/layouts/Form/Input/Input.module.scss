@@ -1,0 +1,76 @@
+.input-group {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+
+  &:not(:first-child) {
+    margin-top: 20px;
+  }
+  &.error {
+    input {
+      border-bottom-color: red;
+      &:focus,
+      &:not(:placeholder-shown) {
+        $color-active: red;
+        border-bottom-color: $color-active;
+        & ~ .icon {
+          color: $color-active;
+        }
+      }
+    }
+    .icon {
+      color: red;
+    }
+    .helper-text {
+      color: red;
+    }
+  }
+}
+.input-field {
+  position: relative;
+  height: 50px;
+  input {
+    width: 100%;
+    height: 100%;
+    border-bottom: 2px solid #ccc;
+    border-top: 2px solid transparent;
+    padding: 0 35px;
+    font-size: 1.6rem;
+    transition: all 0.2s ease;
+    &:focus,
+    &:not(:placeholder-shown) {
+      $color-active: #4070f4;
+      border-bottom-color: $color-active;
+      & ~ .icon {
+        color: $color-active;
+      }
+    }
+  }
+}
+.icon {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  font-size: 2.3rem;
+  color: #999;
+}
+
+.eye {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  font-size: 2rem;
+  color: #999;
+  &:hover {
+    color: #4070f4;
+  }
+}
+
+.helper-text {
+  font-size: 1.2rem;
+  margin-top: 5px;
+}
