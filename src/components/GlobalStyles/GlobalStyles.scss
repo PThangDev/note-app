@@ -3,8 +3,15 @@
 :root {
   --color-white: #ffffff;
   --color-error: #ea2027;
+  --color-primary: #00a8ff;
 
-  --bg-main: rgb(58, 57, 57);
+  --bg-main: rgb(244, 241, 241);
+
+  //height
+  --height-header: 60px;
+  --width-sidebar: 200px;
+
+  --z-index-header: 10;
 }
 
 * {

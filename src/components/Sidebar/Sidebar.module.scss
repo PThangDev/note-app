@@ -1,0 +1,8 @@
+.wrapper {
+  min-width: var(--width-sidebar);
+  height: 100vh;
+  background-color: var(--color-primary);
+  position: fixed;
+  top: var(--height-header);
+  left: 0;
+}

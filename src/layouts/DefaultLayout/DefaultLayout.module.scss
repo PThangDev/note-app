@@ -1,2 +1,10 @@
 .wrapper {
+  margin-top: var(--height-header);
+}
+.inner {
+  display: flex;
+}
+.main {
+  margin-left: var(--width-sidebar);
+  padding: 0 10px;
 }

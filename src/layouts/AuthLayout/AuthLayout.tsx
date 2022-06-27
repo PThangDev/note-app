@@ -1,5 +1,5 @@
 import classNames from 'classnames/bind';
-import React, { FC, ReactNode } from 'react';
+import { FC, ReactNode } from 'react';
 import styles from './AuthLayout.module.scss';
 interface Props {
   children: ReactNode;
