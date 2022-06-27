@@ -3,12 +3,13 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import classNames from 'classnames/bind';
 import { FC } from 'react';
 import { Link } from 'react-router-dom';
-// End Lib
 import { Controller, useForm } from 'react-hook-form';
+// End Lib
 import Button from 'src/layouts/UI/Button';
 import { Checkbox, Input } from 'src/layouts/UI/Form';
 import styles from './Login.module.scss';
 import loginSchema from './loginSchema';
+import SocialAuth from '../components/SocialAuth';
 
 interface Props {}
 
@@ -82,7 +83,7 @@ const LoginPage: FC<Props> = (props) => {
         >
           Login
         </Button>
-
+        <SocialAuth />
         <div className={cx('note')}>
           Don't have an account?
           <Link className={cx('link')} to="/auth/register">

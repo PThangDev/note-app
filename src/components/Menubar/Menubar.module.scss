@@ -1,0 +1,112 @@
+$size-item: 70px;
+
+.wrapper {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  width: 400px;
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+}
+.menu-list {
+  display: flex;
+  align-items: center;
+  width: 350px;
+  height: 70px;
+  position: relative;
+}
+
+.menu-item {
+  width: $size-item;
+  height: $size-item;
+  z-index: 1;
+
+  .icon {
+    position: relative;
+    display: block;
+    line-height: 70px;
+    font-size: 2.2rem;
+    width: 100%;
+    text-align: center;
+    transition: all 0.5s;
+  }
+
+  .content {
+    position: absolute;
+    font-weight: 400;
+    // font-size: 1.8rem;
+    transition: 0.5s;
+    opacity: 0;
+  }
+}
+.menu-link {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: rgb(62, 62, 62);
+  cursor: pointer;
+  &:hover {
+    color: rgb(1, 127, 98);
+  }
+
+  &.active {
+    &:hover {
+      color: rgb(62, 62, 62);
+    }
+    .icon {
+      transform: translateY(-32px);
+      z-index: 5;
+    }
+    .content {
+      opacity: 1;
+      transform: translateY(10px);
+    }
+    .indicator {
+      opacity: 1;
+    }
+  }
+}
+.indicator {
+  position: absolute;
+  width: $size-item;
+  height: $size-item;
+  background-color: #29fd53;
+  top: -50%;
+  border-radius: 50%;
+  border: 6px solid var(--bg-main);
+  opacity: 0;
+  transition: all 0.5s;
+  &::before {
+    $size: 20px;
+
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: -22px;
+    width: $size;
+    height: $size;
+    background-color: transparent;
+    border-top-right-radius: $size;
+    box-shadow: 0 -10px 0 0 var(--bg-main);
+  }
+  &::after {
+    $size: 20px;
+
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: -22px;
+    width: $size;
+    height: $size;
+    background-color: transparent;
+    border-top-left-radius: $size;
+    box-shadow: 0 -10px 0 0 var(--bg-main);
+  }
+}

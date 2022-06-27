@@ -5,14 +5,14 @@
   flex-direction: column;
 
   &:not(:first-child) {
-    margin-top: 20px;
+    margin-top: 15px;
   }
   &.error {
     input {
-      border-bottom-color: red;
+      border-bottom-color: var(--color-error);
       &:focus,
       &:not(:placeholder-shown) {
-        $color-active: red;
+        $color-active: var(--color-error);
         border-bottom-color: $color-active;
         & ~ .icon {
           color: $color-active;
@@ -20,10 +20,10 @@
       }
     }
     .icon {
-      color: red;
+      color: var(--color-error);
     }
     .helper-text {
-      color: red;
+      color: var(--color-error);
     }
   }
 }
@@ -65,12 +65,13 @@
   cursor: pointer;
   font-size: 2rem;
   color: #999;
+  z-index: 2;
   &:hover {
     color: #4070f4;
   }
 }
 
 .helper-text {
-  font-size: 1.2rem;
+  font-size: 1.3rem;
   margin-top: 5px;
 }

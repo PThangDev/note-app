@@ -52,14 +52,12 @@ const Input = (
           onBlur={onBlur}
           {...props}
         />
-        <span className={cx('icon')}>{Icon ? Icon : ''}</span>
+        <label htmlFor={id} className={cx('icon')}>
+          {Icon ? Icon : ''}
+        </label>
         {type === 'password' && (
-          <span
-            className={cx('eye')}
-            onMouseDown={() => setIsShowValue(!isShowValue)}
-            onMouseUp={() => setIsShowValue(!isShowValue)}
-          >
-            {isShowValue ? (
+          <span className={cx('eye')} onClick={() => setIsShowValue(!isShowValue)}>
+            {!isShowValue ? (
               <i className="fa-solid fa-eye-low-vision"></i>
             ) : (
               <i className="fa-solid fa-eye"></i>

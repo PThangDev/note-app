@@ -5,6 +5,7 @@ import { Controller, useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 import Button from 'src/layouts/UI/Button';
 import { Checkbox, Input } from 'src/layouts/UI/Form';
+import SocialAuth from '../components/SocialAuth';
 import styles from './Register.module.scss';
 import registerSchema from './registerSchema';
 interface Props {}
@@ -110,6 +111,7 @@ const RegisterPage: FC<Props> = (props) => {
         >
           Register
         </Button>
+        <SocialAuth />
         <div className={cx('note')}>
           Already have an account?
           <Link className={cx('link')} to="/auth/login">

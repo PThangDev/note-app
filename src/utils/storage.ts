@@ -3,7 +3,7 @@ const storage = {
     const data = JSON.parse(sessionStorage.getItem(key) ?? 'false');
     return data;
   },
-  set<T>(key: string, value: T) {
+  set<T = any>(key: string, value: T) {
     return sessionStorage.setItem(key, JSON.stringify(value));
   },
   remove(key: string) {

@@ -1,8 +1,6 @@
-// Import library
 import classNames from 'classnames/bind';
-import React, { FC } from 'react';
-// Import src
 import styles from './Template.module.scss';
+import React, { FC } from 'react';
 
 interface Props {}
 
