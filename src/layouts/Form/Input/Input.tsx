@@ -1,5 +1,5 @@
 import classNames from 'classnames/bind';
-import { FC, HTMLInputTypeAttribute, ReactElement, useEffect, useState } from 'react';
+import { ForwardedRef, forwardRef, HTMLInputTypeAttribute, ReactElement, useEffect, useState } from 'react';
 import styles from './Input.module.scss';
 
 interface Props {
@@ -11,27 +11,29 @@ interface Props {
   error?: boolean;
   helperText?: string;
   className?: string;
+  value?: string;
   onChange?: () => void;
+  onBlur?: () => void;
 }
 
 const cx = classNames.bind(styles);
 
-const Input: FC<Props> = ({
-  id = '',
-  name = '',
-  placeholder = '',
-  type = 'text',
-  icon: Icon,
-  error = false,
-  helperText = '',
-  className = '',
-  onChange,
-}) => {
-  const handleChangeInput = () => {
-    if (onChange) {
-      onChange();
-    }
-  };
+const Input = (
+  {
+    id = '',
+    placeholder = '',
+    name = '',
+    type = 'text',
+    icon: Icon,
+    error = false,
+    helperText = '',
+    className = '',
+    onChange,
+    onBlur,
+    ...props
+  }: Props,
+  ref: ForwardedRef<HTMLInputElement>
+) => {
   const [isShowValue, setIsShowValue] = useState<boolean>(false);
   useEffect(() => {
     if (type === 'password') {
@@ -44,10 +46,11 @@ const Input: FC<Props> = ({
       <div className={cx('input-field')}>
         <input
           id={id}
-          name={name}
           placeholder={placeholder}
           type={isShowValue ? (type === 'password' ? 'text' : 'password') : type}
-          onChange={handleChangeInput}
+          onChange={onChange}
+          onBlur={onBlur}
+          {...props}
         />
         <span className={cx('icon')}>{Icon ? Icon : ''}</span>
         {type === 'password' && (
@@ -69,4 +72,4 @@ const Input: FC<Props> = ({
     </div>
   );
 };
-export default Input;
+export default forwardRef(Input);

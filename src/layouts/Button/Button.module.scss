@@ -1,11 +1,13 @@
 .button {
   cursor: pointer;
-  padding: 10px 12px;
+  padding: 12px 14px;
   border-radius: 5px;
   display: flex;
   align-items: center;
   justify-content: center;
   transition: opacity 0.4s;
+  font-weight: bold;
+  text-transform: uppercase;
   &:hover {
     opacity: 0.85;
   }
