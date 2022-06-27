@@ -3,9 +3,8 @@ import classNames from 'classnames/bind';
 import { FC } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
-import Button from 'src/layouts/Button';
-import Checkbox from 'src/layouts/Form/Checkbox';
-import Input from 'src/layouts/Form/Input';
+import Button from 'src/layouts/UI/Button';
+import { Checkbox, Input } from 'src/layouts/UI/Form';
 import styles from './Register.module.scss';
 import registerSchema from './registerSchema';
 interface Props {}

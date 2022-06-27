@@ -5,16 +5,13 @@ import { FC } from 'react';
 import { Link } from 'react-router-dom';
 // End Lib
 import { Controller, useForm } from 'react-hook-form';
-import Button from 'src/layouts/Button';
-import { Checkbox, Input } from 'src/layouts/Form';
+import Button from 'src/layouts/UI/Button';
+import { Checkbox, Input } from 'src/layouts/UI/Form';
 import styles from './Login.module.scss';
 import loginSchema from './loginSchema';
 
 interface Props {}
-interface IFormInputs {
-  email: string;
-  password: string;
-}
+
 const cx = classNames.bind(styles);
 const LoginPage: FC<Props> = (props) => {
   const {
