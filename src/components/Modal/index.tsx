@@ -1,15 +1,16 @@
-import React, { FC, ReactNode } from 'react';
+import React, { FC, ReactNode, useEffect } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 
 import { createPortal } from 'react-dom';
 import Backdrop from './Backdrop';
 import * as options from './options';
+import './styles.css';
 
 interface Props {
   isOpen: boolean;
   closeWhenClickOnOverlay?: boolean;
   closeWhenPressEsc?: boolean;
-  children: ReactNode;
+  children?: ReactNode;
   animate?: 'zoom' | 'drop';
   heading?: string;
   className?: string;
@@ -36,6 +37,7 @@ const Modal: FC<Props> = ({
           className={overlayClassName}
           closeWhenPressEsc={closeWhenPressEsc}
           onClick={() => (closeWhenClickOnOverlay ? onClose() : null)}
+          onEscape={() => (closeWhenPressEsc ? onClose() : null)}
         >
           {/* Prevent clicks on modal from bubbling to backdrop */}
           <motion.div

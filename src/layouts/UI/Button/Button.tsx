@@ -11,6 +11,7 @@ interface Props {
   disabled?: boolean;
   loading?: boolean;
   className?: string;
+  onClick?: () => void;
 }
 
 const cx = classNames.bind(styles);
@@ -23,6 +24,7 @@ const Button: FC<Props> = ({
   disabled = false,
   loading = false,
   className = '',
+  onClick,
 }) => {
   return (
     <button
@@ -36,6 +38,7 @@ const Button: FC<Props> = ({
         },
         className
       )}
+      onClick={onClick}
       disabled={disabled || loading}
     >
       {Icon && !loading && (

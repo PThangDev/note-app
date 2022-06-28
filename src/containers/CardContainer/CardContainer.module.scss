@@ -1,10 +1,12 @@
 .wrapper {
+  margin-top: 20px;
 }
 .heading {
   display: inline-flex;
   align-items: center;
   font-size: 3rem;
   font-weight: 500;
+  margin-bottom: 20px;
   &--link {
     position: relative;
     &:hover .heading--link::before {
@@ -25,4 +27,7 @@
 }
 .container {
   display: flex;
+  // justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 20px;
 }

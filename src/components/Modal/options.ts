@@ -1,20 +1,20 @@
 export const drop = {
   hidden: {
-    y: "-100vh",
+    y: '-100vh',
     opacity: 0.5,
   },
   visible: {
-    y: "0",
+    y: '0',
     opacity: 1,
     transition: {
-      duration: 0.1,
-      type: "spring",
+      duration: 0.3,
+      type: 'spring',
       damping: 25,
       stiffness: 500,
     },
   },
   exit: {
-    y: "100vh",
+    y: '100vh',
     opacity: 0.8,
     transition: {
       duration: 0.2,
@@ -24,16 +24,16 @@ export const drop = {
 export const zoom = {
   hidden: {
     scale: 0,
-    opacity: 0.7,
+    opacity: 0.9,
   },
   visible: {
     scale: 1,
     opacity: 1,
     transition: {
       duration: 0.1,
-      type: "spring",
-      damping: 25,
-      stiffness: 500,
+      type: 'spring',
+      damping: 28,
+      stiffness: 600,
     },
   },
   exit: {

@@ -1,8 +1,10 @@
 import classNames from 'classnames/bind';
-import styles from './CardContainer.module.scss';
-import React, { FC } from 'react';
-import Card from 'src/components/Card';
+import { FC } from 'react';
 import { Link } from 'react-router-dom';
+import { dataNotes } from 'src/api/dataFake';
+
+import CardNote from 'src/components/CardNote';
+import styles from './CardContainer.module.scss';
 
 interface Props {
   heading: string;
@@ -32,7 +34,9 @@ const CardContainer: FC<Props> = ({ heading = '', to, isLoading = false }) => {
     <div className={cx('wrapper')}>
       {renderHeading()}
       <div className={cx('container')}>
-        <Card />
+        {dataNotes.map((note) => (
+          <CardNote key={note.id} note={note} />
+        ))}
       </div>
     </div>
   );

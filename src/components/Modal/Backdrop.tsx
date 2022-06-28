@@ -7,14 +7,22 @@ interface Props {
   className?: string;
   style?: CSSProperties;
   onClick: () => void;
+  onEscape: () => void;
 }
 
-const Backdrop: FC<Props> = ({ children, className = '', closeWhenPressEsc = true, style = {}, onClick }) => {
+const Backdrop: FC<Props> = ({
+  children,
+  className = '',
+  closeWhenPressEsc = true,
+  style = {},
+  onClick,
+  onEscape,
+}) => {
   useEffect(() => {
     if (closeWhenPressEsc) {
       const handleKeyDown = (e: KeyboardEvent) => {
-        if (e.keyCode === 27) {
-          onClick();
+        if (e.key === 'Escape') {
+          onEscape();
         }
       };
 
@@ -23,7 +31,7 @@ const Backdrop: FC<Props> = ({ children, className = '', closeWhenPressEsc = tru
         document.removeEventListener('keydown', handleKeyDown);
       };
     }
-  }, [closeWhenPressEsc, onClick]);
+  }, [closeWhenPressEsc, onClick, onEscape]);
   return (
     <motion.div
       initial={{ opacity: 0 }}

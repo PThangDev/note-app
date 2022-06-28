@@ -1,14 +1,44 @@
 // Import library
 import classNames from 'classnames/bind';
 import React, { FC } from 'react';
+import { NavLink } from 'react-router-dom';
+import routes from './routes';
 // Import src
 import styles from './Sidebar.module.scss';
 
-interface Props {}
+interface Props {
+  isOpen: boolean;
+}
 
 const cx = classNames.bind(styles);
 
-const Sidebar: FC<Props> = (props) => {
-  return <div className={cx('wrapper')}>Sidebar</div>;
+const Sidebar: FC<Props> = ({ isOpen }) => {
+  return (
+    <div className={cx('wrapper', { close: !isOpen })}>
+      <ul className={cx('list')}>
+        {routes.map((route, index) => {
+          const { icon: Icon, to, label } = route;
+          return (
+            <li className={cx('item')} key={to}>
+              <NavLink className={({ isActive }) => cx('link', { active: isActive })} to={to}>
+                <span className={cx('icon')}>
+                  <Icon />
+                </span>
+                <span className={cx('label')}>{label}</span>
+              </NavLink>
+            </li>
+          );
+        })}
+        <li className={cx('item')}>
+          <div className={cx('link')}>
+            <span className={cx('icon')}>
+              <i className="fa-solid fa-right-from-bracket"></i>
+            </span>
+            <span className={cx('label')}>Logout</span>
+          </div>
+        </li>
+      </ul>
+    </div>
+  );
 };
 export default Sidebar;

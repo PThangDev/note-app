@@ -1,5 +1,9 @@
 .wrapper {
-  margin-top: var(--height-header);
+  margin-top: calc(var(--height-header) + 10px);
+  padding-bottom: 50px;
+  &.close-sidebar {
+    --width-sidebar: var(--width-sidebar-close);
+  }
 }
 .inner {
   display: flex;
@@ -7,4 +11,5 @@
 .main {
   margin-left: var(--width-sidebar);
   padding: 0 10px;
+  transition: margin-left 0.5s, padding 0.5s;
 }
