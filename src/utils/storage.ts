@@ -1,13 +1,13 @@
 const storage = {
   get<T = any>(key: string): T {
-    const data = JSON.parse(sessionStorage.getItem(key) ?? 'false');
+    const data = JSON.parse(localStorage.getItem(key) ?? 'false');
     return data;
   },
   set<T = any>(key: string, value: T) {
-    return sessionStorage.setItem(key, JSON.stringify(value));
+    return localStorage.setItem(key, JSON.stringify(value));
   },
   remove(key: string) {
-    return sessionStorage.removeItem(key);
+    return localStorage.removeItem(key);
   },
 };
 export default storage;

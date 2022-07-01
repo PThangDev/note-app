@@ -2,17 +2,24 @@ import { FC, Fragment } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import GlobalStyles from './components/GlobalStyles';
 import DefaultLayout from './layouts/DefaultLayout';
-import { authRoutes, publicRoutes } from './routes';
+import { authRoutes, privateRoutes } from './routes';
+import { AuthRoute, PrivateRoute } from './routes/Routes';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 interface Props {}
 
 const App: FC<Props> = (props) => {
   return (
     <div className="app">
+      {/* Global styles */}
       <GlobalStyles />
+      {/* Toast container */}
+      <ToastContainer position="top-right" autoClose={1500} closeOnClick pauseOnHover draggable />
+
       <Routes>
-        {/* Public Routes */}
-        {publicRoutes.map((route, index) => {
+        {/* Private Routes */}
+        {privateRoutes.map((route, index) => {
           const Component = route.component;
           let Layout = DefaultLayout;
           if (route.layout) {
@@ -25,9 +32,11 @@ const App: FC<Props> = (props) => {
               key={route.path}
               path={route.path}
               element={
-                <Layout>
-                  <Component />
-                </Layout>
+                <PrivateRoute>
+                  <Layout>
+                    <Component />
+                  </Layout>
+                </PrivateRoute>
               }
             />
           );
@@ -46,9 +55,11 @@ const App: FC<Props> = (props) => {
               key={route.path}
               path={route.path}
               element={
-                <Layout>
-                  <Component />
-                </Layout>
+                <AuthRoute>
+                  <Layout>
+                    <Component />
+                  </Layout>
+                </AuthRoute>
               }
             />
           );

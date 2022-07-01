@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { dataNotes } from 'src/api/dataFake';
 
 import CardNote from 'src/components/CardNote';
+import { Col, Container, Row } from 'src/layouts/UI/Grid';
 import styles from './CardContainer.module.scss';
 
 interface Props {
@@ -33,11 +34,15 @@ const CardContainer: FC<Props> = ({ heading = '', to, isLoading = false }) => {
   return (
     <div className={cx('wrapper')}>
       {renderHeading()}
-      <div className={cx('container')}>
-        {dataNotes.map((note) => (
-          <CardNote key={note.id} note={note} />
-        ))}
-      </div>
+      <Container>
+        <Row>
+          {dataNotes.map((note) => (
+            <Col key={note.id} col={{ xs: 6, sm: 6, md: 6, lg: 4, xl: 3 }}>
+              <CardNote key={note.id} note={note} />
+            </Col>
+          ))}
+        </Row>
+      </Container>
     </div>
   );
 };

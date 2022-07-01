@@ -1,14 +1,16 @@
 // Import library
 import classNames from 'classnames/bind';
-import React, { FC } from 'react';
+import React, { FC, ReactNode } from 'react';
 // Import src
 import styles from './Row.module.scss';
 
-interface Props {}
+interface Props {
+  children: ReactNode;
+}
 
 const cx = classNames.bind(styles);
 
-const Row: FC<Props> = (props) => {
-  return <div className={cx('wrapper')}>Row</div>;
+const Row: FC<Props> = ({ children }) => {
+  return <div className={cx('wrapper')}>{children}</div>;
 };
 export default Row;

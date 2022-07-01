@@ -2,7 +2,7 @@ import { DefaultLayout, AuthLayout } from 'src/layouts';
 import { LoginPage, RegisterPage } from 'src/pages/auth';
 import { HomePage, PinsPage, NotesPage, ProfilePage, TrashsPage } from 'src/pages';
 
-export const publicRoutes = [
+export const privateRoutes = [
   {
     path: '/',
     component: HomePage,
@@ -29,7 +29,6 @@ export const publicRoutes = [
     component: ProfilePage,
   },
 ];
-export const privateRoutes = [];
 
 export const authRoutes = [
   { path: '/auth/login', component: LoginPage, layout: AuthLayout },

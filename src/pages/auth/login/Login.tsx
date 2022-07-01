@@ -2,19 +2,24 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import classNames from 'classnames/bind';
 import { FC } from 'react';
-import { Link } from 'react-router-dom';
 import { Controller, useForm } from 'react-hook-form';
+import { Link } from 'react-router-dom';
 // End Lib
+import { useAppDispatch, useAppSelector } from 'src/app/hooks';
 import Button from 'src/layouts/UI/Button';
 import { Checkbox, Input } from 'src/layouts/UI/Form';
+import { UserLogin } from 'src/types/User';
+import SocialAuth from '../components/SocialAuth';
 import styles from './Login.module.scss';
 import loginSchema from './loginSchema';
-import SocialAuth from '../components/SocialAuth';
+import { fetchLogin } from './loginSlice';
 
 interface Props {}
 
 const cx = classNames.bind(styles);
 const LoginPage: FC<Props> = (props) => {
+  const dispatch = useAppDispatch();
+  const { data: user } = useAppSelector((state) => state.login);
   const {
     handleSubmit,
     control,
@@ -22,18 +27,20 @@ const LoginPage: FC<Props> = (props) => {
   } = useForm({
     mode: 'onTouched',
     defaultValues: {
-      email: '',
+      account: '',
       password: '',
     },
     resolver: yupResolver(loginSchema),
   });
-  const handleLogin = (data: any) => {};
+  const handleLogin = (data: UserLogin) => {
+    dispatch(fetchLogin(data));
+  };
   return (
     <div className={cx('wrapper')}>
       <h1 className={cx('heading')}>Login</h1>
       <form className={cx('form')} action="" onSubmit={handleSubmit(handleLogin)}>
         <Controller
-          name="email"
+          name="account"
           control={control}
           render={({ field }) => {
             const { name } = field;
@@ -41,7 +48,7 @@ const LoginPage: FC<Props> = (props) => {
               <Input
                 id={name}
                 {...field}
-                placeholder="Your email..."
+                placeholder="Your account..."
                 icon={<i className="fa-solid fa-envelope"></i>}
                 error={!!errors?.[name]}
                 helperText={errors?.[name]?.message || ''}

@@ -14,6 +14,7 @@ interface Props {
 const cx = classNames.bind(styles);
 const DefaultLayout: FC<Props> = ({ children }) => {
   const [isOpenSidebar, setIsOpenSidebar] = useState<boolean>(true);
+
   const handleToggleSidebar = () => {
     setIsOpenSidebar(!isOpenSidebar);
   };
