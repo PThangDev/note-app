@@ -3,6 +3,7 @@ import styles from './Header.module.scss';
 import React, { FC } from 'react';
 import images from 'src/assets/images';
 import { Link } from 'react-router-dom';
+import { useAppSelector } from 'src/app/hooks';
 
 interface Props {
   isOpenSidebar: boolean;
@@ -12,6 +13,8 @@ interface Props {
 const cx = classNames.bind(styles);
 
 const Header: FC<Props> = ({ isOpenSidebar, onToggleSidebar }) => {
+  const { user } = useAppSelector((state) => state.auth);
+
   return (
     <header className={cx('wrapper', { 'open-sidebar': isOpenSidebar })}>
       <div className={cx('inner')}>
@@ -24,8 +27,8 @@ const Header: FC<Props> = ({ isOpenSidebar, onToggleSidebar }) => {
           Note App
         </div>
         <Link to="/profile" className={cx('user')}>
-          <img className={cx('avatar')} src={images.avatarDefault} alt="" />
-          <p className={cx('username')}>PThangDev</p>
+          <img className={cx('avatar')} src={user?.avatar || images.avatarDefault} alt="" />
+          <p className={cx('username')}>{user?.username}</p>
         </Link>
       </div>
     </header>

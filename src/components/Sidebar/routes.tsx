@@ -17,6 +17,11 @@ const routes = [
     icon: () => <i className="fa-solid fa-book"></i>,
   },
   {
+    to: '/topics',
+    label: 'Topics',
+    icon: () => <i className="fa-solid fa-biohazard"></i>,
+  },
+  {
     to: '/profile',
     label: 'Profile',
     icon: () => <i className="fa-solid fa-id-card"></i>,

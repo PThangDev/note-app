@@ -15,7 +15,14 @@ const App: FC<Props> = (props) => {
       {/* Global styles */}
       <GlobalStyles />
       {/* Toast container */}
-      <ToastContainer position="top-right" autoClose={1500} closeOnClick pauseOnHover draggable />
+      <ToastContainer
+        position="top-right"
+        autoClose={2000}
+        closeOnClick
+        pauseOnHover
+        draggable
+        theme="colored"
+      />
 
       <Routes>
         {/* Private Routes */}

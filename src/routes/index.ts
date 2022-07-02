@@ -1,6 +1,6 @@
 import { DefaultLayout, AuthLayout } from 'src/layouts';
 import { LoginPage, RegisterPage } from 'src/pages/auth';
-import { HomePage, PinsPage, NotesPage, ProfilePage, TrashsPage } from 'src/pages';
+import { HomePage, PinsPage, NotesPage, ProfilePage, TrashsPage, TopicPage } from 'src/pages';
 
 export const privateRoutes = [
   {
@@ -11,6 +11,10 @@ export const privateRoutes = [
   {
     path: '/themes',
     component: HomePage,
+  },
+  {
+    path: '/topics',
+    component: TopicPage,
   },
   {
     path: '/notes',

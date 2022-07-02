@@ -8,7 +8,7 @@ interface Props {
 
 export const PrivateRoute: FC<Props> = ({ children }) => {
   const { isAuthenticate } = useAppSelector((state) => state.auth);
-  console.log(isAuthenticate);
+
   if (!isAuthenticate) {
     return <Navigate to="/auth/login" />;
   }

@@ -2,6 +2,8 @@
 import classNames from 'classnames/bind';
 import React, { FC } from 'react';
 import { NavLink } from 'react-router-dom';
+import { useAppDispatch } from 'src/app/hooks';
+import { fetchLogout } from 'src/pages/auth/authSlice';
 import routes from './routes';
 // Import src
 import styles from './Sidebar.module.scss';
@@ -13,6 +15,10 @@ interface Props {
 const cx = classNames.bind(styles);
 
 const Sidebar: FC<Props> = ({ isOpen }) => {
+  const dispatch = useAppDispatch();
+  const handleLogout = () => {
+    dispatch(fetchLogout());
+  };
   return (
     <div className={cx('wrapper', { close: !isOpen })}>
       <ul className={cx('list')}>
@@ -29,7 +35,7 @@ const Sidebar: FC<Props> = ({ isOpen }) => {
             </li>
           );
         })}
-        <li className={cx('item')}>
+        <li className={cx('item')} onClick={handleLogout}>
           <div className={cx('link')}>
             <span className={cx('icon')}>
               <i className="fa-solid fa-right-from-bracket"></i>

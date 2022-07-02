@@ -1,5 +1,5 @@
 import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
-import { UserResponse } from 'src/models/User';
+import { UserResponse } from 'src/types/User';
 import storage from 'src/utils/storage';
 
 const axiosInstance = axios.create({
@@ -36,6 +36,9 @@ axiosInstance.interceptors.response.use(
   function (error: AxiosError) {
     // Any status codes that falls outside the range of 2xx cause this function to trigger
     // Do something with response error
+    // if (error.response?.status === 401) {
+    //   return Promise.reject(error?.response);
+    // }
     return Promise.reject(error?.response?.data);
     // return Promise.reject(error);
   }
