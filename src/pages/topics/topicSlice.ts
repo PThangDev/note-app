@@ -49,4 +49,4 @@ const topicSlice = createSlice({
       });
   },
 });
-export default topicSlice.reducer;
+export default topicSlice;

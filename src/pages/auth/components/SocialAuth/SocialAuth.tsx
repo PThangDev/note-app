@@ -2,11 +2,13 @@ import classNames from 'classnames/bind';
 import styles from './SocialAuth.module.scss';
 import React, { FC } from 'react';
 
-interface Props {}
+interface Props {
+  disabled?: boolean;
+}
 
 const cx = classNames.bind(styles);
 
-const SocialAuth: FC<Props> = (props) => {
+const SocialAuth: FC<Props> = ({ disabled = false }) => {
   return (
     <div className={cx('wrapper')}>
       <ul className={cx('list')}>

@@ -26,6 +26,11 @@
       color: var(--color-error);
     }
   }
+  &.disabled {
+    input {
+      cursor: not-allowed;
+    }
+  }
 }
 .input-field {
   position: relative;

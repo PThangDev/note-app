@@ -43,6 +43,13 @@
 }
 .content {
   padding: 20px;
+  height: 188px;
+  overflow: hidden;
+  // white-space: nowrap;
+  // word-wrap: break-word;
+  // text-overflow: ellipsis;
+  // -webkit-line-clamp: 4;
+  // -webkit-box-orient: vertical;
 }
 .actions {
   display: flex;
@@ -73,12 +80,11 @@
 .buttons {
   display: flex;
   align-items: center;
-}
-
-.btn-edit {
-}
-.btn-delete {
-  background-color: rgb(214, 1, 1);
+  .btn-edit {
+  }
+  .btn-delete {
+    background-color: rgb(214, 1, 1);
+  }
 }
 
 .custom-modal {

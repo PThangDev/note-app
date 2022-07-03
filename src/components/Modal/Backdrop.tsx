@@ -1,4 +1,4 @@
-import React, { CSSProperties, FC, ReactNode, useEffect } from 'react';
+import React, { CSSProperties, FC, ReactNode, useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 
 interface Props {
@@ -18,20 +18,23 @@ const Backdrop: FC<Props> = ({
   onClick,
   onEscape,
 }) => {
+  const ref = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
+    const modals = document.querySelectorAll('.backdrop');
     if (closeWhenPressEsc) {
       const handleKeyDown = (e: KeyboardEvent) => {
         if (e.key === 'Escape') {
           onEscape();
         }
       };
-
       document.addEventListener('keydown', handleKeyDown);
       return () => {
         document.removeEventListener('keydown', handleKeyDown);
       };
     }
   }, [closeWhenPressEsc, onClick, onEscape]);
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -40,6 +43,7 @@ const Backdrop: FC<Props> = ({
       className={`backdrop ${Boolean(className) ? className : ''}`}
       style={style}
       onClick={onClick}
+      ref={ref}
     >
       {children}
     </motion.div>

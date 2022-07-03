@@ -1,3 +1,5 @@
+export type UserRole = 'customer' | 'admin';
+export type UserStatus = 'pending' | 'active' | 'banned';
 export interface UserInfo {
   _id: string;
   username: string;
@@ -5,13 +7,19 @@ export interface UserInfo {
   email: string;
   avatar: string;
   slug: string;
-  role: 'customer' | 'admin';
+  role: UserRole;
+  status: UserStatus;
   createdAt: string;
-  updateAt: string;
+  updatedAt: string;
 }
 
 export interface UserLogin {
   account: string;
+  password: string;
+}
+export interface UserRegister {
+  username: string;
+  email: string;
   password: string;
 }
 
@@ -19,4 +27,12 @@ export interface UserResponse extends UserInfo {
   access_token: string;
   refresh_token: string;
   __v: number;
+}
+
+export interface UserForgotPassword {
+  email: string;
+}
+
+export interface ForgotPasswordResponse {
+  access_token: string;
 }

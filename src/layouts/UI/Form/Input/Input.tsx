@@ -12,6 +12,7 @@ interface Props {
   helperText?: string;
   className?: string;
   value?: string;
+  disabled?: boolean;
   onChange?: () => void;
   onBlur?: () => void;
 }
@@ -30,6 +31,7 @@ const Input = (
     className = '',
     onChange,
     onBlur,
+    disabled = false,
     ...props
   }: Props,
   ref: ForwardedRef<HTMLInputElement>
@@ -42,12 +44,13 @@ const Input = (
   }, [type]);
 
   return (
-    <div className={cx('input-group', { error: error }, className)}>
+    <div className={cx('input-group', { error, disabled }, className)}>
       <div className={cx('input-field')}>
         <input
           id={id}
           placeholder={placeholder}
           type={isShowValue ? (type === 'password' ? 'text' : 'password') : type}
+          disabled={disabled}
           onChange={onChange}
           onBlur={onBlur}
           {...props}

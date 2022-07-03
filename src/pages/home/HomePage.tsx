@@ -1,7 +1,7 @@
 import classNames from 'classnames/bind';
 import styles from './HomePage.module.scss';
 import React, { FC, useContext, useState } from 'react';
-import CardContainer from 'src/containers/CardContainer';
+import CardContainer from 'src/containers/CardNoteContainer';
 import Button from 'src/layouts/UI/Button';
 import Modal from 'src/components/Modal';
 import { ModalContext } from 'src/components/ModalProvider/ModalProvider';
@@ -28,9 +28,6 @@ const HomePage: FC<Props> = (props) => {
         >
           Create new note
         </Button>
-        <CardContainer heading="Pinned" to="/pins" />
-        <CardContainer heading="Javascript" to="/pins" />
-        <CardContainer heading="ReactJs" to="/pins" />
       </div>
       <Modal
         isOpen={isOpenCreateNote}

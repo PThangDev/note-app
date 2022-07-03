@@ -1,11 +1,12 @@
 // Import library
 import classNames from 'classnames/bind';
-import React, { FC, useId, useState } from 'react';
+import { FC, useId, useState } from 'react';
 import icons from 'src/assets/icons';
 import Button from 'src/layouts/UI/Button';
 import { Checkbox } from 'src/layouts/UI/Form';
 import { Note } from 'src/types/Note';
 import Modal from '../Modal';
+import NoteInfo from '../NoteInfo';
 // Import src
 import styles from './CardNote.module.scss';
 
@@ -17,7 +18,8 @@ const cx = classNames.bind(styles);
 
 const CardNote: FC<Props> = ({ note }) => {
   const idUnique = useId();
-  const { id, content, title, themes, background } = note;
+  const { _id, content, title, topics, background, user, createdAt } = note;
+
   const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
   const [isOpenModalEdit, setIsOpenModalEdit] = useState<boolean>(false);
   const [isOpenModalConfirm, setIsOpenModalConfirm] = useState<boolean>(false);
@@ -27,8 +29,8 @@ const CardNote: FC<Props> = ({ note }) => {
         <div className={cx('header')}>
           <div className={cx('header-inner')}>
             <div className={cx('title')}>
-              <Checkbox id={id.toString()} name="card" />
-              <label htmlFor={id.toString()}>{title}</label>
+              <Checkbox id={_id.toString()} name="card" />
+              <label htmlFor={_id.toString()}>{title}</label>
             </div>
             <div className={cx('actions')}>
               <span className={cx('btn-info')}>
@@ -43,7 +45,7 @@ const CardNote: FC<Props> = ({ note }) => {
           {content}
         </div>
         <div className={cx('options')}>
-          <div className={cx('time')}>28-06-2022 15:33</div>
+          <div className={cx('time')}>{createdAt}</div>
           <div className={cx('buttons')}>
             <Button
               className={cx('btn-delete')}
@@ -71,8 +73,9 @@ const CardNote: FC<Props> = ({ note }) => {
         closeWhenClickOnOverlay
         onClose={() => setIsOpenModal(false)}
         closeWhenPressEsc={!isOpenModalEdit}
+        heading={title}
       >
-        <Button onClick={() => setIsOpenModalEdit(true)}>Edit</Button>
+        <NoteInfo data={note} />
       </Modal>
       <Modal
         isOpen={isOpenModalEdit}

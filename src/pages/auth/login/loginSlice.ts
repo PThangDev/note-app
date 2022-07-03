@@ -57,4 +57,4 @@ const loginSlice = createSlice({
       });
   },
 });
-export default loginSlice.reducer;
+export default loginSlice;

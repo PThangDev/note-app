@@ -12,3 +12,11 @@ export interface ErrorResponse {
   };
   status?: number;
 }
+
+export interface QueryParams {
+  limit?: number;
+  page?: number;
+  sort?: string;
+  search?: string;
+  filter?: string;
+}

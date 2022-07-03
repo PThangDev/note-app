@@ -1,0 +1,27 @@
+.wrapper {
+  margin-top: 20px;
+}
+.heading {
+  display: inline-flex;
+  align-items: center;
+  font-size: 3rem;
+  font-weight: 500;
+  margin-bottom: 20px;
+  &--link {
+    position: relative;
+    &:hover .heading--link::before {
+      background: red;
+    }
+
+    &::before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 50%;
+      height: 3px;
+      background-color: rgb(237, 17, 237);
+      transition: all 0.5s;
+    }
+  }
+}

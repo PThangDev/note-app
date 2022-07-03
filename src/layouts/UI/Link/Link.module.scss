@@ -1,0 +1,14 @@
+.wrapper {
+  color: var(--color-primary);
+  &:hover {
+    text-decoration: underline;
+  }
+
+  &.disabled {
+    color: var(--color-grey-bold);
+    cursor: default;
+    &:hover {
+      text-decoration: none;
+    }
+  }
+}

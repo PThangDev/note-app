@@ -3,10 +3,9 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import classNames from 'classnames/bind';
 import { FC } from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
 // End Lib
 import { useAppDispatch, useAppSelector } from 'src/app/hooks';
-import Button from 'src/layouts/UI/Button';
+import { Button, Link } from 'src/layouts/UI';
 import { Checkbox, Input } from 'src/layouts/UI/Form';
 import { UserLogin } from 'src/types/User';
 import SocialAuth from '../components/SocialAuth';
@@ -19,7 +18,7 @@ interface Props {}
 const cx = classNames.bind(styles);
 const LoginPage: FC<Props> = (props) => {
   const dispatch = useAppDispatch();
-  const { data: user } = useAppSelector((state) => state.login);
+  const { isLoading } = useAppSelector((state) => state.login);
   const {
     handleSubmit,
     control,
@@ -35,6 +34,7 @@ const LoginPage: FC<Props> = (props) => {
   const handleLogin = (data: UserLogin) => {
     dispatch(fetchLogin(data));
   };
+
   return (
     <div className={cx('wrapper')}>
       <h1 className={cx('heading')}>Login</h1>
@@ -52,6 +52,7 @@ const LoginPage: FC<Props> = (props) => {
                 icon={<i className="fa-solid fa-envelope"></i>}
                 error={!!errors?.[name]}
                 helperText={errors?.[name]?.message || ''}
+                disabled={isLoading}
               />
             );
           }}
@@ -70,6 +71,7 @@ const LoginPage: FC<Props> = (props) => {
                 icon={<i className="fa-solid fa-lock"></i>}
                 error={!!errors?.[name]}
                 helperText={errors?.[name]?.message || ''}
+                disabled={isLoading}
               />
             );
           }}
@@ -77,7 +79,7 @@ const LoginPage: FC<Props> = (props) => {
 
         <div className={cx('options')}>
           <Checkbox className={cx('checkbox')} label="Remember me" name="remember" />
-          <Link className={cx('link')} to="/auth/forgot-password">
+          <Link to="/auth/forgot-password" disabled={isLoading}>
             Forgot Password ?
           </Link>
         </div>
@@ -87,13 +89,14 @@ const LoginPage: FC<Props> = (props) => {
           type="submit"
           fullWidth
           icon={() => <i className="fa-solid fa-right-to-bracket"></i>}
+          isLoading={isLoading}
         >
           Login
         </Button>
         <SocialAuth />
         <div className={cx('note')}>
           Don't have an account?
-          <Link className={cx('link')} to="/auth/register">
+          <Link to="/auth/register" disabled={isLoading}>
             Register
           </Link>
         </div>

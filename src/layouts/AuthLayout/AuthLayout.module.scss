@@ -1,20 +1,32 @@
 .wrapper {
-  $bg-primary: #4070f4;
   height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: $bg-primary;
+  position: relative;
 
-  .inner {
-    border-radius: 10px;
-    overflow: hidden;
-    background-color: var(--color-white);
-    max-width: 500px;
-    width: 95%;
-    min-height: 300px;
-    padding: 30px 40px;
-    padding-bottom: 35px;
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('../../assets/images/bg-main.jpg') no-repeat center;
+    background-size: cover;
+    // opacity: 0.7;
+    // filter: blur(1px);
+    z-index: -1;
   }
+}
+.inner {
+  border-radius: 10px;
+  overflow: hidden;
+  background-color: var(--color-white);
+  max-width: 520px;
+  width: 95%;
+  min-height: 300px;
+  padding: 30px 40px;
+  padding-bottom: 35px;
+  box-shadow: 0 5px 12px rgba(0, 0, 0, 0.2);
 }

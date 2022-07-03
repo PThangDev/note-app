@@ -9,7 +9,7 @@ interface Props {
   icon?: FC;
   fullWidth?: boolean;
   disabled?: boolean;
-  loading?: boolean;
+  isLoading?: boolean;
   className?: string;
   onClick?: () => void;
 }
@@ -22,7 +22,7 @@ const Button: FC<Props> = ({
   icon: Icon,
   fullWidth = false,
   disabled = false,
-  loading = false,
+  isLoading = false,
   className = '',
   onClick,
 }) => {
@@ -34,19 +34,19 @@ const Button: FC<Props> = ({
           'button--primary': primary,
           'button--full-width': fullWidth,
           'button--disabled': disabled,
-          'button--loading': loading,
+          'button--loading': isLoading,
         },
         className
       )}
       onClick={onClick}
-      disabled={disabled || loading}
+      disabled={disabled || isLoading}
     >
-      {Icon && !loading && (
+      {Icon && !isLoading && (
         <span className={cx('icon')}>
           <Icon />
         </span>
       )}
-      {loading && (
+      {isLoading && (
         <span className={cx('icon-loading')}>
           <i className="fa-solid fa-fan"></i>
         </span>

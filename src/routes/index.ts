@@ -1,5 +1,5 @@
 import { DefaultLayout, AuthLayout } from 'src/layouts';
-import { LoginPage, RegisterPage } from 'src/pages/auth';
+import { LoginPage, RegisterPage, ActiveAccountPage, ForgotPasswordPage } from 'src/pages/auth';
 import { HomePage, PinsPage, NotesPage, ProfilePage, TrashsPage, TopicPage } from 'src/pages';
 
 export const privateRoutes = [
@@ -37,4 +37,6 @@ export const privateRoutes = [
 export const authRoutes = [
   { path: '/auth/login', component: LoginPage, layout: AuthLayout },
   { path: '/auth/register', component: RegisterPage, layout: AuthLayout },
+  { path: '/auth/forgot-password', component: ForgotPasswordPage, layout: AuthLayout },
+  { path: '/auth/active/:activeToken', component: ActiveAccountPage, layout: AuthLayout },
 ];

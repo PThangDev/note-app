@@ -11,6 +11,12 @@
   &:hover {
     opacity: 0.85;
   }
+  & > a {
+    color: inherit;
+    &:hover {
+      text-decoration: none;
+    }
+  }
   & + .button {
     margin-left: 10px;
   }
