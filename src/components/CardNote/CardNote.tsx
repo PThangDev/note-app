@@ -5,6 +5,7 @@ import icons from 'src/assets/icons';
 import Button from 'src/layouts/UI/Button';
 import { Checkbox } from 'src/layouts/UI/Form';
 import { Note } from 'src/types/Note';
+import FormEditNote from '../FormEditNote';
 import Modal from '../Modal';
 import NoteInfo from '../NoteInfo';
 // Import src
@@ -78,12 +79,14 @@ const CardNote: FC<Props> = ({ note }) => {
         <NoteInfo data={note} />
       </Modal>
       <Modal
+        className={cx('custom-modal-edit-note')}
         isOpen={isOpenModalEdit}
         closeWhenClickOnOverlay
-        animate="drop"
+        animate="zoom"
         onClose={() => setIsOpenModalEdit(false)}
+        heading="Edit Note"
       >
-        <>Edit</>
+        <FormEditNote data={note} />
       </Modal>
       <Modal
         isOpen={isOpenModalConfirm}

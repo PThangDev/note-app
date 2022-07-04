@@ -1,5 +1,13 @@
 import classNames from 'classnames/bind';
-import { ForwardedRef, forwardRef, HTMLInputTypeAttribute, ReactElement, useEffect, useState } from 'react';
+import {
+  ChangeEvent,
+  ForwardedRef,
+  forwardRef,
+  HTMLInputTypeAttribute,
+  ReactElement,
+  useEffect,
+  useState,
+} from 'react';
 import styles from './Input.module.scss';
 
 interface Props {
@@ -13,7 +21,7 @@ interface Props {
   className?: string;
   value?: string;
   disabled?: boolean;
-  onChange?: () => void;
+  onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
   onBlur?: () => void;
 }
 
@@ -45,7 +53,7 @@ const Input = (
 
   return (
     <div className={cx('input-group', { error, disabled }, className)}>
-      <div className={cx('input-field')}>
+      <div className={cx('input-field', { 'without-icon': !Boolean(Icon) })}>
         <input
           id={id}
           placeholder={placeholder}

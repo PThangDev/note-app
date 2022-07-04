@@ -1,12 +1,13 @@
 // Import library
 import classNames from 'classnames/bind';
 import { FC, ReactNode, useState } from 'react';
+import 'draft-js/dist/Draft.css';
+import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 // Import src
 import Header from 'src/components/Header';
 import ModalProvider from 'src/components/ModalProvider';
 import Sidebar from 'src/components/Sidebar';
 import styles from './DefaultLayout.module.scss';
-
 interface Props {
   children: ReactNode;
 }
