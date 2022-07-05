@@ -81,7 +81,7 @@ const CardNote: FC<Props> = ({ note }) => {
       <Modal
         className={cx('custom-modal-edit-note')}
         isOpen={isOpenModalEdit}
-        closeWhenClickOnOverlay
+        // closeWhenClickOnOverlay
         animate="zoom"
         onClose={() => setIsOpenModalEdit(false)}
         heading="Edit Note"

@@ -1,4 +1,4 @@
-import { FC, Fragment } from 'react';
+import { FC, Fragment, useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import GlobalStyles from './components/GlobalStyles';
 import DefaultLayout from './layouts/DefaultLayout';
