@@ -2,6 +2,9 @@
 import classNames from 'classnames/bind';
 import React, { FC, useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from 'src/app/hooks';
+import CardTopic from 'src/components/CardTopic';
+import ButtonCreate from 'src/components/CardTopic/ButtonCreate';
+import { Button } from 'src/layouts/UI';
 // Import src
 import styles from './TopicPage.module.scss';
 import { fetchGetTopics } from './topicSlice';
@@ -18,6 +21,16 @@ const TopicPage: FC<Props> = (props) => {
   useEffect(() => {
     dispatch(fetchGetTopics());
   }, [dispatch]);
-  return <div className={cx('wrapper')}>TopicPage</div>;
+  return (
+    <div className={cx('wrapper')}>
+      <h2 className={cx('heading')}>All Topic</h2>
+      <ButtonCreate />
+      <div className={cx('list')}>
+        {topics.data.map((topic) => (
+          <CardTopic key={topic._id} data={topic} />
+        ))}
+      </div>
+    </div>
+  );
 };
 export default TopicPage;

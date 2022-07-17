@@ -1,0 +1,21 @@
+.wrapper {
+  padding: 20px;
+}
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.actions {
+  display: flex;
+  align-items: center;
+}
+.info {
+  margin-bottom: 20px;
+  font-size: var(--font-sm);
+  text-decoration: underline;
+}
+.content {
+  color: var(--color-text);
+  min-height: 150vh;
+}

@@ -6,6 +6,7 @@ import { Note } from 'src/types/Note';
 import styles from './NoteInfo.module.scss';
 import ButtonDelete from '../CardNote/ButtonDelete';
 import ButtonEdit from '../CardNote/ButtonEdit';
+import MDEditor from '@uiw/react-md-editor';
 
 interface Props {
   data: Note;
@@ -26,7 +27,13 @@ const NoteInfo: FC<Props> = ({ data }) => {
 
   return (
     <div className={cx('wrapper')}>
-      <div className={cx('content')}>{content}</div>
+      <div className={cx('content')}>
+        <MDEditor.Markdown
+          className="md-editor-preview"
+          source={content}
+          style={{ whiteSpace: 'pre-wrap' }}
+        />
+      </div>
       <div className={cx('footer')}>
         <p className={cx('time')}>{createdAt}</p>
         <div className={cx('buttons')}>

@@ -3,11 +3,11 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { toast } from 'react-toastify';
 import topicAPI from 'src/api/topicAPI';
 import { MessageResponse } from 'src/types';
-import { TopicResponse } from 'src/types/Topic';
+import { Topic } from 'src/types/Topic';
 
 interface InitialState {
   isLoading: boolean;
-  data: TopicResponse[];
+  data: Topic[];
   message: string;
 }
 const initialState: InitialState = {
@@ -17,12 +17,24 @@ const initialState: InitialState = {
 };
 
 export const fetchGetTopics = createAsyncThunk<
-  BaseDataResponse<TopicResponse[]>,
+  BaseDataResponse<Topic[]>,
   undefined,
   { rejectValue: ErrorResponse }
 >('/topics', async (payload, thunkAPI) => {
   try {
     const response = await topicAPI.getTopics();
+    return response;
+  } catch (error) {
+    return thunkAPI.rejectWithValue(error as ErrorResponse);
+  }
+});
+export const fetchCreateTopic = createAsyncThunk<
+  BaseDataResponse<Topic>,
+  Partial<Topic>,
+  { rejectValue: ErrorResponse }
+>('/topics/create', async (payload, thunkAPI) => {
+  try {
+    const response = await topicAPI.createTopic(payload);
     return response;
   } catch (error) {
     return thunkAPI.rejectWithValue(error as ErrorResponse);
@@ -45,6 +57,15 @@ const topicSlice = createSlice({
       .addCase(fetchGetTopics.rejected, (state, action) => {
         state.isLoading = false;
         console.log(action.payload);
+        toast.error(action.payload?.errors.message);
+      })
+      .addCase(fetchCreateTopic.pending, (state, action) => {})
+      .addCase(fetchCreateTopic.fulfilled, (state, action) => {
+        if (action.payload.data) {
+          state.data = [action.payload.data, ...state.data];
+        }
+      })
+      .addCase(fetchCreateTopic.rejected, (state, action) => {
         toast.error(action.payload?.errors.message);
       });
   },

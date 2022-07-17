@@ -9,7 +9,7 @@ import { Note } from 'src/types/Note';
 import styles from './CardNoteContainer.module.scss';
 
 interface Props {
-  heading: string;
+  heading?: string;
   isLoading?: boolean;
   to?: string;
   data: Note[];
@@ -19,6 +19,8 @@ const cx = classNames.bind(styles);
 
 const CardNoteContainer: FC<Props> = ({ heading = '', to, isLoading = false, data = [] }) => {
   const renderHeading = () => {
+    if (!heading) return <></>;
+
     if (to) {
       return (
         <Link

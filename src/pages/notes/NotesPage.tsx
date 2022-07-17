@@ -1,9 +1,10 @@
 import classNames from 'classnames/bind';
-import styles from './NotesPage.module.scss';
-import React, { FC, useEffect } from 'react';
+import { FC, useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from 'src/app/hooks';
-import { fetchGetNotes } from './noteSlice';
+import ButtonCreate from 'src/components/CardNote/ButtonCreate';
 import CardNoteContainer from 'src/containers/CardNoteContainer';
+import { fetchGetNotes } from './noteSlice';
+import styles from './NotesPage.module.scss';
 
 interface Props {}
 
@@ -25,7 +26,11 @@ const NotesPage: FC<Props> = (props) => {
 
   return (
     <div className={cx('wrapper')}>
-      <CardNoteContainer heading="All notes" isLoading={notes.isLoading} data={notes.data} />
+      <div className={cx('header')}>
+        <h3 className={cx('heading')}>All Notes</h3>
+        <ButtonCreate />
+      </div>
+      <CardNoteContainer isLoading={notes.isLoading} data={notes.data} />
     </div>
   );
 };

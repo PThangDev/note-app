@@ -4,6 +4,7 @@ import React, { FC } from 'react';
 import images from 'src/assets/images';
 import { Link } from 'react-router-dom';
 import { useAppSelector } from 'src/app/hooks';
+import Search from './Search';
 
 interface Props {
   isOpenSidebar: boolean;
@@ -19,13 +20,14 @@ const Header: FC<Props> = ({ isOpenSidebar, onToggleSidebar }) => {
     <header className={cx('wrapper', { 'open-sidebar': isOpenSidebar })}>
       <div className={cx('inner')}>
         {/* <img src="" alt="" className="logo" /> */}
-        <div className={cx('logo')}>
+        <div className={cx('left')}>
           <p className={cx('menu-text')}>Menu</p>
           <span className={cx('icon-menu')} onClick={onToggleSidebar}>
             <i className="fa-solid fa-bars"></i>
           </span>
-          Note App
+          <Search />
         </div>
+
         <Link to="/profile" className={cx('user')}>
           <img className={cx('avatar')} src={user?.avatar || images.avatarDefault} alt="" />
           <p className={cx('username')}>{user?.username}</p>

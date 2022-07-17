@@ -2,7 +2,7 @@ export interface MessageResponse {
   message: string;
 }
 
-export interface BaseDataResponse<T> extends MessageResponse {
+export interface BaseDataResponse<T = any> extends MessageResponse {
   data?: T;
 }
 export interface ErrorResponse {

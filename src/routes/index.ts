@@ -1,6 +1,6 @@
 import { DefaultLayout, AuthLayout } from 'src/layouts';
 import { LoginPage, RegisterPage, ActiveAccountPage, ForgotPasswordPage } from 'src/pages/auth';
-import { HomePage, PinsPage, NotesPage, ProfilePage, TrashsPage, TopicPage } from 'src/pages';
+import { HomePage, PinsPage, NotesPage, ProfilePage, TrashsPage, TopicPage, NoteDetailPage } from 'src/pages';
 
 export const privateRoutes = [
   {
@@ -19,6 +19,10 @@ export const privateRoutes = [
   {
     path: '/notes',
     component: NotesPage,
+  },
+  {
+    path: '/notes/:slug',
+    component: NoteDetailPage,
   },
   {
     path: '/pins',

@@ -1,10 +1,10 @@
 import { UserResponse } from './User';
 
-export interface TopicResponse {
+export interface Topic {
   _id: string;
   name: string;
   user: UserResponse;
-  thumbnail: string;
+  background: string;
   slug: string;
   createdAt: string;
   updatedAt: string;

@@ -1,9 +1,9 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { toast } from 'react-toastify';
 import noteAPI from 'src/api/noteAPI';
 import { BaseDataResponse, ErrorResponse, QueryParams } from 'src/types';
-import moment from 'moment';
-import { Note } from 'src/types/Note';
+import { CreateNote, Note, UpdateNote } from 'src/types/Note';
+import { formatDate } from 'src/utils';
 
 interface InitialState {
   isLoading: boolean;
@@ -25,21 +25,34 @@ export const fetchGetNotes = createAsyncThunk<
     // Map time
     const responseMapDate = data?.map((note) => ({
       ...note,
-      content: `${note.content} 
-      Lorem ipsum dolor, sit amet consectetur adipisicing elit. Iste non rem cupiditate doloremque sed.
-      Consequuntur blanditiis quos impedit voluptatum, ea sint minima dolorem molestiae perspiciatis ducimus,
-      sequi repellendus dicta iste.
-      Lorem ipsum dolor, sit amet consectetur adipisicing elit. Iste non rem cupiditate doloremque sed.
-      Consequuntur blanditiis quos impedit voluptatum, ea sint minima dolorem molestiae perspiciatis ducimus,
-      sequi repellendus dicta iste.
-      Lorem ipsum dolor, sit amet consectetur adipisicing elit. Iste non rem cupiditate doloremque sed.
-      Consequuntur blanditiis quos impedit voluptatum, ea sint minima dolorem molestiae perspiciatis ducimus,
-      sequi repellendus dicta iste.
-      `,
-      createdAt: moment(note.createdAt).format('DD-MM-YYYY hh:mm'),
-      updatedAt: moment(note.updatedAt).format('DD-MM-YYYY hh:mm'),
+      createdAt: formatDate(note.createdAt),
+      updatedAt: formatDate(note.updatedAt),
     }));
     return { data: responseMapDate, message };
+  } catch (error) {
+    return thunkAPI.rejectWithValue(error as ErrorResponse);
+  }
+});
+export const fetchCreateNote = createAsyncThunk<
+  BaseDataResponse<Note>,
+  CreateNote,
+  { rejectValue: ErrorResponse }
+>('/create/note', async (payload, thunkAPI) => {
+  try {
+    const response = await noteAPI.createNote(payload);
+    return response;
+  } catch (error) {
+    return thunkAPI.rejectWithValue(error as ErrorResponse);
+  }
+});
+export const fetchUpdateNote = createAsyncThunk<
+  BaseDataResponse<Note>,
+  UpdateNote,
+  { rejectValue: ErrorResponse }
+>('/update/notes/:id', async (payload, thunkAPI) => {
+  try {
+    const response = await noteAPI.updateNotes(payload);
+    return response;
   } catch (error) {
     return thunkAPI.rejectWithValue(error as ErrorResponse);
   }
@@ -59,6 +72,46 @@ const noteSlice = createSlice({
         state.data = action.payload.data || [];
       })
       .addCase(fetchGetNotes.rejected, (state, action) => {
+        state.isLoading = false;
+        toast.error(action.payload?.errors.message);
+      })
+      .addCase(fetchCreateNote.pending, (state, action) => {
+        state.isLoading = true;
+      })
+      .addCase(fetchCreateNote.fulfilled, (state, action) => {
+        state.isLoading = false;
+        if (action.payload.data) {
+          let newNote = action.payload.data;
+          newNote = {
+            ...newNote,
+            createdAt: formatDate(newNote.createdAt),
+            updatedAt: formatDate(newNote.updatedAt),
+          };
+          state.data = [newNote, ...state.data];
+        }
+      })
+      .addCase(fetchCreateNote.rejected, (state, action) => {
+        state.isLoading = false;
+        toast.error(action.payload?.errors.message);
+      })
+      .addCase(fetchUpdateNote.pending, (state, action) => {
+        state.isLoading = true;
+      })
+      .addCase(fetchUpdateNote.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.data = state.data.map((item) => {
+          if (item._id === action.payload.data?._id) {
+            return {
+              ...action.payload.data,
+              createdAt: formatDate(action.payload.data.createdAt),
+              updatedAt: formatDate(action.payload.data.updatedAt),
+            };
+          } else {
+            return item;
+          }
+        });
+      })
+      .addCase(fetchUpdateNote.rejected, (state, action) => {
         state.isLoading = false;
         toast.error(action.payload?.errors.message);
       });

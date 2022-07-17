@@ -1,5 +1,5 @@
 @import './font';
-
+// @import './custom-prism-style';
 :root {
   --color-white: #ffffff;
   --color-error: #ea2027;
@@ -19,6 +19,14 @@
   --width-sidebar-close: 60px;
 
   --z-index-header: 10;
+
+  // Font size
+  --font-sm: 14px;
+  --font-md: 16px;
+  --font-lg: 18px;
+  --font-xl: 20px;
+  --font-2xl: 24px;
+  --font-3xl: 32px;
 }
 
 * {
@@ -29,6 +37,8 @@
 
 html {
   font-size: 62.5%;
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--height-header) + 20px);
 }
 body {
   font-size: 1.6rem;
@@ -40,6 +50,7 @@ ul li {
   list-style: none;
 }
 a {
+  display: inline-block;
   text-decoration: none;
   color: inherit;
 }
@@ -55,4 +66,42 @@ input,
   margin: 0 auto;
   margin-top: 80px;
   padding: 0 20px;
+}
+// Custom css in react markdown editor
+
+.wmde-markdown h2 {
+  border: none !important;
+}
+.w-md-editor-text {
+  // Remove padding in editor
+
+  code[class*='language-'],
+  pre[class*='language-'] {
+    line-height: auto !important;
+  }
+  .wmde-markdown-color {
+    pre[class*='language-'] {
+      padding: 0 !important;
+      margin: 0 !important;
+    }
+    :not(pre) > code[class*='language-'] {
+      padding: 0 !important;
+    }
+  }
+}
+.wmde-markdown {
+  color: inherit !important;
+}
+
+.md-editor-preview {
+  min-height: 100px;
+  background: transparent !important;
+}
+
+// Custom sweet alert
+.swal2-container {
+  font-size: 1.6rem;
+  .swal2-popup {
+    font-size: 1.6rem;
+  }
 }

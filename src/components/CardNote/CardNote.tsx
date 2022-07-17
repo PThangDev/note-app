@@ -1,11 +1,13 @@
 // Import library
+import MDEditor from '@uiw/react-md-editor';
 import classNames from 'classnames/bind';
 import { FC, useId, useState } from 'react';
+import { Link } from 'react-router-dom';
 import icons from 'src/assets/icons';
 import Button from 'src/layouts/UI/Button';
 import { Checkbox } from 'src/layouts/UI/Form';
 import { Note } from 'src/types/Note';
-import FormEditNote from '../FormEditNote';
+import FormNote from '../FormNote';
 import Modal from '../Modal';
 import NoteInfo from '../NoteInfo';
 // Import src
@@ -19,14 +21,14 @@ const cx = classNames.bind(styles);
 
 const CardNote: FC<Props> = ({ note }) => {
   const idUnique = useId();
-  const { _id, content, title, topics, background, user, createdAt } = note;
+  const { _id, content, title, topics, background, user, createdAt, slug } = note;
 
   const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
   const [isOpenModalEdit, setIsOpenModalEdit] = useState<boolean>(false);
   const [isOpenModalConfirm, setIsOpenModalConfirm] = useState<boolean>(false);
   return (
     <>
-      <div className={cx('wrapper')}>
+      <div className={cx('wrapper')} style={{ background }}>
         <div className={cx('header')}>
           <div className={cx('header-inner')}>
             <div className={cx('title')}>
@@ -42,8 +44,13 @@ const CardNote: FC<Props> = ({ note }) => {
             </div>
           </div>
         </div>
-        <div className={cx('content')} onClick={() => setIsOpenModal(true)}>
-          {content}
+        <div className={cx('content')}>
+          <MDEditor.Markdown
+            className="md-editor-preview"
+            source={content}
+            style={{ whiteSpace: 'pre-wrap' }}
+          />
+          <Link to={`/notes/${slug}`} />
         </div>
         <div className={cx('options')}>
           <div className={cx('time')}>{createdAt}</div>
@@ -84,9 +91,8 @@ const CardNote: FC<Props> = ({ note }) => {
         // closeWhenClickOnOverlay
         animate="zoom"
         onClose={() => setIsOpenModalEdit(false)}
-        heading="Edit Note"
       >
-        <FormEditNote data={note} />
+        <FormNote data={note} />
       </Modal>
       <Modal
         isOpen={isOpenModalConfirm}

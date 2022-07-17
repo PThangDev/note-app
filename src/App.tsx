@@ -1,11 +1,12 @@
-import { FC, Fragment, useEffect } from 'react';
+import { FC, Fragment } from 'react';
 import { Route, Routes } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import 'sweetalert2/src/sweetalert2.scss';
 import GlobalStyles from './components/GlobalStyles';
 import DefaultLayout from './layouts/DefaultLayout';
 import { authRoutes, privateRoutes } from './routes';
 import { AuthRoute, PrivateRoute } from './routes/Routes';
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
 interface Props {}
 
