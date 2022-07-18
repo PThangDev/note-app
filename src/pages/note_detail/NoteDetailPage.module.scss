@@ -5,6 +5,10 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  .heading {
+    margin-right: 30px;
+    margin-bottom: 8px;
+  }
 }
 .actions {
   display: flex;

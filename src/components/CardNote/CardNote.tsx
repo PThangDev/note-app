@@ -1,8 +1,10 @@
 // Import library
 import MDEditor from '@uiw/react-md-editor';
 import classNames from 'classnames/bind';
-import { FC, useId, useState } from 'react';
+import { FC, useState } from 'react';
 import { Link } from 'react-router-dom';
+
+// Import src
 import icons from 'src/assets/icons';
 import { Checkbox } from 'src/layouts/UI/Form';
 import { Note } from 'src/types/Note';
@@ -10,7 +12,6 @@ import Modal from '../Modal';
 import NoteInfo from '../NoteInfo';
 import ButtonDelete from './ButtonDelete';
 import ButtonEdit from './ButtonEdit';
-// Import src
 import styles from './CardNote.module.scss';
 
 interface Props {
@@ -20,26 +21,23 @@ interface Props {
 const cx = classNames.bind(styles);
 
 const CardNote: FC<Props> = ({ note }) => {
-  const idUnique = useId();
   const { _id, content, title, topics, background, user, createdAt, slug } = note;
 
   const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
   const [isOpenModalEdit, setIsOpenModalEdit] = useState<boolean>(false);
-  const [isOpenModalConfirm, setIsOpenModalConfirm] = useState<boolean>(false);
   return (
     <>
       <div className={cx('wrapper')} style={{ background }}>
         <div className={cx('header')}>
           <div className={cx('header-inner')}>
+            <Checkbox id={_id} name="card" />
             <div className={cx('title')}>
-              <Checkbox id={_id.toString()} name="card" />
-              <p className={cx('text')}>{title}</p>
-              {/* <label htmlFor={_id.toString()}>{title}</label> */}
+              <label htmlFor={_id}>{title}</label>
             </div>
             <div className={cx('actions')}>
               <span className={cx('btn-info')}>
                 {/* <i className="fa-solid fa-heart"></i> */}
-                <i className="fa-solid fa-heart-circle-check"></i>
+                {/* <i className="fa-solid fa-heart-circle-check"></i> */}
               </span>
               <img className={cx('btn-pin')} src={icons.iconPinned} alt="" />
             </div>

@@ -1,6 +1,7 @@
 // Import library
 import classNames from 'classnames/bind';
 import React, { FC, useEffect } from 'react';
+import { Helmet } from 'react-helmet';
 import { useAppDispatch, useAppSelector } from 'src/app/hooks';
 import CardTopic from 'src/components/CardTopic';
 import ButtonCreate from 'src/components/CardTopic/ButtonCreate';
@@ -21,15 +22,23 @@ const TopicPage: FC<Props> = (props) => {
     dispatch(fetchGetTopics());
   }, [dispatch]);
   return (
-    <div className={cx('wrapper')}>
-      <h2 className={cx('heading')}>All Topic</h2>
-      <ButtonCreate />
-      <div className={cx('list')}>
-        {topics.data.map((topic) => (
-          <CardTopic key={topic._id} data={topic} />
-        ))}
+    <>
+      {/* Head */}
+      <Helmet>
+        <title>Note App - Topics</title>
+        <meta name="description" content="Home page note app - PThangDev"></meta>
+      </Helmet>
+      {/* Body */}
+      <div className={cx('wrapper')}>
+        <h2 className={cx('heading')}>All Topic</h2>
+        <ButtonCreate />
+        <div className={cx('list')}>
+          {topics.data.map((topic) => (
+            <CardTopic key={topic._id} data={topic} />
+          ))}
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 export default TopicPage;

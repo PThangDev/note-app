@@ -1,5 +1,6 @@
 import classNames from 'classnames/bind';
 import { FC, useEffect } from 'react';
+import { Helmet } from 'react-helmet';
 import { useAppDispatch, useAppSelector } from 'src/app/hooks';
 import ButtonCreate from 'src/components/CardNote/ButtonCreate';
 import CardNoteContainer from 'src/containers/CardNoteContainer';
@@ -25,13 +26,22 @@ const NotesPage: FC<Props> = (props) => {
   // ********** Logic and render UI **********
 
   return (
-    <div className={cx('wrapper')}>
-      <div className={cx('header')}>
-        <h3 className={cx('heading')}>All Notes</h3>
-        <ButtonCreate />
+    <>
+      {/* Head */}
+      <Helmet>
+        <title>Note app - All notes</title>
+        <meta name="description" content="Home page note app - PThangDev"></meta>
+      </Helmet>
+
+      {/* Body */}
+      <div className={cx('wrapper')}>
+        <div className={cx('header')}>
+          <h3 className={cx('heading')}>All Notes</h3>
+          <ButtonCreate />
+        </div>
+        <CardNoteContainer isLoading={notes.isLoading} data={notes.data} />
       </div>
-      <CardNoteContainer isLoading={notes.isLoading} data={notes.data} />
-    </div>
+    </>
   );
 };
 export default NotesPage;

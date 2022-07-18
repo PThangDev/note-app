@@ -11,11 +11,12 @@ import styles from './ButtonEdit.module.scss';
 
 interface Props {
   note?: Note;
+  redirect?: boolean;
 }
 
 const cx = classNames.bind(styles);
 
-const ButtonEdit: FC<Props> = ({ note }) => {
+const ButtonEdit: FC<Props> = ({ note, redirect = false }) => {
   const [isOpenEdit, setIsOpenEdit] = useState<boolean>(false);
   const navigate = useNavigate();
 
@@ -24,6 +25,9 @@ const ButtonEdit: FC<Props> = ({ note }) => {
   };
   const handleFinishUpdate = (note?: Note) => {
     setIsOpenEdit(false);
+
+    if (!redirect) return;
+
     navigate(`/notes/${note?.slug}`);
   };
   return (

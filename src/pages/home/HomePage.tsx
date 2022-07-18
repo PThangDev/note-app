@@ -5,6 +5,7 @@ import CardContainer from 'src/containers/CardNoteContainer';
 import Button from 'src/layouts/UI/Button';
 import Modal from 'src/components/Modal';
 import { ModalContext } from 'src/components/ModalProvider/ModalProvider';
+import { Helmet } from 'react-helmet';
 
 interface Props {}
 
@@ -19,6 +20,11 @@ const HomePage: FC<Props> = (props) => {
 
   return (
     <>
+      <Helmet>
+        <title>Note app - home</title>
+        <meta name="description" content="Home page note app - PThangDev"></meta>
+      </Helmet>
+
       <div className={cx('wrapper')}>
         <Button
           className={cx('btn-create-note')}

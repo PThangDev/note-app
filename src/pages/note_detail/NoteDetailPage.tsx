@@ -2,6 +2,7 @@
 import MDEditor from '@uiw/react-md-editor';
 import classNames from 'classnames/bind';
 import React, { FC, useEffect } from 'react';
+import { Helmet } from 'react-helmet';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from 'src/app/hooks';
 import ButtonDelete from 'src/components/CardNote/ButtonDelete';
@@ -35,23 +36,30 @@ const NoteDetailPage: FC<Props> = (props) => {
   // ********** Logic and render UI **********
 
   return (
-    <div className={cx('wrapper')}>
-      <div className={cx('header')}>
-        <h1 className={cx('heading')}>{noteDetail?.title}</h1>
-        <div className={cx('actions')}>
-          <ButtonDelete slug={noteDetail?.slug} onFinishDelete={handleFinishDelete} />
-          <ButtonEdit note={noteDetail} />
+    <>
+      {/* Head */}
+      <Helmet>
+        <title>{`Note detail - ${noteDetail?.title}`}</title>
+      </Helmet>
+      {/* Main */}
+      <div className={cx('wrapper')}>
+        <div className={cx('header')}>
+          <h1 className={cx('heading')}>{noteDetail?.title}</h1>
+          <div className={cx('actions')}>
+            <ButtonDelete slug={noteDetail?.slug} onFinishDelete={handleFinishDelete} />
+            <ButtonEdit note={noteDetail} redirect />
+          </div>
+        </div>
+        <div className={cx('info')}>{noteDetail?.createdAt}</div>
+        <div className={cx('content')} data-color-mode="light">
+          <MDEditor.Markdown
+            className="md-editor-preview"
+            source={noteDetail?.content}
+            style={{ whiteSpace: 'pre-wrap' }}
+          />
         </div>
       </div>
-      <div className={cx('info')}>{noteDetail?.createdAt}</div>
-      <div className={cx('content')} data-color-mode="light">
-        <MDEditor.Markdown
-          className="md-editor-preview"
-          source={noteDetail?.content}
-          style={{ whiteSpace: 'pre-wrap' }}
-        />
-      </div>
-    </div>
+    </>
   );
 };
 export default NoteDetailPage;

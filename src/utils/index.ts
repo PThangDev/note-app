@@ -5,5 +5,5 @@ export const delay = async (ms: number) => {
   return await new Promise((resolve) => setTimeout(resolve, ms));
 };
 export const formatDate = (date: string = '') => {
-  return moment(date).format('DD-MM-YYYY hh:mm');
+  return moment(date).format('DD-MM-YYYY');
 };
