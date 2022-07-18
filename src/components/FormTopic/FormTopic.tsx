@@ -49,12 +49,12 @@ const FormTopic: FC<Props> = ({ data, onCloseModal }) => {
       // Create Topic
       try {
         const response = await dispatch(fetchCreateTopic({ name, background })).unwrap();
-        const fire = await Swal.fire({
+        await Swal.fire({
           position: 'center',
           icon: 'success',
           title: response.message,
           showConfirmButton: false,
-          timer: 1500,
+          timer: 1000,
         });
         if (onCloseModal) {
           onCloseModal();

@@ -5,6 +5,7 @@
   flex-direction: column;
   border-radius: 5px;
   overflow: hidden;
+  flex-shrink: 0;
 
   &:not(:first-child) {
     margin-top: 15px;

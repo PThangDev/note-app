@@ -11,6 +11,7 @@ interface Props {
   disabled?: boolean;
   isLoading?: boolean;
   className?: string;
+  status?: 'success' | 'info' | 'warning' | 'error';
   onClick?: () => void;
 }
 
@@ -24,6 +25,7 @@ const Button: FC<Props> = ({
   disabled = false,
   isLoading = false,
   className = '',
+  status = '',
   onClick,
 }) => {
   return (
@@ -35,6 +37,7 @@ const Button: FC<Props> = ({
           'button--full-width': fullWidth,
           'button--disabled': disabled,
           'button--loading': isLoading,
+          [`button--${status}`]: status,
         },
         className
       )}

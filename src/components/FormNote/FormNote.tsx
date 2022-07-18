@@ -15,11 +15,12 @@ import backgrounds from './backgrounds';
 import styles from './FormNote.module.scss';
 interface Props {
   data?: Note;
+  onFinishSubmit?: (note?: Note) => void;
 }
 
 const cx = classNames.bind(styles);
 
-const FormNote: FC<Props> = ({ data }) => {
+const FormNote: FC<Props> = ({ data, onFinishSubmit }) => {
   // ********** Declaration **********
   const dispatch = useAppDispatch();
   // ********** use Hooks (useState, useRef, useCallback, useMemo,... Custom Hook,.... )***** *****
@@ -31,7 +32,7 @@ const FormNote: FC<Props> = ({ data }) => {
   const [background, setBackground] = useState<string>(() => data?.background || backgrounds[0]);
   const [topicIds, setTopicIds] = useState<string[]>(() => {
     if (data) {
-      return data.topics?.map((topic) => topic._id) || [];
+      return data.topics?.map((topic) => topic?._id) || [];
     } else {
       return [];
     }
@@ -55,17 +56,26 @@ const FormNote: FC<Props> = ({ data }) => {
       // if (!title.trim() || !content.trim()) return;
       // Update note
       if (data) {
-        const result = await dispatch(
-          fetchUpdateNote({ slug: data?.slug || '', data: { title, content, background, topics: topicIds } })
+        const response = await dispatch(
+          fetchUpdateNote({
+            slug: data?.slug || '',
+            data: { title, content, background, topics: topicIds },
+          })
         ).unwrap();
-        toast.success(result.message);
+        toast.success(response.message);
+        if (onFinishSubmit) {
+          onFinishSubmit(response.data);
+        }
       }
       // Create Note
       else {
-        const result = await dispatch(
+        const response = await dispatch(
           fetchCreateNote({ title, topics: topicIds, background, content })
         ).unwrap();
-        toast.success(result.message);
+        toast.success(response.message);
+        if (onFinishSubmit) {
+          onFinishSubmit();
+        }
       }
     } catch (error) {
       console.error(error);
@@ -96,13 +106,16 @@ const FormNote: FC<Props> = ({ data }) => {
           placeholder="Your title..."
           onChange={handleChangeInputTitle}
         />
-        <div className={cx('editor')}>
-          <MDEditor height={300} value={content} onChange={(value?: string) => setContent(value as string)} />
+        <div className={cx('editor')} data-color-mode="dark">
+          <MDEditor
+            height={300}
+            value={content}
+            onChange={(value?: string) => setContent(value as string)}
+          />
         </div>
         <div className={cx('background')}>
           <h3 className={cx('background-heading')}>
-            Choose background card :
-            <input type="text" value={data?.background} />
+            Choose background card :{/* <input type="text" value={data?.background} /> */}
           </h3>
           <div className={cx('background-options')}>
             {backgrounds.map((bg, index) => (
@@ -136,7 +149,11 @@ const FormNote: FC<Props> = ({ data }) => {
           </div>
         </div>
 
-        <div className={cx('preview')} style={{ backgroundColor: background }}>
+        <div
+          className={cx('preview')}
+          style={{ backgroundColor: background }}
+          data-color-mode="dark"
+        >
           <h3>Preview</h3>
           <div className={cx('content')}>
             <MDEditor.Markdown

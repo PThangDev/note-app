@@ -4,6 +4,7 @@ import noteAPI from 'src/api/noteAPI';
 import { BaseDataResponse, ErrorResponse, QueryParams } from 'src/types';
 import { CreateNote, Note, UpdateNote } from 'src/types/Note';
 import { formatDate } from 'src/utils';
+import { updateNote } from '../note_detail/noteDetailSlice';
 
 interface InitialState {
   isLoading: boolean;
@@ -33,6 +34,24 @@ export const fetchGetNotes = createAsyncThunk<
     return thunkAPI.rejectWithValue(error as ErrorResponse);
   }
 });
+// export const fetchGetNotesOfTopic = createAsyncThunk<
+//   BaseDataResponse<Note[]>,
+//   undefined | QueryParams,
+//   { rejectValue: ErrorResponse }
+// >('/notes', async (payload, thunkAPI) => {
+//   try {
+//     const { data, message } = await noteAPI.getNotes(payload);
+//     // Map time
+//     const responseMapDate = data?.map((note) => ({
+//       ...note,
+//       createdAt: formatDate(note.createdAt),
+//       updatedAt: formatDate(note.updatedAt),
+//     }));
+//     return { data: responseMapDate, message };
+//   } catch (error) {
+//     return thunkAPI.rejectWithValue(error as ErrorResponse);
+//   }
+// });
 export const fetchCreateNote = createAsyncThunk<
   BaseDataResponse<Note>,
   CreateNote,
@@ -45,19 +64,35 @@ export const fetchCreateNote = createAsyncThunk<
     return thunkAPI.rejectWithValue(error as ErrorResponse);
   }
 });
+
 export const fetchUpdateNote = createAsyncThunk<
   BaseDataResponse<Note>,
   UpdateNote,
   { rejectValue: ErrorResponse }
->('/update/notes/:id', async (payload, thunkAPI) => {
+>('/update/notes/:slug', async (payload, thunkAPI) => {
   try {
     const response = await noteAPI.updateNotes(payload);
+    if (response.data) {
+      thunkAPI.dispatch(updateNote(response.data));
+    }
     return response;
   } catch (error) {
     return thunkAPI.rejectWithValue(error as ErrorResponse);
   }
 });
 
+export const fetchDeleteNote = createAsyncThunk<
+  BaseDataResponse<Note>,
+  string,
+  { rejectValue: ErrorResponse }
+>('/delete/notes/:slug', async (payload, thunkAPI) => {
+  try {
+    const response = await noteAPI.deleteNote(payload);
+    return response;
+  } catch (error) {
+    return thunkAPI.rejectWithValue(error as ErrorResponse);
+  }
+});
 const noteSlice = createSlice({
   name: 'note',
   initialState,
@@ -75,6 +110,7 @@ const noteSlice = createSlice({
         state.isLoading = false;
         toast.error(action.payload?.errors.message);
       })
+      // Create Note
       .addCase(fetchCreateNote.pending, (state, action) => {
         state.isLoading = true;
       })
@@ -94,6 +130,7 @@ const noteSlice = createSlice({
         state.isLoading = false;
         toast.error(action.payload?.errors.message);
       })
+      // Update note
       .addCase(fetchUpdateNote.pending, (state, action) => {
         state.isLoading = true;
       })
@@ -112,6 +149,20 @@ const noteSlice = createSlice({
         });
       })
       .addCase(fetchUpdateNote.rejected, (state, action) => {
+        state.isLoading = false;
+        toast.error(action.payload?.errors.message);
+      })
+      // Delete Note
+      .addCase(fetchDeleteNote.pending, (state, action) => {
+        state.isLoading = true;
+      })
+      .addCase(fetchDeleteNote.fulfilled, (state, action) => {
+        state.isLoading = false;
+        if (action.payload.data) {
+          state.data = state.data.filter((note) => note._id !== action.payload.data?._id);
+        }
+      })
+      .addCase(fetchDeleteNote.rejected, (state, action) => {
         state.isLoading = false;
         toast.error(action.payload?.errors.message);
       });

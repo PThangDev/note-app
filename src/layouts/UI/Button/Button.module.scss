@@ -49,6 +49,10 @@
   &--full-width {
     width: 100%;
   }
+
+  &--error {
+    background-color: #d60101;
+  }
 }
 .icon-loading {
   animation: animateSpin 1s infinite linear;

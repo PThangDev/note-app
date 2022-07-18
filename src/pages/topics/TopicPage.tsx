@@ -17,7 +17,6 @@ const TopicPage: FC<Props> = (props) => {
   const dispatch = useAppDispatch();
 
   const topics = useAppSelector((state) => state.topics);
-  console.log(topics);
   useEffect(() => {
     dispatch(fetchGetTopics());
   }, [dispatch]);

@@ -1,18 +1,18 @@
 import { BaseDataResponse, ErrorResponse } from './../../types';
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import { Note } from 'src/types/Note';
 import noteAPI from 'src/api/noteAPI';
 import { formatDate } from 'src/utils';
 
 interface InitialStateProps {
   isLoading: boolean;
-  data: Note | null;
+  data: Note | undefined;
   message: string;
 }
 
 const initialState: InitialStateProps = {
   isLoading: false,
-  data: null,
+  data: undefined,
   message: '',
 };
 
@@ -43,7 +43,11 @@ export const fetchGetNoteDetail = createAsyncThunk<
 const noteDetailSlice = createSlice({
   name: 'note_detail',
   initialState,
-  reducers: {},
+  reducers: {
+    updateNote(state, action: PayloadAction<Note>) {
+      state.data = action.payload;
+    },
+  },
   extraReducers(builder) {
     builder
       .addCase(fetchGetNoteDetail.pending, (state, action) => {
@@ -51,7 +55,7 @@ const noteDetailSlice = createSlice({
       })
       .addCase(fetchGetNoteDetail.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.data = action.payload.data || null;
+        state.data = action.payload.data || undefined;
       })
       .addCase(fetchGetNoteDetail.rejected, (state, action) => {
         state.isLoading = false;
@@ -59,3 +63,4 @@ const noteDetailSlice = createSlice({
   },
 });
 export default noteDetailSlice;
+export const { updateNote } = noteDetailSlice.actions;

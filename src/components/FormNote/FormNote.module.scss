@@ -87,11 +87,12 @@
   .topic-group {
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
   }
   .topic {
     display: flex;
     align-items: center;
-    margin-right: 20px;
+    margin: 10px;
     input {
       $size: 20px;
       width: $size;

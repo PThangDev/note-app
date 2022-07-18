@@ -4,12 +4,12 @@ import classNames from 'classnames/bind';
 import { FC, useId, useState } from 'react';
 import { Link } from 'react-router-dom';
 import icons from 'src/assets/icons';
-import Button from 'src/layouts/UI/Button';
 import { Checkbox } from 'src/layouts/UI/Form';
 import { Note } from 'src/types/Note';
-import FormNote from '../FormNote';
 import Modal from '../Modal';
 import NoteInfo from '../NoteInfo';
+import ButtonDelete from './ButtonDelete';
+import ButtonEdit from './ButtonEdit';
 // Import src
 import styles from './CardNote.module.scss';
 
@@ -33,7 +33,8 @@ const CardNote: FC<Props> = ({ note }) => {
           <div className={cx('header-inner')}>
             <div className={cx('title')}>
               <Checkbox id={_id.toString()} name="card" />
-              <label htmlFor={_id.toString()}>{title}</label>
+              <p className={cx('text')}>{title}</p>
+              {/* <label htmlFor={_id.toString()}>{title}</label> */}
             </div>
             <div className={cx('actions')}>
               <span className={cx('btn-info')}>
@@ -44,7 +45,7 @@ const CardNote: FC<Props> = ({ note }) => {
             </div>
           </div>
         </div>
-        <div className={cx('content')}>
+        <div className={cx('content')} data-color-mode="dark">
           <MDEditor.Markdown
             className="md-editor-preview"
             source={content}
@@ -55,20 +56,8 @@ const CardNote: FC<Props> = ({ note }) => {
         <div className={cx('options')}>
           <div className={cx('time')}>{createdAt}</div>
           <div className={cx('buttons')}>
-            <Button
-              className={cx('btn-delete')}
-              icon={() => <i className="fa-solid fa-trash"></i>}
-              onClick={() => setIsOpenModalConfirm(true)}
-            >
-              Delete
-            </Button>
-            <Button
-              className={cx('btn-edit')}
-              icon={() => <i className="fa-solid fa-screwdriver-wrench"></i>}
-              onClick={() => setIsOpenModalEdit(true)}
-            >
-              Edit
-            </Button>
+            <ButtonDelete slug={slug} />
+            <ButtonEdit note={note} />
           </div>
         </div>
       </div>
@@ -84,23 +73,6 @@ const CardNote: FC<Props> = ({ note }) => {
         heading={title}
       >
         <NoteInfo data={note} />
-      </Modal>
-      <Modal
-        className={cx('custom-modal-edit-note')}
-        isOpen={isOpenModalEdit}
-        // closeWhenClickOnOverlay
-        animate="zoom"
-        onClose={() => setIsOpenModalEdit(false)}
-      >
-        <FormNote data={note} />
-      </Modal>
-      <Modal
-        isOpen={isOpenModalConfirm}
-        closeWhenClickOnOverlay
-        animate="drop"
-        onClose={() => setIsOpenModalConfirm(false)}
-      >
-        <>Delete</>
       </Modal>
     </>
   );

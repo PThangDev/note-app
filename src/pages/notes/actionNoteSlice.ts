@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import noteAPI from 'src/api/noteAPI';
 import { BaseDataResponse, ErrorResponse } from 'src/types';
 import { CreateNote, Note } from 'src/types/Note';

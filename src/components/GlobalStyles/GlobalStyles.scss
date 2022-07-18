@@ -5,6 +5,7 @@
   --color-error: #ea2027;
   --color-success: #19ce65;
   --color-primary: #00a8ff;
+  --color-primary-bold: #0081c1;
   --color-warning: #f1c40f;
   --color-grey-bold: rgb(97, 97, 97);
   --color-grey-light: rgb(198, 198, 198);
@@ -45,6 +46,19 @@ body {
   background-color: var(--bg-main);
   color: var(--color-text);
   line-height: 1.3;
+  &::-webkit-scrollbar-track {
+    border-radius: 10px;
+    background-color: var(--bg-main);
+  }
+  &::-webkit-scrollbar {
+    width: 10px;
+    background-color: var(--bg-main);
+  }
+  &::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    background-color: var(--color-primary);
+  }
 }
 ul li {
   list-style: none;
@@ -104,4 +118,10 @@ input,
   .swal2-popup {
     font-size: 1.6rem;
   }
+}
+
+.swal2-loader {
+  $size: 6em;
+  width: $size !important;
+  height: $size !important;
 }

@@ -40,6 +40,18 @@ export const fetchCreateTopic = createAsyncThunk<
     return thunkAPI.rejectWithValue(error as ErrorResponse);
   }
 });
+export const fetchDeleteTopic = createAsyncThunk<
+  BaseDataResponse<Topic>,
+  string,
+  { rejectValue: ErrorResponse }
+>('/topics/delele', async (payload, thunkAPI) => {
+  try {
+    const response = await topicAPI.deleteTopic(payload);
+    return response;
+  } catch (error) {
+    return thunkAPI.rejectWithValue(error as ErrorResponse);
+  }
+});
 
 const topicSlice = createSlice({
   name: 'topic',
@@ -66,6 +78,15 @@ const topicSlice = createSlice({
         }
       })
       .addCase(fetchCreateTopic.rejected, (state, action) => {
+        toast.error(action.payload?.errors.message);
+      })
+      .addCase(fetchDeleteTopic.pending, (state, action) => {})
+      .addCase(fetchDeleteTopic.fulfilled, (state, action) => {
+        if (action.payload.data) {
+          state.data = state.data.filter((topic) => topic._id !== action.payload.data?._id);
+        }
+      })
+      .addCase(fetchDeleteTopic.rejected, (state, action) => {
         toast.error(action.payload?.errors.message);
       });
   },
