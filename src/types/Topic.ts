@@ -1,4 +1,5 @@
 import { UserResponse } from './User';
+import { QueryParams } from '.';
 
 export interface Topic {
   _id: string;

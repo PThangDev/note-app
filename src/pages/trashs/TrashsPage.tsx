@@ -12,7 +12,7 @@ const TrashsPage: FC<Props> = (props) => {
     <>
       {/* Head */}
       <Helmet>
-        <title>Note App - Trash</title>
+        <title>Trash</title>
         <meta name="description" content="Home page note app - PThangDev"></meta>
       </Helmet>
       {/* Body */}

@@ -97,7 +97,9 @@ const FormTopic: FC<Props> = ({ data, onCloseModal }) => {
         </div>
       </form>
       <div className={cx('actions')}>
-        <Button>Cancel</Button>
+        <Button status="error" onClick={onCloseModal}>
+          Cancel
+        </Button>
         <Button onClick={handleSubmitFormTopic}>Save</Button>
       </div>
     </div>

@@ -12,7 +12,7 @@ const PinsPage: FC<Props> = (props) => {
     <>
       {/* Head */}
       <Helmet>
-        <title>Note App - Pinned</title>
+        <title>Pinned</title>
         <meta name="description" content="Home page note app - PThangDev"></meta>
       </Helmet>
       {/* Body */}

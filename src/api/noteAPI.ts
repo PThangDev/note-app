@@ -1,5 +1,5 @@
 import { BaseDataResponse, QueryParams } from 'src/types';
-import { CreateNote, Note, UpdateNote } from 'src/types/Note';
+import { CreateNote, Note, NotesOfTopicRequest, UpdateNote } from 'src/types/Note';
 import axiosInstance from './axiosInstance';
 
 const noteAPI = {
@@ -7,9 +7,9 @@ const noteAPI = {
     const url = '/notes';
     return axiosInstance.get(url, { params });
   },
-  getNotesOfTopic(topicId: string): Promise<BaseDataResponse<Note[]>> {
+  getNotesOfTopic({ topicId, params }: NotesOfTopicRequest): Promise<BaseDataResponse<Note[]>> {
     const url = `/notes/${topicId}`;
-    return axiosInstance.get(url);
+    return axiosInstance.get(url, { params });
   },
   getNoteBySlug(slug: string): Promise<BaseDataResponse<Note>> {
     const url = `/notes/${slug}`;

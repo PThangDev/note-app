@@ -21,10 +21,15 @@
   & + .button {
     margin-left: 10px;
   }
-
-  & > * {
-    margin-right: 8px;
+  .icon,
+  .icon-loading {
     font-size: 1.8rem;
+  }
+  span + .text {
+    margin-left: 8px;
+  }
+  .text {
+    font-size: inherit !important;
   }
 
   &--primary {

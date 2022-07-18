@@ -2,6 +2,7 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import classNames from 'classnames/bind';
 import { FC } from 'react';
+import { Helmet } from 'react-helmet';
 import { Controller, useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 // Import form src
@@ -50,35 +51,44 @@ const ForgotPasswordPage: FC<Props> = (props) => {
   const renderUIForgotPassword = () => {};
 
   return (
-    <div className={cx('wrapper')}>
-      <h1 className={cx('heading')}>Forgot Password</h1>
-      <span className={cx('description')}>Enter your email you forgot password</span>
-      <form className={cx('form')} action="" onSubmit={handleSubmit(handleSendEmail)}>
-        <Controller
-          name="email"
-          control={control}
-          render={({ field }) => {
-            const { name } = field;
-            return (
-              <Input
-                id={name}
-                placeholder="Enter your email..."
-                icon={<i className="fa-solid fa-envelope"></i>}
-                error={!!errors?.[name]}
-                helperText={errors?.[name]?.message || ''}
-                {...field}
-              />
-            );
-          }}
-        />
-        <Button className={cx('btn-send')} type="submit">
-          Send to email
-        </Button>
-      </form>
-      <p className={cx('note')}>
-        You have an account? <Link to="/auth/login">Login</Link> or <Link to="/auth/register">Register</Link>
-      </p>
-    </div>
+    <>
+      {/* Head */}
+      <Helmet>
+        <title>Forgot Password</title>
+        <meta name="description" content="Home page note app - PThangDev"></meta>
+      </Helmet>
+      {/* Body */}
+      <div className={cx('wrapper')}>
+        <h1 className={cx('heading')}>Forgot Password</h1>
+        <span className={cx('description')}>Enter your email you forgot password</span>
+        <form className={cx('form')} action="" onSubmit={handleSubmit(handleSendEmail)}>
+          <Controller
+            name="email"
+            control={control}
+            render={({ field }) => {
+              const { name } = field;
+              return (
+                <Input
+                  id={name}
+                  placeholder="Enter your email..."
+                  icon={<i className="fa-solid fa-envelope"></i>}
+                  error={!!errors?.[name]}
+                  helperText={errors?.[name]?.message || ''}
+                  {...field}
+                />
+              );
+            }}
+          />
+          <Button className={cx('btn-send')} type="submit">
+            Send to email
+          </Button>
+        </form>
+        <p className={cx('note')}>
+          You have an account? <Link to="/auth/login">Login</Link> or{' '}
+          <Link to="/auth/register">Register</Link>
+        </p>
+      </div>
+    </>
   );
 };
 export default ForgotPasswordPage;

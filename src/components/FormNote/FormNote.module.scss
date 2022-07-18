@@ -83,6 +83,14 @@
   &-heading {
     margin-bottom: 10px;
     font-size: var(--font-2xl);
+    display: flex;
+    align-items: center;
+  }
+  .button-create-topic {
+    padding: 5px 7px;
+    margin-left: 15px;
+    // background: transparent;
+    font-size: var(--font-sm);
   }
   .topic-group {
     display: flex;

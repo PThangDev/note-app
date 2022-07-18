@@ -39,7 +39,7 @@ const NoteDetailPage: FC<Props> = (props) => {
     <>
       {/* Head */}
       <Helmet>
-        <title>{`Note detail - ${noteDetail?.title}`}</title>
+        <title>{`${noteDetail?.title}`}</title>
       </Helmet>
       {/* Main */}
       <div className={cx('wrapper')}>
@@ -51,7 +51,7 @@ const NoteDetailPage: FC<Props> = (props) => {
           </div>
         </div>
         <div className={cx('info')}>{noteDetail?.createdAt}</div>
-        <div className={cx('content')} data-color-mode="light">
+        <div className={cx('content')} data-color-mode="dark">
           <MDEditor.Markdown
             className="md-editor-preview"
             source={noteDetail?.content}

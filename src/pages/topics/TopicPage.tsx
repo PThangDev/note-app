@@ -25,7 +25,7 @@ const TopicPage: FC<Props> = (props) => {
     <>
       {/* Head */}
       <Helmet>
-        <title>Note App - Topics</title>
+        <title>Topics</title>
         <meta name="description" content="Home page note app - PThangDev"></meta>
       </Helmet>
       {/* Body */}

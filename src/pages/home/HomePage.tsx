@@ -1,48 +1,50 @@
 import classNames from 'classnames/bind';
-import styles from './HomePage.module.scss';
-import React, { FC, useContext, useState } from 'react';
-import CardContainer from 'src/containers/CardNoteContainer';
-import Button from 'src/layouts/UI/Button';
-import Modal from 'src/components/Modal';
-import { ModalContext } from 'src/components/ModalProvider/ModalProvider';
+import { FC, useEffect } from 'react';
 import { Helmet } from 'react-helmet';
+import { useAppDispatch, useAppSelector } from 'src/app/hooks';
+import CardNoteContainer from 'src/containers/CardNoteContainer';
+import { fetchGetNotes } from '../notes/noteSlice';
+import { fetchGetTopics } from '../topics/topicSlice';
+import styles from './HomePage.module.scss';
 
 interface Props {}
 
 const cx = classNames.bind(styles);
 
 const HomePage: FC<Props> = (props) => {
-  const [isOpenCreateNote, setIsOpenCreateNode] = useState<boolean>(false);
-  const { setIsOpenNote } = useContext(ModalContext);
-  const handleOpenCreateNote = () => {
-    setIsOpenNote(true);
-  };
+  // ********** Declaration **********
+
+  // ********** use Hooks (useState, useRef, useCallback, useMemo,... Custom Hook,.... )**********
+  const dispatch = useAppDispatch();
+  const topics = useAppSelector((state) => state.topics);
+  const notes = useAppSelector((state) => state.notes);
+  // console.log(topics);
+  // console.log(notes);
+
+  // ********** useEffect (Side Effect) **********
+  useEffect(() => {
+    dispatch(fetchGetTopics());
+  }, [dispatch]);
+  useEffect(() => {
+    if (topics.data.length) {
+      dispatch(fetchGetNotes());
+    }
+  }, [dispatch, topics.data.length]);
+  // ********** Handle Event **********
+
+  // ********** Logic and render UI **********
 
   return (
     <>
+      {/* Head */}
       <Helmet>
-        <title>Note app - home</title>
+        <title>Home</title>
         <meta name="description" content="Home page note app - PThangDev"></meta>
       </Helmet>
-
+      {/* Body */}
       <div className={cx('wrapper')}>
-        <Button
-          className={cx('btn-create-note')}
-          icon={() => <i className="fa-solid fa-circle-plus"></i>}
-          // onClick={() => setIsOpenCreateNode(true)}
-          onClick={handleOpenCreateNote}
-        >
-          Create new note
-        </Button>
+        <div className={cx('notes')}>{/* <CardNoteContainer /> */}</div>
       </div>
-      <Modal
-        isOpen={isOpenCreateNote}
-        closeWhenClickOnOverlay
-        animate="drop"
-        onClose={() => setIsOpenCreateNode(false)}
-      >
-        Create new note
-      </Modal>
     </>
   );
 };

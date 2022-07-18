@@ -54,7 +54,7 @@ const Button: FC<Props> = ({
           <i className="fa-solid fa-fan"></i>
         </span>
       )}
-      {children}
+      {children && <p className={cx('text')}>{children}</p>}
     </button>
   );
 };

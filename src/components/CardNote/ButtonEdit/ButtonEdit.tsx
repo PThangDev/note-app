@@ -23,6 +23,9 @@ const ButtonEdit: FC<Props> = ({ note, redirect = false }) => {
   const handleOpenModalEdit = () => {
     setIsOpenEdit(true);
   };
+  const handleCloseModalEdit = () => {
+    setIsOpenEdit(false);
+  };
   const handleFinishUpdate = (note?: Note) => {
     setIsOpenEdit(false);
 
@@ -45,7 +48,11 @@ const ButtonEdit: FC<Props> = ({ note, redirect = false }) => {
         animate="zoom"
         onClose={() => setIsOpenEdit(false)}
       >
-        <FormNote data={note} onFinishSubmit={handleFinishUpdate} />
+        <FormNote
+          data={note}
+          onFinishSubmit={handleFinishUpdate}
+          onCloseModal={handleCloseModalEdit}
+        />
       </Modal>
     </>
   );

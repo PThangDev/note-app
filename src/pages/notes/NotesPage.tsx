@@ -29,7 +29,7 @@ const NotesPage: FC<Props> = (props) => {
     <>
       {/* Head */}
       <Helmet>
-        <title>Note app - All notes</title>
+        <title>All Notes</title>
         <meta name="description" content="Home page note app - PThangDev"></meta>
       </Helmet>
 

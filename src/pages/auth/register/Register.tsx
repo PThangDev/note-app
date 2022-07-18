@@ -1,6 +1,7 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import classNames from 'classnames/bind';
 import { FC, useState } from 'react';
+import { Helmet } from 'react-helmet';
 import { Controller, useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import { useAppDispatch } from 'src/app/hooks';
@@ -43,7 +44,11 @@ const RegisterPage: FC<Props> = (props) => {
   // ********** Side Effect (useEffect) **********
 
   // ********** Handle Event **********
-  const handleRegister = async ({ username, email, password }: UserRegister & { cf_password: string }) => {
+  const handleRegister = async ({
+    username,
+    email,
+    password,
+  }: UserRegister & { cf_password: string }) => {
     try {
       await delay(5000);
       await dispatch(fetchRegister({ username, email, password })).unwrap();
@@ -160,6 +165,16 @@ const RegisterPage: FC<Props> = (props) => {
       return <SuccessAuth heading="Register" />;
     }
   };
-  return <div className={cx('wrapper')}>{renderUIRegister()}</div>;
+  return (
+    <>
+      {/* Head */}
+      <Helmet>
+        <title>Register</title>
+        <meta name="description" content="Home page note app - PThangDev"></meta>
+      </Helmet>
+      {/* Body */}
+      <div className={cx('wrapper')}>{renderUIRegister()}</div>
+    </>
+  );
 };
 export default RegisterPage;

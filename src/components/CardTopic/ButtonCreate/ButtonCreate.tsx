@@ -7,11 +7,14 @@ import { Button } from 'src/layouts/UI';
 // Import src
 import styles from './ButtonCreate.module.scss';
 
-interface Props {}
+interface Props {
+  className?: string;
+  text?: string;
+}
 
 const cx = classNames.bind(styles);
 
-const ButtonCreate: FC<Props> = (props) => {
+const ButtonCreate: FC<Props> = ({ className = '', text = 'Add new topic' }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const handleCloseModal = () => {
     setIsOpen(false);
@@ -19,10 +22,11 @@ const ButtonCreate: FC<Props> = (props) => {
   return (
     <div className={cx('wrapper')}>
       <Button
+        className={className}
         icon={() => <i className="fa-solid fa-circle-plus"></i>}
         onClick={() => setIsOpen(true)}
       >
-        Add new topic
+        {text}
       </Button>
       <Modal
         className={cx('custom-modal')}

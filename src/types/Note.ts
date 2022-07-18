@@ -1,3 +1,4 @@
+import { QueryParams } from '.';
 import { Topic } from './Topic';
 import { UserInfo } from './User';
 
@@ -27,4 +28,9 @@ export interface CreateNote {
 export interface UpdateNote {
   slug: string;
   data: Partial<CreateNote>;
+}
+
+export interface NotesOfTopicRequest {
+  topicId: string;
+  params: QueryParams;
 }

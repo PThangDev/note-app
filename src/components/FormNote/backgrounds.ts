@@ -1,3 +1,16 @@
-const backgrounds = ['rgb(177, 177, 177)', '#e67e22', '#27ae60', '#f1c40f', '#c0392b', '#8e44ad', '#e84393'];
+const backgrounds = [
+  'rgb(177, 177, 177)',
+  '#e67e22',
+  '#f0932b',
+  '#27ae60',
+  '#6ab04c',
+  '#f1c40f',
+  '#fbc531',
+  '#c0392b',
+  '#487eb0',
+  '#8e44ad',
+  '#e84393',
+  '#f78fb3',
+];
 
 export default backgrounds;

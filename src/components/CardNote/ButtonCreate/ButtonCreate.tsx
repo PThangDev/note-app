@@ -31,7 +31,7 @@ const ButtonCreate: FC<Props> = (props) => {
           Add new note
         </Button>
         <Modal className={cx('custom-modal')} isOpen={isOpen} onClose={handleCloseModal}>
-          <FormNote onFinishSubmit={handleFinishSubmit} />
+          <FormNote onFinishSubmit={handleFinishSubmit} onCloseModal={handleCloseModal} />
         </Modal>
       </div>
     </>

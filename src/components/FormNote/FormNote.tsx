@@ -14,14 +14,16 @@ import { Note } from 'src/types/Note';
 import backgrounds from './backgrounds';
 import styles from './FormNote.module.scss';
 import { Helmet } from 'react-helmet';
+import ButtonCreate from '../CardTopic/ButtonCreate';
 interface Props {
   data?: Note;
   onFinishSubmit?: (note?: Note) => void;
+  onCloseModal?: () => void;
 }
 
 const cx = classNames.bind(styles);
 
-const FormNote: FC<Props> = ({ data, onFinishSubmit }) => {
+const FormNote: FC<Props> = ({ data, onFinishSubmit, onCloseModal = () => {} }) => {
   // ********** Declaration **********
   const dispatch = useAppDispatch();
   // ********** use Hooks (useState, useRef, useCallback, useMemo,... Custom Hook,.... )***** *****
@@ -164,7 +166,11 @@ const FormNote: FC<Props> = ({ data, onFinishSubmit }) => {
             </div>
           </div>
           <div className={cx('topics')}>
-            <h3 className={cx('topics-heading')}>Topics</h3>
+            <h3 className={cx('topics-heading')}>
+              Topics
+              <ButtonCreate className={cx('button-create-topic')} text="Add topic" />
+            </h3>
+
             <div className={cx('topic-group')}>
               {topics.data.map((topic) => (
                 <div className={cx('topic')} key={topic._id}>
@@ -196,7 +202,9 @@ const FormNote: FC<Props> = ({ data, onFinishSubmit }) => {
           </div>
 
           <div className={cx('actions')}>
-            <Button>Cancel</Button>
+            <Button status="error" onClick={onCloseModal}>
+              Cancel
+            </Button>
             <Button onClick={handleSubmitNote}>Save</Button>
           </div>
         </div>

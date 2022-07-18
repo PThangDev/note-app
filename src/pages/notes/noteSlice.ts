@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { toast } from 'react-toastify';
 import noteAPI from 'src/api/noteAPI';
 import { BaseDataResponse, ErrorResponse, QueryParams } from 'src/types';
-import { CreateNote, Note, UpdateNote } from 'src/types/Note';
+import { CreateNote, Note, NotesOfTopicRequest, UpdateNote } from 'src/types/Note';
 import { formatDate } from 'src/utils';
 import { updateNote } from '../note_detail/noteDetailSlice';
 
@@ -34,24 +34,24 @@ export const fetchGetNotes = createAsyncThunk<
     return thunkAPI.rejectWithValue(error as ErrorResponse);
   }
 });
-// export const fetchGetNotesOfTopic = createAsyncThunk<
-//   BaseDataResponse<Note[]>,
-//   undefined | QueryParams,
-//   { rejectValue: ErrorResponse }
-// >('/notes', async (payload, thunkAPI) => {
-//   try {
-//     const { data, message } = await noteAPI.getNotes(payload);
-//     // Map time
-//     const responseMapDate = data?.map((note) => ({
-//       ...note,
-//       createdAt: formatDate(note.createdAt),
-//       updatedAt: formatDate(note.updatedAt),
-//     }));
-//     return { data: responseMapDate, message };
-//   } catch (error) {
-//     return thunkAPI.rejectWithValue(error as ErrorResponse);
-//   }
-// });
+export const fetchGetNotesOfTopic = createAsyncThunk<
+  BaseDataResponse<Note[]>,
+  NotesOfTopicRequest,
+  { rejectValue: ErrorResponse }
+>('/notes/topic/:topicId', async (payload, thunkAPI) => {
+  try {
+    const { data, message } = await noteAPI.getNotesOfTopic(payload);
+    // Map time
+    const responseMapDate = data?.map((note) => ({
+      ...note,
+      createdAt: formatDate(note.createdAt),
+      updatedAt: formatDate(note.updatedAt),
+    }));
+    return { data: responseMapDate, message };
+  } catch (error) {
+    return thunkAPI.rejectWithValue(error as ErrorResponse);
+  }
+});
 export const fetchCreateNote = createAsyncThunk<
   BaseDataResponse<Note>,
   CreateNote,
@@ -99,6 +99,7 @@ const noteSlice = createSlice({
   reducers: {},
   extraReducers(builder) {
     builder
+      // Get Notes
       .addCase(fetchGetNotes.pending, (state, action) => {
         state.isLoading = true;
       })
@@ -110,6 +111,19 @@ const noteSlice = createSlice({
         state.isLoading = false;
         toast.error(action.payload?.errors.message);
       })
+      // Get Notes of topic
+      .addCase(fetchGetNotesOfTopic.pending, (state, action) => {
+        state.isLoading = true;
+      })
+      .addCase(fetchGetNotesOfTopic.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.data = action.payload.data || [];
+      })
+      .addCase(fetchGetNotesOfTopic.rejected, (state, action) => {
+        state.isLoading = false;
+        toast.error(action.payload?.errors.message);
+      })
+
       // Create Note
       .addCase(fetchCreateNote.pending, (state, action) => {
         state.isLoading = true;
