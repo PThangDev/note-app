@@ -26,7 +26,7 @@ export interface CreateNote {
 }
 
 export interface UpdateNote {
-  slug: string;
+  id: string;
   data: Partial<CreateNote>;
 }
 

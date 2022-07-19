@@ -10,13 +10,13 @@ import { Button } from 'src/layouts/UI';
 import { fetchDeleteNote } from 'src/pages/notes/noteSlice';
 
 interface Props {
-  slug?: string;
+  id?: string;
   onFinishDelete?: () => void;
 }
 
 const cx = classNames.bind(styles);
 
-const ButtonDelete: FC<Props> = ({ slug = '', onFinishDelete }) => {
+const ButtonDelete: FC<Props> = ({ id = '', onFinishDelete }) => {
   const dispatch = useAppDispatch();
   const handleDeleteNote = async () => {
     try {
@@ -38,8 +38,7 @@ const ButtonDelete: FC<Props> = ({ slug = '', onFinishDelete }) => {
           allowEscapeKey: false,
           allowOutsideClick: false,
         });
-        const response = await dispatch(fetchDeleteNote(slug)).unwrap();
-        // When note was deleted. Run onFinishDelete function
+        const response = await dispatch(fetchDeleteNote(id)).unwrap();
         if (onFinishDelete) {
           onFinishDelete();
         }
@@ -53,7 +52,7 @@ const ButtonDelete: FC<Props> = ({ slug = '', onFinishDelete }) => {
         Swal.close();
       }
     } catch (error) {
-      Swal.close();
+      // Swal.close();
     }
   };
   return (

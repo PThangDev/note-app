@@ -42,7 +42,7 @@ const CardTopic: FC<Props> = ({ data }) => {
           allowEscapeKey: false,
           allowOutsideClick: false,
         });
-        await dispatch(fetchDeleteTopic(data._id));
+        await dispatch(fetchDeleteTopic(data._id)).unwrap();
         Swal.close();
         await Swal.fire({
           position: 'center',
@@ -53,7 +53,7 @@ const CardTopic: FC<Props> = ({ data }) => {
         });
       }
     } catch (error) {
-      Swal.close();
+      // Swal.close();
     }
   };
 

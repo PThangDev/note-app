@@ -1,3 +1,4 @@
+import { SweetError } from 'src/utils/sweetalert';
 import { BaseDataResponse, ErrorResponse } from './../../types/index';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { toast } from 'react-toastify';
@@ -87,7 +88,8 @@ const topicSlice = createSlice({
         }
       })
       .addCase(fetchDeleteTopic.rejected, (state, action) => {
-        toast.error(action.payload?.errors.message);
+        // toast.error(action.payload?.errors.message);
+        SweetError(action.payload?.errors.message);
       });
   },
 });

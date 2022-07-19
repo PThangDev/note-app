@@ -7,3 +7,8 @@ export const delay = async (ms: number) => {
 export const formatDate = (date: string = '') => {
   return moment(date).format('DD-MM-YYYY');
 };
+export const getIdFormSlug = (slug: string) => {
+  const slugSplit = slug.split('-');
+  const id = slugSplit[slugSplit.length - 1];
+  return id;
+};

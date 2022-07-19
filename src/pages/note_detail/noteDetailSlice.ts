@@ -22,7 +22,7 @@ export const fetchGetNoteDetail = createAsyncThunk<
   { rejectValue: ErrorResponse }
 >('/note/:slug', async (payload, thunkAPI) => {
   try {
-    const response = await noteAPI.getNoteBySlug(payload);
+    const response = await noteAPI.getNote(payload);
 
     // Convert date
     const responseConvertedDate = {

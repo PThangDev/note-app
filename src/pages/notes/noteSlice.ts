@@ -4,6 +4,8 @@ import noteAPI from 'src/api/noteAPI';
 import { BaseDataResponse, ErrorResponse, QueryParams } from 'src/types';
 import { CreateNote, Note, NotesOfTopicRequest, UpdateNote } from 'src/types/Note';
 import { formatDate } from 'src/utils';
+import { SweetError } from 'src/utils/sweetalert';
+import Swal from 'sweetalert2';
 import { updateNote } from '../note_detail/noteDetailSlice';
 
 interface InitialState {
@@ -69,7 +71,7 @@ export const fetchUpdateNote = createAsyncThunk<
   BaseDataResponse<Note>,
   UpdateNote,
   { rejectValue: ErrorResponse }
->('/update/notes/:slug', async (payload, thunkAPI) => {
+>('/update/notes/:id', async (payload, thunkAPI) => {
   try {
     const response = await noteAPI.updateNotes(payload);
     if (response.data) {
@@ -85,7 +87,7 @@ export const fetchDeleteNote = createAsyncThunk<
   BaseDataResponse<Note>,
   string,
   { rejectValue: ErrorResponse }
->('/delete/notes/:slug', async (payload, thunkAPI) => {
+>('/delete/notes/:id', async (payload, thunkAPI) => {
   try {
     const response = await noteAPI.deleteNote(payload);
     return response;
@@ -142,7 +144,7 @@ const noteSlice = createSlice({
       })
       .addCase(fetchCreateNote.rejected, (state, action) => {
         state.isLoading = false;
-        toast.error(action.payload?.errors.message);
+        SweetError(action.payload?.errors.message);
       })
       // Update note
       .addCase(fetchUpdateNote.pending, (state, action) => {
@@ -164,7 +166,7 @@ const noteSlice = createSlice({
       })
       .addCase(fetchUpdateNote.rejected, (state, action) => {
         state.isLoading = false;
-        toast.error(action.payload?.errors.message);
+        SweetError(action.payload?.errors.message);
       })
       // Delete Note
       .addCase(fetchDeleteNote.pending, (state, action) => {
@@ -178,7 +180,7 @@ const noteSlice = createSlice({
       })
       .addCase(fetchDeleteNote.rejected, (state, action) => {
         state.isLoading = false;
-        toast.error(action.payload?.errors.message);
+        SweetError(action.payload?.errors.message);
       });
   },
 });

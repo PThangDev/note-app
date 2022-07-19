@@ -6,15 +6,15 @@ import { useAppDispatch, useAppSelector } from 'src/app/hooks';
 import Swal from 'sweetalert2';
 
 // Import src
+import { Helmet } from 'react-helmet';
 import { Button } from 'src/layouts/UI';
 import { Input } from 'src/layouts/UI/Form';
 import { fetchCreateNote, fetchUpdateNote } from 'src/pages/notes/noteSlice';
 import { fetchGetTopics } from 'src/pages/topics/topicSlice';
 import { Note } from 'src/types/Note';
+import ButtonCreate from '../CardTopic/ButtonCreate';
 import backgrounds from './backgrounds';
 import styles from './FormNote.module.scss';
-import { Helmet } from 'react-helmet';
-import ButtonCreate from '../CardTopic/ButtonCreate';
 interface Props {
   data?: Note;
   onFinishSubmit?: (note?: Note) => void;
@@ -71,7 +71,7 @@ const FormNote: FC<Props> = ({ data, onFinishSubmit, onCloseModal = () => {} }) 
       if (data) {
         const response = await dispatch(
           fetchUpdateNote({
-            slug: data?.slug || '',
+            id: data?._id || '',
             data: { title, content, background, topics: topicIds },
           })
         ).unwrap();
@@ -104,7 +104,6 @@ const FormNote: FC<Props> = ({ data, onFinishSubmit, onCloseModal = () => {} }) 
       });
     } catch (error) {
       console.error(error);
-      Swal.close();
     }
   };
   const handleSetBackground = (bg: string) => {

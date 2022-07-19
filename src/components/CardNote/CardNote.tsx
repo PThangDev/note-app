@@ -49,12 +49,12 @@ const CardNote: FC<Props> = ({ note }) => {
             source={content}
             style={{ whiteSpace: 'pre-wrap' }}
           />
-          <Link to={`/notes/${slug}`} />
+          <Link to={`/notes/${_id}`} />
         </div>
         <div className={cx('options')}>
           <div className={cx('time')}>{createdAt}</div>
           <div className={cx('buttons')}>
-            <ButtonDelete slug={slug} />
+            <ButtonDelete id={_id} />
             <ButtonEdit note={note} />
           </div>
         </div>

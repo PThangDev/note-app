@@ -125,3 +125,25 @@ input,
   width: $size !important;
   height: $size !important;
 }
+.swal2 {
+  &-icon-content {
+    width: 100% !important;
+    height: 100%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  &-icon-sad {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 150%;
+    height: 150%;
+    border-radius: 50%;
+    background: url('../../assets/icons/frog-sad.gif') center;
+    background-size: 100% 100%;
+    z-index: 1;
+  }
+}

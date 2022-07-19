@@ -11,8 +11,8 @@ const noteAPI = {
     const url = `/notes/${topicId}`;
     return axiosInstance.get(url, { params });
   },
-  getNoteBySlug(slug: string): Promise<BaseDataResponse<Note>> {
-    const url = `/notes/${slug}`;
+  getNote(id: string): Promise<BaseDataResponse<Note>> {
+    const url = `/notes/${id}`;
     return axiosInstance.get(url);
   },
   createNote(data: CreateNote): Promise<BaseDataResponse<Note>> {
@@ -20,11 +20,11 @@ const noteAPI = {
     return axiosInstance.post(url, data);
   },
   updateNotes(payload: UpdateNote): Promise<BaseDataResponse<Note>> {
-    const url = `/notes/${payload.slug}`;
+    const url = `/notes/${payload.id}`;
     return axiosInstance.put(url, payload.data);
   },
-  deleteNote(slug: string): Promise<BaseDataResponse<Note>> {
-    const url = `/notes/${slug}`;
+  deleteNote(id: string): Promise<BaseDataResponse<Note>> {
+    const url = `/notes/${id}`;
     return axiosInstance.delete(url);
   },
 };
