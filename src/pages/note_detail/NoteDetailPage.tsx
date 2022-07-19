@@ -1,15 +1,15 @@
 // Import library
 import MDEditor from '@uiw/react-md-editor';
 import classNames from 'classnames/bind';
-import React, { FC, useEffect } from 'react';
+import { FC } from 'react';
 import { Helmet } from 'react-helmet';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from 'src/app/hooks';
+import { useAppDispatch } from 'src/app/hooks';
 import ButtonDelete from 'src/components/CardNote/ButtonDelete';
 import ButtonEdit from 'src/components/CardNote/ButtonEdit';
+import useGetNoteDetail from 'src/hooks/useGetNoteDetail';
 // Import src
 import styles from './NoteDetailPage.module.scss';
-import { fetchGetNoteDetail } from './noteDetailSlice';
 
 interface Props {}
 
@@ -18,17 +18,12 @@ const cx = classNames.bind(styles);
 const NoteDetailPage: FC<Props> = (props) => {
   // ********** Declaration **********
   // ********** use Hooks (useState, useRef, useCallback, useMemo,... Custom Hook,.... )**********
-  const dispatch = useAppDispatch();
-  const { slug } = useParams();
   const navigate = useNavigate();
 
-  const { isLoading, data: noteDetail } = useAppSelector((state) => state.noteDetail);
+  const { isLoading, noteDetail } = useGetNoteDetail({});
 
-  // ********** useEffect (Side Effect) **********
-  useEffect(() => {
-    if (!slug?.trim()) return;
-    dispatch(fetchGetNoteDetail(slug));
-  }, [dispatch, slug]);
+  // // ********** useEffect (Side Effect) **********
+
   // ********** Handle Event **********
   const handleFinishDelete = () => {
     navigate('/notes');

@@ -9,7 +9,6 @@ import { Link } from 'src/layouts/UI';
 import Button from 'src/layouts/UI/Button';
 import { Checkbox, Input } from 'src/layouts/UI/Form';
 import { UserRegister } from 'src/types/User';
-import { delay } from 'src/utils';
 import SocialAuth from '../components/SocialAuth';
 import SuccessAuth from '../components/SuccessAuth';
 import styles from './Register.module.scss';
@@ -50,7 +49,6 @@ const RegisterPage: FC<Props> = (props) => {
     password,
   }: UserRegister & { cf_password: string }) => {
     try {
-      await delay(5000);
       await dispatch(fetchRegister({ username, email, password })).unwrap();
       setIsRegisterSuccess(true);
     } catch (error: any) {
@@ -65,7 +63,6 @@ const RegisterPage: FC<Props> = (props) => {
       return (
         <>
           <h1 className={cx('heading')}>Register</h1>
-
           <form className={cx('form')} action="" onSubmit={handleSubmit(handleRegister)}>
             <Controller
               name="username"

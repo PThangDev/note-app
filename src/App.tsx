@@ -4,6 +4,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import 'sweetalert2/src/sweetalert2.scss';
 import GlobalStyles from './components/GlobalStyles';
+import ScrollToTop from './components/ScrollToTop';
 import DefaultLayout from './layouts/DefaultLayout';
 import { NotFoundPage } from './pages';
 import { authRoutes, privateRoutes } from './routes';
@@ -16,6 +17,8 @@ const App: FC<Props> = (props) => {
     <div className="app">
       {/* Global styles */}
       <GlobalStyles />
+      {/*Scroll to top  */}
+      <ScrollToTop />
       {/* Toast container */}
       <ToastContainer
         position="top-right"

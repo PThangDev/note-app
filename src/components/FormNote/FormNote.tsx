@@ -104,6 +104,7 @@ const FormNote: FC<Props> = ({ data, onFinishSubmit, onCloseModal = () => {} }) 
       });
     } catch (error) {
       console.error(error);
+      Swal.close();
     }
   };
   const handleSetBackground = (bg: string) => {
