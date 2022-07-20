@@ -18,6 +18,7 @@ const cx = classNames.bind(styles);
 
 const ButtonDelete: FC<Props> = ({ id = '', onFinishDelete }) => {
   const dispatch = useAppDispatch();
+
   const handleDeleteNote = async () => {
     try {
       const result = await Swal.fire({
@@ -30,30 +31,12 @@ const ButtonDelete: FC<Props> = ({ id = '', onFinishDelete }) => {
         confirmButtonText: 'Yes, delete it!',
       });
       if (result.isConfirmed) {
-        Swal.fire({
-          title: 'Loading...',
-          didOpen: () => {
-            Swal.showLoading();
-          },
-          allowEscapeKey: false,
-          allowOutsideClick: false,
-        });
-        const response = await dispatch(fetchDeleteNote(id)).unwrap();
+        await dispatch(fetchDeleteNote(id)).unwrap();
         if (onFinishDelete) {
           onFinishDelete();
         }
-        await Swal.fire({
-          position: 'center',
-          icon: 'success',
-          title: `${response.message}`,
-          showConfirmButton: false,
-          timer: 1500,
-        });
-        Swal.close();
       }
-    } catch (error) {
-      // Swal.close();
-    }
+    } catch (error) {}
   };
   return (
     <Button

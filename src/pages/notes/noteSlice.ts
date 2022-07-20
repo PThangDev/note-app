@@ -4,8 +4,7 @@ import noteAPI from 'src/api/noteAPI';
 import { BaseDataResponse, ErrorResponse, QueryParams } from 'src/types';
 import { CreateNote, Note, NotesOfTopicRequest, UpdateNote } from 'src/types/Note';
 import { formatDate } from 'src/utils';
-import { SweetError } from 'src/utils/sweetalert';
-import Swal from 'sweetalert2';
+import sweetalert from 'src/utils/sweetalert';
 import { updateNote } from '../note_detail/noteDetailSlice';
 
 interface InitialState {
@@ -111,7 +110,7 @@ const noteSlice = createSlice({
       })
       .addCase(fetchGetNotes.rejected, (state, action) => {
         state.isLoading = false;
-        toast.error(action.payload?.errors.message);
+        toast.error(action.payload?.errors?.message);
       })
       // Get Notes of topic
       .addCase(fetchGetNotesOfTopic.pending, (state, action) => {
@@ -123,15 +122,14 @@ const noteSlice = createSlice({
       })
       .addCase(fetchGetNotesOfTopic.rejected, (state, action) => {
         state.isLoading = false;
-        toast.error(action.payload?.errors.message);
+        toast.error(action.payload?.errors?.message);
       })
 
       // Create Note
       .addCase(fetchCreateNote.pending, (state, action) => {
-        state.isLoading = true;
+        sweetalert.loading();
       })
       .addCase(fetchCreateNote.fulfilled, (state, action) => {
-        state.isLoading = false;
         if (action.payload.data) {
           let newNote = action.payload.data;
           newNote = {
@@ -141,17 +139,17 @@ const noteSlice = createSlice({
           };
           state.data = [newNote, ...state.data];
         }
+        // Sweet alert
+        sweetalert.success(action.payload.message);
       })
       .addCase(fetchCreateNote.rejected, (state, action) => {
-        state.isLoading = false;
-        SweetError(action.payload?.errors.message);
+        sweetalert.error(action.payload?.errors?.message);
       })
       // Update note
       .addCase(fetchUpdateNote.pending, (state, action) => {
-        state.isLoading = true;
+        sweetalert.loading();
       })
       .addCase(fetchUpdateNote.fulfilled, (state, action) => {
-        state.isLoading = false;
         state.data = state.data.map((item) => {
           if (item._id === action.payload.data?._id) {
             return {
@@ -163,24 +161,23 @@ const noteSlice = createSlice({
             return item;
           }
         });
+        sweetalert.success(action.payload.message);
       })
       .addCase(fetchUpdateNote.rejected, (state, action) => {
-        state.isLoading = false;
-        SweetError(action.payload?.errors.message);
+        sweetalert.error(action.payload?.errors?.message);
       })
       // Delete Note
       .addCase(fetchDeleteNote.pending, (state, action) => {
-        state.isLoading = true;
+        sweetalert.loading();
       })
       .addCase(fetchDeleteNote.fulfilled, (state, action) => {
-        state.isLoading = false;
         if (action.payload.data) {
           state.data = state.data.filter((note) => note._id !== action.payload.data?._id);
         }
+        sweetalert.success(action.payload.message);
       })
       .addCase(fetchDeleteNote.rejected, (state, action) => {
-        state.isLoading = false;
-        SweetError(action.payload?.errors.message);
+        sweetalert.error(action.payload?.errors?.message);
       });
   },
 });

@@ -57,54 +57,28 @@ const FormNote: FC<Props> = ({ data, onFinishSubmit, onCloseModal = () => {} }) 
   const handleSubmitNote = async () => {
     try {
       // if (!title.trim() || !content.trim()) return;
-      let message: string = '';
       // Update note
-      Swal.fire({
-        title: 'Loading...',
-        didOpen: () => {
-          Swal.showLoading();
-        },
-        allowEscapeKey: false,
-        allowOutsideClick: false,
-      });
-
       if (data) {
+        const dataUpdate = { title, content, background, topics: topicIds };
+
         const response = await dispatch(
           fetchUpdateNote({
             id: data?._id || '',
-            data: { title, content, background, topics: topicIds },
+            data: dataUpdate,
           })
         ).unwrap();
-        Swal.close();
         if (onFinishSubmit) {
           onFinishSubmit(response.data);
         }
-        message = response.message;
       }
       // Create Note
       else {
-        const response = await dispatch(
-          fetchCreateNote({ title, topics: topicIds, background, content })
-        ).unwrap();
-        Swal.close();
+        await dispatch(fetchCreateNote({ title, topics: topicIds, background, content })).unwrap();
         if (onFinishSubmit) {
           onFinishSubmit();
         }
-        if (onFinishSubmit) {
-          onFinishSubmit(response.data);
-        }
-        message = response.message;
       }
-      await Swal.fire({
-        position: 'center',
-        icon: 'success',
-        title: `${message}`,
-        showConfirmButton: false,
-        timer: 900,
-      });
-    } catch (error) {
-      console.error(error);
-    }
+    } catch (error) {}
   };
   const handleSetBackground = (bg: string) => {
     setBackground(bg);

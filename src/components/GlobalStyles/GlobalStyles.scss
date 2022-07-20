@@ -142,8 +142,11 @@ input,
     width: 150%;
     height: 150%;
     border-radius: 50%;
-    background: url('../../assets/icons/frog-sad.gif') center;
-    background-size: 100% 100%;
-    z-index: 1;
+    background: var(--color-white) url('../../assets/icons/frog-sad.gif') center;
+    background-size: cover;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 }

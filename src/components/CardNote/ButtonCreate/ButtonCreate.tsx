@@ -1,13 +1,12 @@
 // Import library
 import classNames from 'classnames/bind';
-import React, { FC, useState } from 'react';
+import { FC, useState } from 'react';
 
 // Import src
-import styles from './ButtonCreate.module.scss';
 import FormNote from 'src/components/FormNote';
 import Modal from 'src/components/Modal';
 import { Button } from 'src/layouts/UI';
-import { Helmet } from 'react-helmet';
+import styles from './ButtonCreate.module.scss';
 
 interface Props {}
 

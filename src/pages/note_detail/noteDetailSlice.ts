@@ -52,6 +52,7 @@ const noteDetailSlice = createSlice({
     builder
       .addCase(fetchGetNoteDetail.pending, (state, action) => {
         state.isLoading = true;
+        state.data = undefined;
       })
       .addCase(fetchGetNoteDetail.fulfilled, (state, action) => {
         state.isLoading = false;

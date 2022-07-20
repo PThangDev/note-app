@@ -7,7 +7,6 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useAppSelector } from 'src/app/hooks';
 import ButtonDelete from 'src/components/CardNote/ButtonDelete';
 import ButtonEdit from 'src/components/CardNote/ButtonEdit';
-import Swal from 'sweetalert2';
 // Import src
 import styles from './NoteDetailPage.module.scss';
 
@@ -22,6 +21,7 @@ const NoteDetailPageRender: FC<Props> = (props) => {
   const { id } = useParams();
 
   const { isLoading, data: noteDetail } = useAppSelector((state) => state.noteDetail);
+
   // // ********** useEffect (Side Effect) **********
   useEffect(() => {
     if (!noteDetail) {

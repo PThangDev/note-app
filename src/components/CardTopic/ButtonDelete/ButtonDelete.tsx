@@ -1,29 +1,48 @@
 // Import library
 import classNames from 'classnames/bind';
-import React, { FC, useState } from 'react';
-import Modal from 'src/components/Modal';
+import { FC } from 'react';
+import { useAppDispatch } from 'src/app/hooks';
 import { Button } from 'src/layouts/UI';
+import { fetchDeleteTopic } from 'src/pages/topics/topicSlice';
+import Swal from 'sweetalert2';
 // Import src
 import styles from './ButtonDelete.module.scss';
 
-interface Props {}
+interface Props {
+  id: string;
+}
 
 const cx = classNames.bind(styles);
 
-const ButtonDelete: FC<Props> = (props) => {
-  const [isOpenDelete, setIsOpenDelete] = useState<boolean>(false);
+const ButtonDelete: FC<Props> = ({ id }) => {
+  const dispatch = useAppDispatch();
+  const handleDeleteTopic = async () => {
+    try {
+      const result = await Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!',
+      });
+      if (result.isConfirmed) {
+        await dispatch(fetchDeleteTopic(id)).unwrap();
+      }
+    } catch (error) {}
+  };
+
   return (
     <>
       <Button
         className={cx('wrapper')}
+        status="error"
         icon={() => <i className="fa-solid fa-trash"></i>}
-        onClick={() => setIsOpenDelete(true)}
+        onClick={handleDeleteTopic}
       >
         Delete
       </Button>
-      <Modal isOpen={isOpenDelete} animate="drop" onClose={() => setIsOpenDelete(false)}>
-        <>Delete</>
-      </Modal>
     </>
   );
 };
