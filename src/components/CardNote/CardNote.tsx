@@ -12,19 +12,41 @@ import Modal from '../Modal';
 import NoteInfo from '../NoteInfo';
 import ButtonDelete from './ButtonDelete';
 import ButtonEdit from './ButtonEdit';
+import ButtonHardDelete from './ButtonHardDelete';
+import ButtonRestore from './ButtonRestore';
 import styles from './CardNote.module.scss';
 
 interface Props {
   note: Note;
+  isTrash?: boolean;
 }
 
 const cx = classNames.bind(styles);
 
-const CardNote: FC<Props> = ({ note }) => {
+const CardNote: FC<Props> = ({ note, isTrash = false }) => {
   const { _id, content, title, topics, background, user, createdAt, slug } = note;
 
   const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
   const [isOpenModalEdit, setIsOpenModalEdit] = useState<boolean>(false);
+
+  const renderActionButtons = () => {
+    if (isTrash) {
+      return (
+        <>
+          <ButtonHardDelete id={_id} />
+          <ButtonRestore id={_id} />
+        </>
+      );
+    } else {
+      return (
+        <>
+          <ButtonDelete id={_id} />
+          <ButtonEdit note={note} />
+        </>
+      );
+    }
+  };
+
   return (
     <>
       <div className={cx('wrapper')} style={{ background }}>
@@ -53,10 +75,7 @@ const CardNote: FC<Props> = ({ note }) => {
         </div>
         <div className={cx('options')}>
           <div className={cx('time')}>{createdAt}</div>
-          <div className={cx('buttons')}>
-            <ButtonDelete id={_id} />
-            <ButtonEdit note={note} />
-          </div>
+          <div className={cx('buttons')}>{renderActionButtons()}</div>
         </div>
       </div>
 

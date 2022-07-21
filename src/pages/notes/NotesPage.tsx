@@ -18,7 +18,7 @@ const NotesPage: FC<Props> = (props) => {
   const notes = useAppSelector((state) => state.notes);
   // ********** useEffect (Side Effect) **********
   useEffect(() => {
-    dispatch(fetchGetNotes());
+    dispatch(fetchGetNotes({ 'type[regex]': 'default' }));
   }, [dispatch]);
 
   // ********** Handle Event **********

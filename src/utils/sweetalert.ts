@@ -1,5 +1,10 @@
 import Swal from 'sweetalert2';
 
+interface Content {
+  title?: string;
+  text: string;
+}
+
 const sweetalert = {
   success(message: string = 'Successfully', duration: number = 1500) {
     return Swal.fire({
@@ -29,6 +34,21 @@ const sweetalert = {
       allowEscapeKey: false,
       allowOutsideClick: false,
     });
+  },
+  confirm(content?: Content) {
+    return Swal.fire({
+      title: content?.title || 'Are you sure?',
+      text: content?.text || "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes',
+    });
+  },
+
+  close() {
+    return Swal.close();
   },
 };
 

@@ -81,6 +81,21 @@ export const fetchUpdateNote = createAsyncThunk<
     return thunkAPI.rejectWithValue(error as ErrorResponse);
   }
 });
+export const fetchUpdateNoteToTrash = createAsyncThunk<
+  BaseDataResponse<Note>,
+  UpdateNote,
+  { rejectValue: ErrorResponse }
+>('/update/notes/trash/:id', async (payload, thunkAPI) => {
+  try {
+    const response = await noteAPI.updateNotes(payload);
+    if (response.data) {
+      thunkAPI.dispatch(updateNote(response.data));
+    }
+    return response;
+  } catch (error) {
+    return thunkAPI.rejectWithValue(error as ErrorResponse);
+  }
+});
 
 export const fetchDeleteNote = createAsyncThunk<
   BaseDataResponse<Note>,
@@ -164,6 +179,19 @@ const noteSlice = createSlice({
         sweetalert.success(action.payload.message);
       })
       .addCase(fetchUpdateNote.rejected, (state, action) => {
+        sweetalert.error(action.payload?.errors?.message);
+      })
+      // Move note to trash
+      .addCase(fetchUpdateNoteToTrash.pending, (state, action) => {
+        sweetalert.loading();
+      })
+      .addCase(fetchUpdateNoteToTrash.fulfilled, (state, action) => {
+        if (action.payload.data) {
+          state.data = state.data.filter((note) => note._id !== action.payload.data?._id);
+        }
+      })
+      .addCase(fetchUpdateNoteToTrash.rejected, (state, action) => {
+        console.log(action.payload);
         sweetalert.error(action.payload?.errors?.message);
       })
       // Delete Note

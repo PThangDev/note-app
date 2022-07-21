@@ -5,9 +5,9 @@ import { FC } from 'react';
 // Import src
 import { useAppDispatch } from 'src/app/hooks';
 import { Button } from 'src/layouts/UI';
-import { fetchUpdateNoteToTrash } from 'src/pages/notes/noteSlice';
+import { fetchDeleteNote } from 'src/pages/notes/noteSlice';
 import sweetalert from 'src/utils/sweetalert';
-import styles from './ButtonDelete.module.scss';
+import styles from './ButtonHardDelete.module.scss';
 
 interface Props {
   id?: string;
@@ -16,30 +16,30 @@ interface Props {
 
 const cx = classNames.bind(styles);
 
-const ButtonDelete: FC<Props> = ({ id = '', onFinishDelete }) => {
+const ButtonHardDelete: FC<Props> = ({ id = '', onFinishDelete }) => {
   const dispatch = useAppDispatch();
 
-  const handleDeleteNote = async () => {
+  const handleHardDelete = async () => {
     try {
       const result = await sweetalert.confirm();
       if (result.isConfirmed) {
-        await dispatch(fetchUpdateNoteToTrash({ data: { type: 'trash' }, id: '12' })).unwrap();
-        sweetalert.success('Your note was moved to trash');
-        if (onFinishDelete) {
-          onFinishDelete();
-        }
+        await dispatch(fetchDeleteNote(id)).unwrap();
+      }
+
+      if (onFinishDelete) {
+        onFinishDelete();
       }
     } catch (error) {}
   };
   return (
     <Button
       className={cx('wrapper')}
-      icon={() => <i className="fa-solid fa-trash"></i>}
-      onClick={handleDeleteNote}
+      icon={() => <i className="fa-solid fa-trash-can"></i>}
+      onClick={handleHardDelete}
       status="error"
     >
       Delete
     </Button>
   );
 };
-export default ButtonDelete;
+export default ButtonHardDelete;

@@ -23,6 +23,7 @@ export interface CreateNote {
   content: string;
   background: string;
   topics: string[];
+  type?: string;
 }
 
 export interface UpdateNote {

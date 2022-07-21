@@ -23,7 +23,7 @@ const NoteDetailPage: FC<Props> = (props) => {
   useEffect(() => {
     if (noteDetail) {
       (async () => {
-        await delay(100);
+        await delay(200);
         navigate(`/notes/${noteDetail._id}/${noteDetail.slug}`, {
           replace: true,
         });

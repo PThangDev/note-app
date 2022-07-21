@@ -14,9 +14,5 @@ export interface ErrorResponse {
 }
 
 export interface QueryParams {
-  limit?: number;
-  page?: number;
-  sort?: string;
-  search?: string;
-  filter?: string;
+  [key: string]: string;
 }
