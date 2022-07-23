@@ -3,7 +3,7 @@ import classNames from 'classnames/bind';
 
 import { FC, useEffect } from 'react';
 import { Helmet } from 'react-helmet';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import useGetNoteDetail from 'src/hooks/useGetNoteDetail';
 import { delay } from 'src/utils';
 // Import src
@@ -17,14 +17,14 @@ const NoteDetailPage: FC<Props> = (props) => {
   // ********** Declaration **********
   // ********** use Hooks (useState, useRef, useCallback, useMemo,... Custom Hook,.... )**********
   const navigate = useNavigate();
+  const {id} = useParams();
 
   const { noteDetail } = useGetNoteDetail({});
   // // ********** useEffect (Side Effect) **********
   useEffect(() => {
     if (noteDetail) {
       (async () => {
-        await delay(200);
-        navigate(`/notes/${noteDetail._id}/${noteDetail.slug}`, {
+        navigate(`/notes/${id}/${noteDetail.slug}`, {
           replace: true,
         });
       })();

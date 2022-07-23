@@ -6,7 +6,7 @@ interface Content {
 }
 
 const sweetalert = {
-  success(message: string = 'Successfully', duration: number = 1500) {
+  success(message: string = 'Successfully', duration: number = 4000) {
     return Swal.fire({
       position: 'center',
       icon: 'success',
