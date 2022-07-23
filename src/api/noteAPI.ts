@@ -11,6 +11,10 @@ const noteAPI = {
     const url = `/notes/${topicId}`;
     return axiosInstance.get(url, { params });
   },
+  getNotesOfPins(): Promise<BaseDataResponse<Note[]>> {
+    const url = `/notes`;
+    return axiosInstance.get(url, { params: { 'type[regex]': 'pin' } });
+  },
   getNote(id: string): Promise<BaseDataResponse<Note>> {
     const url = `/notes/${id}`;
     return axiosInstance.get(url);
@@ -20,6 +24,10 @@ const noteAPI = {
     return axiosInstance.post(url, data);
   },
   updateNotes(payload: UpdateNote): Promise<BaseDataResponse<Note>> {
+    const url = `/notes/${payload.id}`;
+    return axiosInstance.put(url, payload.data);
+  },
+  updateTypeOfNote(payload: UpdateNote): Promise<BaseDataResponse<Note>> {
     const url = `/notes/${payload.id}`;
     return axiosInstance.put(url, payload.data);
   },

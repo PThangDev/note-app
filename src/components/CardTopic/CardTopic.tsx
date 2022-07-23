@@ -29,7 +29,7 @@ const CardTopic: FC<Props> = ({ data }) => {
       </div>
       <div className={cx('right')}>
         <ButtonDelete id={data._id} />
-        <ButtonEdit />
+        <ButtonEdit topic={data} />
       </div>
     </div>
   );

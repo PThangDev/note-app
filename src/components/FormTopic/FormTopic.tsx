@@ -7,7 +7,7 @@ import Swal from 'sweetalert2';
 import { Button } from 'src/layouts/UI';
 import { Input } from 'src/layouts/UI/Form';
 import backgrounds from './backgrounds';
-import { fetchCreateTopic } from 'src/pages/topics/topicSlice';
+import { fetchCreateTopic, fetchUpdateTopic } from 'src/pages/topics/topicSlice';
 import { Topic } from 'src/types/Topic';
 import styles from './FormTopic.module.scss';
 
@@ -24,7 +24,12 @@ const FormTopic: FC<Props> = ({ data, onCloseModal }) => {
   // ********** use Hooks (useState, useRef, useCallback, useMemo,... Custom Hook,.... )**********
   const dispatch = useAppDispatch();
 
-  const [name, setName] = useState<string>('');
+  const [name, setName] = useState<string>(() => {
+    if(data) {
+      return data.name;
+    }
+    return ''
+  });
   const [background, setBackground] = useState<string>(() => {
     if (data) {
       return data.background;
@@ -45,17 +50,14 @@ const FormTopic: FC<Props> = ({ data, onCloseModal }) => {
   const handleSubmitFormTopic = async () => {
     if (data) {
       // Update Topic
+     await dispatch(fetchUpdateTopic({_id: data._id, name, background})).unwrap();
+     if(onCloseModal) {
+      onCloseModal();
+     }
     } else {
       // Create Topic
       try {
-        const response = await dispatch(fetchCreateTopic({ name, background })).unwrap();
-        await Swal.fire({
-          position: 'center',
-          icon: 'success',
-          title: response.message,
-          showConfirmButton: false,
-          timer: 1000,
-        });
+        await dispatch(fetchCreateTopic({ name, background })).unwrap();
         if (onCloseModal) {
           onCloseModal();
         }
@@ -78,7 +80,7 @@ const FormTopic: FC<Props> = ({ data, onCloseModal }) => {
         <div className={cx('background')}>
           <h3 className={cx('background-heading')}>
             Choose background topic :
-            <input type="text" value={data?.background} />
+            <input type="text" value={data?.background} onChange={() => {}} />
           </h3>
           <div className={cx('background-options')}>
             {backgrounds.map((bg, index) => (

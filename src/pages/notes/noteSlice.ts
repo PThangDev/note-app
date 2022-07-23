@@ -4,7 +4,7 @@ import noteAPI from 'src/api/noteAPI';
 import { BaseDataResponse, ErrorResponse, QueryParams } from 'src/types';
 import { CreateNote, Note, NotesOfTopicRequest, UpdateNote } from 'src/types/Note';
 import { formatDate } from 'src/utils';
-import sweetalert from 'src/utils/sweetalert';
+import sweetAlert from 'src/utils/sweetAlert';
 import { updateNote } from '../note_detail/noteDetailSlice';
 
 interface InitialState {
@@ -142,7 +142,7 @@ const noteSlice = createSlice({
 
       // Create Note
       .addCase(fetchCreateNote.pending, (state, action) => {
-        sweetalert.loading();
+        sweetAlert.loading();
       })
       .addCase(fetchCreateNote.fulfilled, (state, action) => {
         if (action.payload.data) {
@@ -155,14 +155,14 @@ const noteSlice = createSlice({
           state.data = [newNote, ...state.data];
         }
         // Sweet alert
-        sweetalert.success(action.payload.message);
+        sweetAlert.success(action.payload.message);
       })
       .addCase(fetchCreateNote.rejected, (state, action) => {
-        sweetalert.error(action.payload?.errors?.message);
+        sweetAlert.error(action.payload?.errors?.message);
       })
       // Update note
       .addCase(fetchUpdateNote.pending, (state, action) => {
-        sweetalert.loading();
+        // sweetAlert.loading();
       })
       .addCase(fetchUpdateNote.fulfilled, (state, action) => {
         state.data = state.data.map((item) => {
@@ -176,14 +176,14 @@ const noteSlice = createSlice({
             return item;
           }
         });
-        sweetalert.success(action.payload.message);
+        // sweetAlert.success(action.payload.message);
       })
       .addCase(fetchUpdateNote.rejected, (state, action) => {
-        sweetalert.error(action.payload?.errors?.message);
+        sweetAlert.error(action.payload?.errors?.message);
       })
       // Move note to trash
       .addCase(fetchUpdateNoteToTrash.pending, (state, action) => {
-        sweetalert.loading();
+        sweetAlert.loading();
       })
       .addCase(fetchUpdateNoteToTrash.fulfilled, (state, action) => {
         if (action.payload.data) {
@@ -191,21 +191,22 @@ const noteSlice = createSlice({
         }
       })
       .addCase(fetchUpdateNoteToTrash.rejected, (state, action) => {
-        console.log(action.payload);
-        sweetalert.error(action.payload?.errors?.message);
+        sweetAlert.error(action.payload?.errors?.message);
       })
+      // Pin note
+
       // Delete Note
       .addCase(fetchDeleteNote.pending, (state, action) => {
-        sweetalert.loading();
+        sweetAlert.loading();
       })
       .addCase(fetchDeleteNote.fulfilled, (state, action) => {
         if (action.payload.data) {
           state.data = state.data.filter((note) => note._id !== action.payload.data?._id);
         }
-        sweetalert.success(action.payload.message);
+        sweetAlert.success(action.payload.message);
       })
       .addCase(fetchDeleteNote.rejected, (state, action) => {
-        sweetalert.error(action.payload?.errors?.message);
+        sweetAlert.error(action.payload?.errors?.message);
       });
   },
 });

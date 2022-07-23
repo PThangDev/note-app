@@ -8,7 +8,7 @@ const routes = [
   },
   {
     to: '/pins',
-    label: 'Pinned',
+    label: 'Pins',
     icon: () => <img src={icons.iconPinnedActive} alt="" />,
   },
   {

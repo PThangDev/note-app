@@ -3,7 +3,6 @@ import MDEditor from '@uiw/react-md-editor';
 import classNames from 'classnames/bind';
 import { ChangeEvent, FC, useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from 'src/app/hooks';
-import Swal from 'sweetalert2';
 
 // Import src
 import { Helmet } from 'react-helmet';
@@ -12,6 +11,7 @@ import { Input } from 'src/layouts/UI/Form';
 import { fetchCreateNote, fetchUpdateNote } from 'src/pages/notes/noteSlice';
 import { fetchGetTopics } from 'src/pages/topics/topicSlice';
 import { Note } from 'src/types/Note';
+import sweetAlert from 'src/utils/sweetAlert';
 import ButtonCreate from '../CardTopic/ButtonCreate';
 import backgrounds from './backgrounds';
 import styles from './FormNote.module.scss';
@@ -55,11 +55,13 @@ const FormNote: FC<Props> = ({ data, onFinishSubmit, onCloseModal = () => {} }) 
   };
 
   const handleSubmitNote = async () => {
-    try {
-      // if (!title.trim() || !content.trim()) return;
-      // Update note
-      if (data) {
+    // if (!title.trim() || !content.trim()) return;
+    // Update Note
+    if (data) {
+      try {
         const dataUpdate = { title, content, background, topics: topicIds };
+
+        sweetAlert.loading();
 
         const response = await dispatch(
           fetchUpdateNote({
@@ -67,18 +69,21 @@ const FormNote: FC<Props> = ({ data, onFinishSubmit, onCloseModal = () => {} }) 
             data: dataUpdate,
           })
         ).unwrap();
+        sweetAlert.success(response.message);
         if (onFinishSubmit) {
           onFinishSubmit(response.data);
         }
-      }
-      // Create Note
-      else {
+      } catch (error: any) {}
+    }
+    // Create Note
+    else {
+      try {
         await dispatch(fetchCreateNote({ title, topics: topicIds, background, content })).unwrap();
         if (onFinishSubmit) {
           onFinishSubmit();
         }
-      }
-    } catch (error) {}
+      } catch (error) {}
+    }
   };
   const handleSetBackground = (bg: string) => {
     setBackground(bg);

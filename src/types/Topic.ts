@@ -1,5 +1,5 @@
+import { Note } from './Note';
 import { UserResponse } from './User';
-import { QueryParams } from '.';
 
 export interface Topic {
   _id: string;
@@ -7,6 +7,7 @@ export interface Topic {
   user: UserResponse;
   background: string;
   slug: string;
+  notes: Note[];
   createdAt: string;
   updatedAt: string;
   __v: number;

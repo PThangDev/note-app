@@ -2,11 +2,16 @@
 import MDEditor from '@uiw/react-md-editor';
 import classNames from 'classnames/bind';
 import { FC, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { useAppDispatch } from 'src/app/hooks';
 
 // Import src
 import icons from 'src/assets/icons';
 import { Checkbox } from 'src/layouts/UI/Form';
+import { fetchUpdateNote } from 'src/pages/notes/noteSlice';
+import { fetchGetNotesPinned } from 'src/pages/pins/notesPinnedSlice';
+import { fetchGetTopics } from 'src/pages/topics/topicSlice';
 import { Note } from 'src/types/Note';
 import Modal from '../Modal';
 import NoteInfo from '../NoteInfo';
@@ -24,10 +29,30 @@ interface Props {
 const cx = classNames.bind(styles);
 
 const CardNote: FC<Props> = ({ note, isTrash = false }) => {
-  const { _id, content, title, topics, background, user, createdAt, slug } = note;
+  const { _id, content, title, topics, background, user, createdAt, slug, type } = note;
 
+  const dispatch = useAppDispatch();
+  const location = useLocation();
   const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
   const [isOpenModalEdit, setIsOpenModalEdit] = useState<boolean>(false);
+
+  const handlePinNote = async () => {
+    try {
+      const response = await dispatch(
+        fetchUpdateNote({ id: _id, data: { type: type === 'default' ? 'pin' : 'default' } })
+      ).unwrap();
+      if (response.data?.type === 'pin') {
+        toast.success('Pin note successfully!');
+      } else if (response.data?.type === 'default') {
+        toast.error('Unpin note successfully!');
+      }
+
+      if (location.pathname === '/') {
+        await dispatch(fetchGetTopics()).unwrap();
+        await dispatch(fetchGetNotesPinned({ limit: '8', 'type[regex]': 'pin' }));
+      }
+    } catch (error) {}
+  };
 
   const renderActionButtons = () => {
     if (isTrash) {
@@ -56,13 +81,20 @@ const CardNote: FC<Props> = ({ note, isTrash = false }) => {
             <div className={cx('title')}>
               <label htmlFor={_id}>{title}</label>
             </div>
-            <div className={cx('actions')}>
-              <span className={cx('btn-info')}>
-                {/* <i className="fa-solid fa-heart"></i> */}
-                {/* <i className="fa-solid fa-heart-circle-check"></i> */}
-              </span>
-              <img className={cx('btn-pin')} src={icons.iconPinned} alt="" />
-            </div>
+            {!isTrash && (
+              <div className={cx('actions')}>
+                <span className={cx('btn-info')}>
+                  {/* <i className="fa-solid fa-heart"></i> */}
+                  {/* <i className="fa-solid fa-heart-circle-check"></i> */}
+                </span>
+                <img
+                  className={cx('btn-pin')}
+                  src={type === 'pin' ? icons.iconPinnedActive : icons.iconPinned}
+                  alt=""
+                  onClick={handlePinNote}
+                />
+              </div>
+            )}
           </div>
         </div>
         <div className={cx('content')} data-color-mode="dark">

@@ -6,7 +6,7 @@ import { FC } from 'react';
 import { useAppDispatch } from 'src/app/hooks';
 import { Button } from 'src/layouts/UI';
 import { fetchUpdateNoteToTrash } from 'src/pages/notes/noteSlice';
-import sweetalert from 'src/utils/sweetalert';
+import sweetAlert from 'src/utils/sweetAlert';
 import styles from './ButtonDelete.module.scss';
 
 interface Props {
@@ -21,10 +21,10 @@ const ButtonDelete: FC<Props> = ({ id = '', onFinishDelete }) => {
 
   const handleDeleteNote = async () => {
     try {
-      const result = await sweetalert.confirm({text: 'Your note will be moved to trash'});
+      const result = await sweetAlert.confirm({ text: 'Your note will be moved to trash' });
       if (result.isConfirmed) {
         await dispatch(fetchUpdateNoteToTrash({ data: { type: 'trash' }, id })).unwrap();
-        sweetalert.success('Your note was moved to trash');
+        sweetAlert.success('Your note was moved to trash');
         if (onFinishDelete) {
           onFinishDelete();
         }

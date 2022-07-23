@@ -4,6 +4,7 @@ import { Helmet } from 'react-helmet';
 import { useAppDispatch, useAppSelector } from 'src/app/hooks';
 import CardNoteContainer from 'src/containers/CardNoteContainer';
 import { fetchGetNotes } from '../notes/noteSlice';
+import { fetchGetNotesPinned } from '../pins/notesPinnedSlice';
 import { fetchGetTopics } from '../topics/topicSlice';
 import styles from './HomePage.module.scss';
 
@@ -17,19 +18,14 @@ const HomePage: FC<Props> = (props) => {
   // ********** use Hooks (useState, useRef, useCallback, useMemo,... Custom Hook,.... )**********
   const dispatch = useAppDispatch();
   const topics = useAppSelector((state) => state.topics);
-  const notes = useAppSelector((state) => state.notes);
-  // console.log(topics);
-  // console.log(notes);
+  const notesPinned = useAppSelector((state) => state.notesPinned);
 
   // ********** useEffect (Side Effect) **********
   useEffect(() => {
     dispatch(fetchGetTopics());
+    dispatch(fetchGetNotesPinned({ limit: '8', 'type[regex]': 'pin' }));
   }, [dispatch]);
-  useEffect(() => {
-    if (topics.data.length) {
-      dispatch(fetchGetNotes());
-    }
-  }, [dispatch, topics.data.length]);
+
   // ********** Handle Event **********
 
   // ********** Logic and render UI **********
@@ -43,7 +39,17 @@ const HomePage: FC<Props> = (props) => {
       </Helmet>
       {/* Body */}
       <div className={cx('wrapper')}>
-        <div className={cx('notes')}>{/* <CardNoteContainer /> */}</div>
+        <div className={cx('notes')}>
+          {/* Notes Pinned */}
+          {notesPinned.data.length > 0 && (
+            <CardNoteContainer heading="Pins" data={notesPinned.data} />
+          )}
+          {topics.data.map((topic) => {
+            if (topic.notes.length) {
+              return <CardNoteContainer key={topic._id} heading={topic.name} data={topic.notes} />;
+            }
+          })}
+        </div>
       </div>
     </>
   );

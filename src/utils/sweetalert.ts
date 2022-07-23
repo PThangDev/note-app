@@ -5,14 +5,15 @@ interface Content {
   text: string;
 }
 
-const sweetalert = {
-  success(message: string = 'Successfully', duration: number = 4000) {
+const sweetAlert = {
+  success(title: string = 'Successfully', duration: number = 3500, footer: string = 'Done!') {
     return Swal.fire({
       position: 'center',
       icon: 'success',
-      title: message,
+      title,
       showConfirmButton: false,
       timer: duration,
+      footer,
     });
   },
 
@@ -52,4 +53,4 @@ const sweetalert = {
   },
 };
 
-export default sweetalert;
+export default sweetAlert;

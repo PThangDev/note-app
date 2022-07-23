@@ -2,8 +2,16 @@ export interface MessageResponse {
   message: string;
 }
 
+export interface Pagination {
+  limit: string | null;
+  pageCount: number;
+  pageSize: number;
+  total: number;
+}
+
 export interface BaseDataResponse<T = any> extends MessageResponse {
   data?: T;
+  pagination?: Pagination;
 }
 export interface ErrorResponse {
   errors: {
@@ -16,3 +24,4 @@ export interface ErrorResponse {
 export interface QueryParams {
   [key: string]: string;
 }
+

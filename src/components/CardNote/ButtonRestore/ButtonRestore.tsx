@@ -4,7 +4,7 @@ import React, { FC } from 'react';
 import { useAppDispatch } from 'src/app/hooks';
 import { Button } from 'src/layouts/UI';
 import { fetchUpdateNoteToTrash } from 'src/pages/notes/noteSlice';
-import sweetalert from 'src/utils/sweetalert';
+import sweetAlert from 'src/utils/sweetAlert';
 // Import src
 import styles from './ButtonRestore.module.scss';
 
@@ -18,10 +18,10 @@ const ButtonRestore: FC<Props> = ({ id }) => {
   const dispatch = useAppDispatch();
   const handleRestoreNote = async () => {
     try {
-      const result = await sweetalert.confirm({ text: 'Do you want to restore this note ?' });
+      const result = await sweetAlert.confirm({ text: 'Do you want to restore this note ?' });
       if (result.isConfirmed) {
         await dispatch(fetchUpdateNoteToTrash({ data: { type: 'default' }, id })).unwrap();
-        sweetalert.success('Restore note successfully');
+        sweetAlert.success('Restore note successfully');
       }
     } catch (error) {}
   };

@@ -6,7 +6,7 @@ import { FC } from 'react';
 import { useAppDispatch } from 'src/app/hooks';
 import { Button } from 'src/layouts/UI';
 import { fetchDeleteNote } from 'src/pages/notes/noteSlice';
-import sweetalert from 'src/utils/sweetalert';
+import sweetAlert from 'src/utils/sweetAlert';
 import styles from './ButtonHardDelete.module.scss';
 
 interface Props {
@@ -21,7 +21,7 @@ const ButtonHardDelete: FC<Props> = ({ id = '', onFinishDelete }) => {
 
   const handleHardDelete = async () => {
     try {
-      const result = await sweetalert.confirm();
+      const result = await sweetAlert.confirm();
       if (result.isConfirmed) {
         await dispatch(fetchDeleteNote(id)).unwrap();
       }
