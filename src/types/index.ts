@@ -24,4 +24,3 @@ export interface ErrorResponse {
 export interface QueryParams {
   [key: string]: string;
 }
-

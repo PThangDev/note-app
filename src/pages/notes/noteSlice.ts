@@ -1,20 +1,21 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { toast } from 'react-toastify';
 import noteAPI from 'src/api/noteAPI';
-import { BaseDataResponse, ErrorResponse, QueryParams } from 'src/types';
+import { BaseDataResponse, ErrorResponse, Pagination, QueryParams } from 'src/types';
 import { CreateNote, Note, NotesOfTopicRequest, UpdateNote } from 'src/types/Note';
-import { formatDate } from 'src/utils';
 import sweetAlert from 'src/utils/sweetAlert';
 import { updateNote } from '../note_detail/noteDetailSlice';
 
 interface InitialState {
   isLoading: boolean;
   data: Note[];
+  pagination?: Pagination;
 }
 
 const initialState: InitialState = {
   isLoading: false,
   data: [],
+  pagination: undefined,
 };
 
 export const fetchGetNotes = createAsyncThunk<
@@ -23,14 +24,9 @@ export const fetchGetNotes = createAsyncThunk<
   { rejectValue: ErrorResponse }
 >('/notes', async (payload, thunkAPI) => {
   try {
-    const { data, message } = await noteAPI.getNotes(payload);
+    const response = await noteAPI.getNotes(payload);
     // Map time
-    const responseMapDate = data?.map((note) => ({
-      ...note,
-      createdAt: formatDate(note.createdAt),
-      updatedAt: formatDate(note.updatedAt),
-    }));
-    return { data: responseMapDate, message };
+    return response;
   } catch (error) {
     return thunkAPI.rejectWithValue(error as ErrorResponse);
   }
@@ -41,14 +37,8 @@ export const fetchGetNotesOfTopic = createAsyncThunk<
   { rejectValue: ErrorResponse }
 >('/notes/topic/:topicId', async (payload, thunkAPI) => {
   try {
-    const { data, message } = await noteAPI.getNotesOfTopic(payload);
-    // Map time
-    const responseMapDate = data?.map((note) => ({
-      ...note,
-      createdAt: formatDate(note.createdAt),
-      updatedAt: formatDate(note.updatedAt),
-    }));
-    return { data: responseMapDate, message };
+    const response = await noteAPI.getNotesOfTopic(payload);
+    return response;
   } catch (error) {
     return thunkAPI.rejectWithValue(error as ErrorResponse);
   }
@@ -122,6 +112,7 @@ const noteSlice = createSlice({
       .addCase(fetchGetNotes.fulfilled, (state, action) => {
         state.isLoading = false;
         state.data = action.payload.data || [];
+        state.pagination = action.payload.pagination;
       })
       .addCase(fetchGetNotes.rejected, (state, action) => {
         state.isLoading = false;
@@ -146,13 +137,7 @@ const noteSlice = createSlice({
       })
       .addCase(fetchCreateNote.fulfilled, (state, action) => {
         if (action.payload.data) {
-          let newNote = action.payload.data;
-          newNote = {
-            ...newNote,
-            createdAt: formatDate(newNote.createdAt),
-            updatedAt: formatDate(newNote.updatedAt),
-          };
-          state.data = [newNote, ...state.data];
+          state.data = [action.payload.data, ...state.data];
         }
         // Sweet alert
         sweetAlert.success(action.payload.message);
@@ -167,11 +152,7 @@ const noteSlice = createSlice({
       .addCase(fetchUpdateNote.fulfilled, (state, action) => {
         state.data = state.data.map((item) => {
           if (item._id === action.payload.data?._id) {
-            return {
-              ...action.payload.data,
-              createdAt: formatDate(action.payload.data.createdAt),
-              updatedAt: formatDate(action.payload.data.updatedAt),
-            };
+            return action.payload.data;
           } else {
             return item;
           }

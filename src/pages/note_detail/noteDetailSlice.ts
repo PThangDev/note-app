@@ -24,17 +24,7 @@ export const fetchGetNoteDetail = createAsyncThunk<
   try {
     const response = await noteAPI.getNote(payload);
 
-    // Convert date
-    const responseConvertedDate = {
-      ...response,
-      data: {
-        ...response.data,
-        createdAt: formatDate(response.data?.createdAt),
-        updatedAt: formatDate(response.data?.updatedAt),
-      },
-    } as BaseDataResponse<Note>;
-
-    return responseConvertedDate;
+    return response;
   } catch (error) {
     return thunkAPI.rejectWithValue(error as ErrorResponse);
   }

@@ -7,6 +7,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useAppSelector } from 'src/app/hooks';
 import ButtonDelete from 'src/components/CardNote/ButtonDelete';
 import ButtonEdit from 'src/components/CardNote/ButtonEdit';
+import { formatDate } from 'src/utils';
 // Import src
 import styles from './NoteDetailPage.module.scss';
 
@@ -49,7 +50,7 @@ const NoteDetailPageRender: FC<Props> = (props) => {
             <ButtonEdit note={noteDetail} redirect />
           </div>
         </div>
-        <div className={cx('info')}>{noteDetail?.createdAt}</div>
+        <div className={cx('info')}>{formatDate(noteDetail?.createdAt)}</div>
         <div className={cx('content')} data-color-mode="dark">
           <MDEditor.Markdown
             className="md-editor-preview"

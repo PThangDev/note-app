@@ -14,6 +14,7 @@ import { fetchUpdateNote } from 'src/pages/notes/noteSlice';
 import { fetchGetNotesPinned } from 'src/pages/pins/notesPinnedSlice';
 import { fetchGetTopics } from 'src/pages/topics/topicSlice';
 import { Note } from 'src/types/Note';
+import { formatDate } from 'src/utils';
 import Modal from '../Modal';
 import NoteInfo from '../NoteInfo';
 import ButtonDelete from './ButtonDelete';
@@ -115,7 +116,7 @@ const CardNote: FC<Props> = ({ note, isTrash = false }) => {
           <Link to={`/notes/${_id}`} />
         </div>
         <div className={cx('options')}>
-          <div className={cx('time')}>{createdAt}</div>
+          <div className={cx('time')}>{formatDate(createdAt)}</div>
           <div className={cx('buttons')}>{renderActionButtons()}</div>
         </div>
       </div>

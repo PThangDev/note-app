@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import noteAPI from 'src/api/noteAPI';
 import { BaseDataResponse, ErrorResponse, QueryParams } from 'src/types';
 import { Note } from 'src/types/Note';
+import { formatDate } from 'src/utils';
 
 interface InitialState {
   data: Note[];
