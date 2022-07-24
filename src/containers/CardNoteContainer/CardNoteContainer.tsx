@@ -8,7 +8,7 @@ import { Note } from 'src/types/Note';
 import styles from './CardNoteContainer.module.scss';
 
 interface Props {
-  heading?: string;
+  heading?: string | { text: string; background?: string };
   isLoading?: boolean;
   isTrash?: boolean;
   to?: string;
@@ -18,14 +18,17 @@ interface Props {
 const cx = classNames.bind(styles);
 
 const CardNoteContainer: FC<Props> = ({
-  heading = '',
+  heading,
   to,
   isLoading = false,
   data = [],
   isTrash = false,
 }) => {
   const renderHeading = () => {
-    if (!heading) return <></>;
+    const headingText = typeof heading === 'string' ? heading : heading?.text;
+    const headingBackground = typeof heading === 'string' ? '' : heading?.background;
+
+    if (!headingText) return <></>;
 
     if (to) {
       return (
@@ -34,11 +37,12 @@ const CardNoteContainer: FC<Props> = ({
           to={to}
           onClick={(e) => (isLoading ? e.preventDefault() : null)}
         >
-          {isLoading ? 'Loading...' : heading}
+          {isLoading ? 'Loading...' : headingText}
+          {headingBackground && <span style={{ backgroundColor: headingBackground }}></span>}
         </Link>
       );
     } else {
-      return <h3 className={cx('heading')}>{isLoading ? 'Loading...' : heading}</h3>;
+      return <h3 className={cx('heading')}>{isLoading ? 'Loading...' : headingText}</h3>;
     }
   };
   return (

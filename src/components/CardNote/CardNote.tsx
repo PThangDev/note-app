@@ -9,6 +9,7 @@ import { useAppDispatch } from 'src/app/hooks';
 // Import src
 import icons from 'src/assets/icons';
 import { Checkbox } from 'src/layouts/UI/Form';
+import Spin from 'src/layouts/UI/Loading/Spin';
 import { fetchUpdateNote } from 'src/pages/notes/noteSlice';
 import { fetchGetNotesPinned } from 'src/pages/pins/notesPinnedSlice';
 import { fetchGetTopics } from 'src/pages/topics/topicSlice';
@@ -35,9 +36,11 @@ const CardNote: FC<Props> = ({ note, isTrash = false }) => {
   const location = useLocation();
   const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
   const [isOpenModalEdit, setIsOpenModalEdit] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const handlePinNote = async () => {
     try {
+      setIsLoading(true);
       const response = await dispatch(
         fetchUpdateNote({ id: _id, data: { type: type === 'default' ? 'pin' : 'default' } })
       ).unwrap();
@@ -46,12 +49,14 @@ const CardNote: FC<Props> = ({ note, isTrash = false }) => {
       } else if (response.data?.type === 'default') {
         toast.error('Unpin note successfully!');
       }
-
+      setIsLoading(false);
       if (location.pathname === '/') {
         await dispatch(fetchGetTopics()).unwrap();
         await dispatch(fetchGetNotesPinned({ limit: '8', 'type[regex]': 'pin' }));
       }
-    } catch (error) {}
+    } catch (error) {
+      setIsLoading(false);
+    }
   };
 
   const renderActionButtons = () => {
@@ -87,12 +92,16 @@ const CardNote: FC<Props> = ({ note, isTrash = false }) => {
                   {/* <i className="fa-solid fa-heart"></i> */}
                   {/* <i className="fa-solid fa-heart-circle-check"></i> */}
                 </span>
-                <img
-                  className={cx('btn-pin')}
-                  src={type === 'pin' ? icons.iconPinnedActive : icons.iconPinned}
-                  alt=""
-                  onClick={handlePinNote}
-                />
+                {isLoading ? (
+                  <Spin />
+                ) : (
+                  <img
+                    className={cx('btn-pin')}
+                    src={type === 'pin' ? icons.iconPinnedActive : icons.iconPinned}
+                    alt=""
+                    onClick={handlePinNote}
+                  />
+                )}
               </div>
             )}
           </div>

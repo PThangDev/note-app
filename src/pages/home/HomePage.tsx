@@ -23,7 +23,7 @@ const HomePage: FC<Props> = (props) => {
   // ********** useEffect (Side Effect) **********
   useEffect(() => {
     dispatch(fetchGetTopics());
-    dispatch(fetchGetNotesPinned({ limit: '8', 'type[regex]': 'pin' }));
+    dispatch(fetchGetNotesPinned({ limit: '8' }));
   }, [dispatch]);
 
   // ********** Handle Event **********
@@ -41,12 +41,24 @@ const HomePage: FC<Props> = (props) => {
       <div className={cx('wrapper')}>
         <div className={cx('notes')}>
           {/* Notes Pinned */}
-          {notesPinned.data.length > 0 && (
-            <CardNoteContainer heading="Pins" data={notesPinned.data} />
-          )}
+
+          <CardNoteContainer
+            heading="Pins"
+            data={notesPinned.data}
+            isLoading={notesPinned.isLoading}
+            to="/pins"
+          />
           {topics.data.map((topic) => {
             if (topic.notes.length) {
-              return <CardNoteContainer key={topic._id} heading={topic.name} data={topic.notes} />;
+              return (
+                <CardNoteContainer
+                  key={topic._id}
+                  heading={{ text: topic.name, background: topic.background }}
+                  data={topic.notes}
+                  isLoading={topics.isLoading}
+                  to={`/${topics}`}
+                />
+              );
             }
           })}
         </div>

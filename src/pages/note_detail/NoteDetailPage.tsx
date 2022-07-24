@@ -17,7 +17,7 @@ const NoteDetailPage: FC<Props> = (props) => {
   // ********** Declaration **********
   // ********** use Hooks (useState, useRef, useCallback, useMemo,... Custom Hook,.... )**********
   const navigate = useNavigate();
-  const {id} = useParams();
+  const { id } = useParams();
 
   const { noteDetail } = useGetNoteDetail({});
   // // ********** useEffect (Side Effect) **********
@@ -38,7 +38,7 @@ const NoteDetailPage: FC<Props> = (props) => {
     <>
       {/* Head */}
       <Helmet>
-        <title>{`${noteDetail?.title || 'Note App'}`}</title>
+        <title>{`${noteDetail?.title || 'Loading...'}`}</title>
       </Helmet>
       {/* Main */}
     </>

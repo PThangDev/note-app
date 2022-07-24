@@ -11,7 +11,7 @@ const noteAPI = {
     const url = `/notes/${topicId}`;
     return axiosInstance.get(url, { params });
   },
-  getNotesOfPins(): Promise<BaseDataResponse<Note[]>> {
+  getNotesOfPins(params?: QueryParams): Promise<BaseDataResponse<Note[]>> {
     const url = `/notes`;
     return axiosInstance.get(url, { params: { 'type[regex]': 'pin' } });
   },

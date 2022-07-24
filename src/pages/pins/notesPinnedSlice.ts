@@ -19,7 +19,7 @@ export const fetchGetNotesPinned = createAsyncThunk<
   { rejectValue: ErrorResponse }
 >('/note/pins', async (payload, thunkAPI) => {
   try {
-    const response = await noteAPI.getNotes(payload);
+    const response = await noteAPI.getNotesOfPins(payload);
     return response;
   } catch (error) {
     return thunkAPI.rejectWithValue(error as ErrorResponse);

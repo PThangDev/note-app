@@ -8,6 +8,7 @@ import {
   TrashsPage,
   TopicPage,
   NoteDetailPage,
+  SearchPage,
 } from 'src/pages';
 import { NoteDetailPageRender } from 'src/pages/note_detail';
 
@@ -48,6 +49,10 @@ export const privateRoutes = [
   {
     path: '/profile',
     component: ProfilePage,
+  },
+  {
+    path: '/search',
+    component: SearchPage,
   },
 ];
 

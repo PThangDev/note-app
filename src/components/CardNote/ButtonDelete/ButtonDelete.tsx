@@ -1,11 +1,14 @@
 // Import library
 import classNames from 'classnames/bind';
 import { FC } from 'react';
+import { useLocation } from 'react-router-dom';
 
 // Import src
 import { useAppDispatch } from 'src/app/hooks';
 import { Button } from 'src/layouts/UI';
 import { fetchUpdateNoteToTrash } from 'src/pages/notes/noteSlice';
+import { fetchGetNotesPinned } from 'src/pages/pins/notesPinnedSlice';
+import { fetchGetTopics } from 'src/pages/topics/topicSlice';
 import sweetAlert from 'src/utils/sweetAlert';
 import styles from './ButtonDelete.module.scss';
 
@@ -18,6 +21,7 @@ const cx = classNames.bind(styles);
 
 const ButtonDelete: FC<Props> = ({ id = '', onFinishDelete }) => {
   const dispatch = useAppDispatch();
+  const location = useLocation();
 
   const handleDeleteNote = async () => {
     try {
@@ -27,6 +31,11 @@ const ButtonDelete: FC<Props> = ({ id = '', onFinishDelete }) => {
         sweetAlert.success('Your note was moved to trash');
         if (onFinishDelete) {
           onFinishDelete();
+        }
+        // If in home page
+        if (location.pathname === '/') {
+          dispatch(fetchGetNotesPinned());
+          dispatch(fetchGetTopics());
         }
       }
     } catch (error) {}

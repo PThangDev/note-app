@@ -9,12 +9,14 @@ import { Helmet } from 'react-helmet';
 import { Button } from 'src/layouts/UI';
 import { Input } from 'src/layouts/UI/Form';
 import { fetchCreateNote, fetchUpdateNote } from 'src/pages/notes/noteSlice';
+import { fetchGetNotesPinned } from 'src/pages/pins/notesPinnedSlice';
 import { fetchGetTopics } from 'src/pages/topics/topicSlice';
 import { Note } from 'src/types/Note';
 import sweetAlert from 'src/utils/sweetAlert';
 import ButtonCreate from '../CardTopic/ButtonCreate';
 import backgrounds from './backgrounds';
 import styles from './FormNote.module.scss';
+import { useLocation } from 'react-router-dom';
 interface Props {
   data?: Note;
   onFinishSubmit?: (note?: Note) => void;
@@ -42,7 +44,7 @@ const FormNote: FC<Props> = ({ data, onFinishSubmit, onCloseModal = () => {} }) 
   });
 
   const topics = useAppSelector((state) => state.topics);
-
+  const location = useLocation();
   // ********** useEffect (Side Effect) **********
   useEffect(() => {
     dispatch(fetchGetTopics());
@@ -70,6 +72,13 @@ const FormNote: FC<Props> = ({ data, onFinishSubmit, onCloseModal = () => {} }) 
           })
         ).unwrap();
         sweetAlert.success(response.message);
+
+        // If in home page
+        if (location.pathname === '/') {
+          dispatch(fetchGetNotesPinned());
+          dispatch(fetchGetTopics());
+        }
+
         if (onFinishSubmit) {
           onFinishSubmit(response.data);
         }
