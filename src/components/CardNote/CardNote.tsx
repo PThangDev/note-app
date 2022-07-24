@@ -3,15 +3,13 @@ import MDEditor from '@uiw/react-md-editor';
 import classNames from 'classnames/bind';
 import { FC, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { toast } from 'react-toastify';
 import { useAppDispatch } from 'src/app/hooks';
 
 // Import src
 import icons from 'src/assets/icons';
 import { Checkbox } from 'src/layouts/UI/Form';
 import Spin from 'src/layouts/UI/Loading/Spin';
-import { fetchUpdateNote } from 'src/pages/notes/noteSlice';
-import { fetchGetNotesPinned } from 'src/pages/pins/notesPinnedSlice';
+import { fetchTogglePinNote } from 'src/pages/pins/notesPinnedSlice';
 import { fetchGetTopics } from 'src/pages/topics/topicSlice';
 import { Note } from 'src/types/Note';
 import { formatDate } from 'src/utils';
@@ -25,13 +23,13 @@ import styles from './CardNote.module.scss';
 
 interface Props {
   note: Note;
-  isTrash?: boolean;
+  is_trash?: boolean;
 }
 
 const cx = classNames.bind(styles);
 
-const CardNote: FC<Props> = ({ note, isTrash = false }) => {
-  const { _id, content, title, topics, background, user, createdAt, slug, type } = note;
+const CardNote: FC<Props> = ({ note, is_trash = false }) => {
+  const { _id, content, title, topics, background, user, createdAt, slug, is_pin } = note;
 
   const dispatch = useAppDispatch();
   const location = useLocation();
@@ -42,18 +40,12 @@ const CardNote: FC<Props> = ({ note, isTrash = false }) => {
   const handlePinNote = async () => {
     try {
       setIsLoading(true);
-      const response = await dispatch(
-        fetchUpdateNote({ id: _id, data: { type: type === 'default' ? 'pin' : 'default' } })
+      await dispatch(
+        fetchTogglePinNote({ id: _id, data: { is_pin: is_pin ? false : true } })
       ).unwrap();
-      if (response.data?.type === 'pin') {
-        toast.success('Pin note successfully!');
-      } else if (response.data?.type === 'default') {
-        toast.error('Unpin note successfully!');
-      }
       setIsLoading(false);
       if (location.pathname === '/') {
         await dispatch(fetchGetTopics()).unwrap();
-        await dispatch(fetchGetNotesPinned({ limit: '8', 'type[regex]': 'pin' }));
       }
     } catch (error) {
       setIsLoading(false);
@@ -61,7 +53,7 @@ const CardNote: FC<Props> = ({ note, isTrash = false }) => {
   };
 
   const renderActionButtons = () => {
-    if (isTrash) {
+    if (is_trash) {
       return (
         <>
           <ButtonHardDelete id={_id} />
@@ -87,7 +79,7 @@ const CardNote: FC<Props> = ({ note, isTrash = false }) => {
             <div className={cx('title')}>
               <label htmlFor={_id}>{title}</label>
             </div>
-            {!isTrash && (
+            {!is_trash && (
               <div className={cx('actions')}>
                 <span className={cx('btn-info')}>
                   {/* <i className="fa-solid fa-heart"></i> */}
@@ -98,7 +90,7 @@ const CardNote: FC<Props> = ({ note, isTrash = false }) => {
                 ) : (
                   <img
                     className={cx('btn-pin')}
-                    src={type === 'pin' ? icons.iconPinnedActive : icons.iconPinned}
+                    src={is_pin ? icons.iconPinnedActive : icons.iconPinned}
                     alt=""
                     onClick={handlePinNote}
                   />

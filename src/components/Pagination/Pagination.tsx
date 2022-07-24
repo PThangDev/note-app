@@ -27,15 +27,17 @@ const Pagination: FC<Props> = ({ pagination, pageRangeDisplay = 5 }) => {
   const [pageStart, setPageStart] = useState<number>(0);
   const [pageEnd, setPageEnd] = useState<number>(pageRangeDisplay);
   useEffect(() => {
+    if (pageCount <= 1) return;
     const pageList = [];
     for (let pageNumber = 1; pageNumber <= total; pageNumber++) {
       pageList.push(pageNumber);
     }
     setPageList(pageList);
-  }, [total]);
-  // console.log(pageList);
+  }, [pageCount, total]);
 
   useEffect(() => {
+    if (pageCount <= 1) return;
+
     if (pageCount < pageRangeDisplay) {
       setPageStart(0);
       setPageEnd(pageCount);
@@ -74,7 +76,9 @@ const Pagination: FC<Props> = ({ pagination, pageRangeDisplay = 5 }) => {
 
     navigate(`${location.pathname}?${params}`);
   };
-
+  if (pageCount <= 1 || !pageCount) {
+    return null;
+  }
   return (
     <div className={cx('wrapper')}>
       <ul className={cx('list')}>

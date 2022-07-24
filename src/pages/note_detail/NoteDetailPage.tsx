@@ -23,13 +23,11 @@ const NoteDetailPage: FC<Props> = (props) => {
   // // ********** useEffect (Side Effect) **********
   useEffect(() => {
     if (noteDetail) {
-      (async () => {
-        navigate(`/notes/${id}/${noteDetail.slug}`, {
-          replace: true,
-        });
-      })();
+      navigate(`/notes/${id}/${noteDetail.slug}`, {
+        replace: true,
+      });
     }
-  }, [navigate, noteDetail]);
+  }, [id, navigate, noteDetail]);
   // ********** Handle Event **********
 
   // ********** Logic and render UI **********

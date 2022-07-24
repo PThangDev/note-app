@@ -30,7 +30,7 @@ const TopicPage: FC<Props> = (props) => {
       </Helmet>
       {/* Body */}
       <div className={cx('wrapper')}>
-        <h2 className={cx('heading')}>All Topic</h2>
+        <h2 className={cx('heading')}>All Topics</h2>
         <ButtonCreate />
         <div className={cx('list')}>
           {topics.data.map((topic) => (

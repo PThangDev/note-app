@@ -7,4 +7,5 @@ export { default as ProfilePage } from './profile';
 export { default as TrashsPage } from './trashs';
 export { default as PinsPage } from './pins';
 export { default as TopicPage } from './topics';
+export { default as TopicDetailPage } from './topic_detail';
 export { default as SearchPage } from './search';

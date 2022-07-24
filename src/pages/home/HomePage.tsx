@@ -56,7 +56,7 @@ const HomePage: FC<Props> = (props) => {
                   heading={{ text: topic.name, background: topic.background }}
                   data={topic.notes}
                   isLoading={topics.isLoading}
-                  to={`/${topics}`}
+                  to={`/topics/${topic._id}`}
                 />
               );
             }

@@ -20,7 +20,7 @@ const ButtonRestore: FC<Props> = ({ id }) => {
     try {
       const result = await sweetAlert.confirm({ text: 'Do you want to restore this note ?' });
       if (result.isConfirmed) {
-        await dispatch(fetchUpdateNoteToTrash({ data: { type: 'default' }, id })).unwrap();
+        await dispatch(fetchUpdateNoteToTrash({ data: { is_trash: false }, id })).unwrap();
         sweetAlert.success('Restore note successfully');
       }
     } catch (error) {}

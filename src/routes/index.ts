@@ -9,8 +9,10 @@ import {
   TopicPage,
   NoteDetailPage,
   SearchPage,
+  TopicDetailPage,
 } from 'src/pages';
 import { NoteDetailPageRender } from 'src/pages/note_detail';
+import { TopicDetailPageRender } from 'src/pages/topic_detail';
 
 export const privateRoutes = [
   {
@@ -25,6 +27,14 @@ export const privateRoutes = [
   {
     path: '/topics',
     component: TopicPage,
+  },
+  {
+    path: '/topics/:id',
+    component: TopicDetailPage,
+  },
+  {
+    path: '/topics/:id/:slug',
+    component: TopicDetailPageRender,
   },
   {
     path: '/notes',

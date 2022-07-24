@@ -31,7 +31,7 @@ const ButtonEdit: FC<Props> = ({ note, redirect = false }) => {
 
     if (!redirect) return;
 
-    navigate(`/notes/${note?.slug}`);
+    navigate(`/notes/${note?._id}/${note?.slug}`);
   };
   return (
     <>

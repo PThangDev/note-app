@@ -5,6 +5,7 @@ import { Helmet } from 'react-helmet';
 import { useAppDispatch, useAppSelector } from 'src/app/hooks';
 import { fetchGetNotes } from '../notes/noteSlice';
 import CardNoteContainer from 'src/containers/CardNoteContainer';
+import EmptyItem from 'src/components/EmptyItem';
 
 interface Props {}
 
@@ -17,7 +18,7 @@ const TrashsPage: FC<Props> = (props) => {
   const notes = useAppSelector((state) => state.notes);
   // ********** useEffect (Side Effect) **********
   useEffect(() => {
-    dispatch(fetchGetNotes({ 'type[regex]': 'trash' }));
+    dispatch(fetchGetNotes({ is_trash: true, sort: '-updatedAt' }));
   }, [dispatch]);
 
   // ********** Handle Event **********
@@ -33,12 +34,12 @@ const TrashsPage: FC<Props> = (props) => {
       </Helmet>
       {/* Body */}
       <div className={cx('wrapper')}>
-        <h2>Trash</h2>
+        {notes.data.length === 0 && <EmptyItem />}
         <CardNoteContainer
           heading="Note Trash"
           data={notes.data}
           isLoading={notes.isLoading}
-          isTrash
+          is_trash
         />
       </div>
     </>

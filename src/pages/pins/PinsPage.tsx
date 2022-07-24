@@ -1,16 +1,24 @@
 import classNames from 'classnames/bind';
-import styles from './PinsPage.module.scss';
-import React, { FC } from 'react';
+import { FC, useEffect } from 'react';
 import { Helmet } from 'react-helmet';
-import useGetNotesPinned from 'src/hooks/useGetNotesPinned';
+import { useAppDispatch, useAppSelector } from 'src/app/hooks';
 import CardNoteContainer from 'src/containers/CardNoteContainer';
+import { fetchGetNotes } from '../notes/noteSlice';
+import { fetchGetNotesPinned } from './notesPinnedSlice';
+import styles from './PinsPage.module.scss';
 
 interface Props {}
 
 const cx = classNames.bind(styles);
 
 const PinsPage: FC<Props> = (props) => {
-  const { isLoading, notesPinned } = useGetNotesPinned();
+  const dispatch = useAppDispatch();
+
+  const { isLoading, data: notesPinned } = useAppSelector((state) => state.notesPinned);
+
+  useEffect(() => {
+    dispatch(fetchGetNotesPinned());
+  }, [dispatch]);
 
   return (
     <>

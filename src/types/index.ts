@@ -1,3 +1,5 @@
+import { NoteBase } from './Note';
+
 export interface MessageResponse {
   message: string;
 }
@@ -22,5 +24,5 @@ export interface ErrorResponse {
 }
 
 export interface QueryParams {
-  [key: string]: string;
+  [key: string]: string | boolean;
 }

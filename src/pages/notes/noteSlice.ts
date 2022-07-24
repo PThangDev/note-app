@@ -1,10 +1,11 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { toast } from 'react-toastify';
 import noteAPI from 'src/api/noteAPI';
 import { BaseDataResponse, ErrorResponse, Pagination, QueryParams } from 'src/types';
 import { CreateNote, Note, NotesOfTopicRequest, UpdateNote } from 'src/types/Note';
 import sweetAlert from 'src/utils/sweetAlert';
 import { updateNote } from '../note_detail/noteDetailSlice';
+import notesPinnedSlice from '../pins/notesPinnedSlice';
 
 interface InitialState {
   isLoading: boolean;
@@ -78,8 +79,9 @@ export const fetchUpdateNoteToTrash = createAsyncThunk<
 >('/update/notes/trash/:id', async (payload, thunkAPI) => {
   try {
     const response = await noteAPI.updateNotes(payload);
+
     if (response.data) {
-      thunkAPI.dispatch(updateNote(response.data));
+      thunkAPI.dispatch(notesPinnedSlice.actions.removeNoteToTrash(response.data));
     }
     return response;
   } catch (error) {
@@ -102,7 +104,17 @@ export const fetchDeleteNote = createAsyncThunk<
 const noteSlice = createSlice({
   name: 'note',
   initialState,
-  reducers: {},
+  reducers: {
+    togglePin(state, action: PayloadAction<Note>) {
+      state.data = state.data.map((note) => {
+        if (note._id === action.payload._id) {
+          return action.payload;
+        } else {
+          return note;
+        }
+      });
+    },
+  },
   extraReducers(builder) {
     builder
       // Get Notes

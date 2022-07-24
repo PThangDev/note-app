@@ -10,7 +10,7 @@ import styles from './CardNoteContainer.module.scss';
 interface Props {
   heading?: string | { text: string; background?: string };
   isLoading?: boolean;
-  isTrash?: boolean;
+  is_trash?: boolean;
   to?: string;
   data: Note[];
 }
@@ -22,7 +22,7 @@ const CardNoteContainer: FC<Props> = ({
   to,
   isLoading = false,
   data = [],
-  isTrash = false,
+  is_trash = false,
 }) => {
   const renderHeading = () => {
     const headingText = typeof heading === 'string' ? heading : heading?.text;
@@ -45,6 +45,10 @@ const CardNoteContainer: FC<Props> = ({
       return <h3 className={cx('heading')}>{isLoading ? 'Loading...' : headingText}</h3>;
     }
   };
+
+  if (!data.length) {
+    return null;
+  }
   return (
     <div className={cx('wrapper')}>
       {renderHeading()}
@@ -52,7 +56,7 @@ const CardNoteContainer: FC<Props> = ({
         <Row>
           {data.map((note) => (
             <Col key={note._id} col={{ xs: 6, sm: 6, md: 6, lg: 4, xl: 3 }}>
-              <CardNote key={note._id} note={note} isTrash={isTrash} />
+              <CardNote key={note._id} note={note} is_trash={is_trash} />
             </Col>
           ))}
         </Row>

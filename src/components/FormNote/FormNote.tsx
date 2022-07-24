@@ -1,7 +1,7 @@
 // Import library
 import MDEditor from '@uiw/react-md-editor';
 import classNames from 'classnames/bind';
-import { ChangeEvent, FC, useEffect, useState } from 'react';
+import { ChangeEvent, FC, KeyboardEvent, KeyboardEventHandler, useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from 'src/app/hooks';
 
 // Import src

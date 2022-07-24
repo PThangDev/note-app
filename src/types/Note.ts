@@ -2,7 +2,20 @@ import { QueryParams } from '.';
 import { Topic } from './Topic';
 import { UserInfo } from './User';
 
-export type TypeNote = 'default' | 'pin' | 'trash';
+export interface NoteBase {
+  _id: string;
+  title: string;
+  content: string;
+  background: string;
+  topics: string[];
+  user: string;
+  is_trash: boolean;
+  is_pin: boolean;
+  slug: string;
+  createdAt: string;
+  updatedAt: string;
+  __v: number;
+}
 
 export interface Note {
   _id: string;
@@ -11,7 +24,8 @@ export interface Note {
   background: string;
   topics: Topic[] | null;
   user: UserInfo;
-  type: TypeNote;
+  is_trash: boolean;
+  is_pin: boolean;
   slug: string;
   createdAt: string;
   updatedAt: string;
@@ -23,12 +37,11 @@ export interface CreateNote {
   content: string;
   background: string;
   topics: string[];
-  type?: TypeNote;
 }
 
 export interface UpdateNote {
   id: string;
-  data: Partial<CreateNote>;
+  data: Partial<NoteBase>;
 }
 
 export interface NotesOfTopicRequest {

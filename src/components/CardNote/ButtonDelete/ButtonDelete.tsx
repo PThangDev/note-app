@@ -27,7 +27,7 @@ const ButtonDelete: FC<Props> = ({ id = '', onFinishDelete }) => {
     try {
       const result = await sweetAlert.confirm({ text: 'Your note will be moved to trash' });
       if (result.isConfirmed) {
-        await dispatch(fetchUpdateNoteToTrash({ data: { type: 'trash' }, id })).unwrap();
+        await dispatch(fetchUpdateNoteToTrash({ data: { is_trash: true }, id })).unwrap();
         sweetAlert.success('Your note was moved to trash');
         if (onFinishDelete) {
           onFinishDelete();

@@ -16,13 +16,13 @@ interface Props {
 const cx = classNames.bind(styles);
 
 const CardTopic: FC<Props> = ({ data }) => {
-  const { name, createdAt, slug, background } = data;
+  const { _id, name, createdAt, slug, background } = data;
 
   return (
     <div className={cx('wrapper')} style={{ backgroundColor: background }}>
       <div className={cx('left')}>
         <input type="checkbox" />
-        <Link to={`/topics/${slug}`} className={cx('info')}>
+        <Link to={`/topics/${_id}`} className={cx('info')}>
           <div className={cx('name')}>{name}</div>
           <div className={cx('created-at')}>{createdAt}</div>
         </Link>

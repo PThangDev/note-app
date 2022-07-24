@@ -26,7 +26,7 @@ const NotesPage: FC<Props> = (props) => {
   useEffect(() => {
     dispatch(
       fetchGetNotes({
-        'type[regex]': 'default',
+        is_trash: false,
         limit: (params.limit as string) || '8',
         page: params.page as string,
       })

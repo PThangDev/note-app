@@ -13,7 +13,7 @@ const noteAPI = {
   },
   getNotesOfPins(params?: QueryParams): Promise<BaseDataResponse<Note[]>> {
     const url = `/notes`;
-    return axiosInstance.get(url, { params: { 'type[regex]': 'pin' } });
+    return axiosInstance.get(url, { params: { is_pin: true, is_trash: false } });
   },
   getNote(id: string): Promise<BaseDataResponse<Note>> {
     const url = `/notes/${id}`;
