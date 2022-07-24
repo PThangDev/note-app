@@ -42,7 +42,7 @@ const FormNote: FC<Props> = ({ data, onFinishSubmit, onCloseModal = () => {} }) 
       return [];
     }
   });
-
+  console.log(data);
   const topics = useAppSelector((state) => state.topics);
   const location = useLocation();
   // ********** useEffect (Side Effect) **********

@@ -1,10 +1,11 @@
 .wrapper {
   width: var(--width-sidebar);
-  height: 100vh;
+  min-height: 100vh;
   background-color: var(--color-primary);
   position: fixed;
   top: var(--height-header);
   left: 0;
+  bottom: 0;
   box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.2);
   transition: all 0.5s;
   &.close {

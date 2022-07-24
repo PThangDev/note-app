@@ -11,9 +11,14 @@ const noteAPI = {
     const url = `/notes/${topicId}`;
     return axiosInstance.get(url, { params });
   },
+
   getNotesOfPins(params?: QueryParams): Promise<BaseDataResponse<Note[]>> {
     const url = `/notes`;
     return axiosInstance.get(url, { params: { is_pin: true, is_trash: false } });
+  },
+  getNotesOther(params?: QueryParams): Promise<BaseDataResponse<Note[]>> {
+    const url = `/notes`;
+    return axiosInstance.get(url, { params: { is_trash: false, is_pin: false, topics: 'null' } });
   },
   getNote(id: string): Promise<BaseDataResponse<Note>> {
     const url = `/notes/${id}`;

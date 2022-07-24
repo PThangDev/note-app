@@ -5,6 +5,7 @@ import { BaseDataResponse, ErrorResponse, QueryParams } from 'src/types';
 import { Note, UpdateNote } from 'src/types/Note';
 import { formatDate } from 'src/utils';
 import noteSlice from '../notes/noteSlice';
+import notesOtherSlice from '../notes/notesOtherSlice';
 
 interface InitialState {
   data: Note[];
@@ -38,6 +39,7 @@ export const fetchTogglePinNote = createAsyncThunk<
     const response = await noteAPI.updateNotes(payload);
     if (response.data) {
       thunkAPI.dispatch(noteSlice.actions.togglePin(response.data));
+      thunkAPI.dispatch(notesOtherSlice.actions.togglePinNote(response.data));
     }
     return response;
   } catch (error) {

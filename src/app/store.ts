@@ -4,6 +4,7 @@ import authSlice, { logout } from 'src/pages/auth/authSlice';
 import forgotPasswordSlice from 'src/pages/auth/forgot_password/forgotPasswordSlice';
 import loginSlice from 'src/pages/auth/login/loginSlice';
 import noteSlice from 'src/pages/notes/noteSlice';
+import notesOtherSlice from 'src/pages/notes/notesOtherSlice';
 import noteDetailSlice from 'src/pages/note_detail/noteDetailSlice';
 import notesPinnedSlice from 'src/pages/pins/notesPinnedSlice';
 import topicSlice from 'src/pages/topics/topicSlice';
@@ -26,6 +27,7 @@ const store = configureStore({
     notes: noteSlice.reducer,
     noteDetail: noteDetailSlice.reducer,
     notesPinned: notesPinnedSlice.reducer,
+    notesOther: notesOtherSlice.reducer,
 
     topics: topicSlice.reducer,
     topicDetail: topicDetailSlice.reducer,

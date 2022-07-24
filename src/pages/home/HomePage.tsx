@@ -4,6 +4,7 @@ import { Helmet } from 'react-helmet';
 import { useAppDispatch, useAppSelector } from 'src/app/hooks';
 import CardNoteContainer from 'src/containers/CardNoteContainer';
 import { fetchGetNotes } from '../notes/noteSlice';
+import { fetchGetNotesOther } from '../notes/notesOtherSlice';
 import { fetchGetNotesPinned } from '../pins/notesPinnedSlice';
 import { fetchGetTopics } from '../topics/topicSlice';
 import styles from './HomePage.module.scss';
@@ -19,11 +20,13 @@ const HomePage: FC<Props> = (props) => {
   const dispatch = useAppDispatch();
   const topics = useAppSelector((state) => state.topics);
   const notesPinned = useAppSelector((state) => state.notesPinned);
+  const notesOther = useAppSelector((state) => state.notesOther);
 
   // ********** useEffect (Side Effect) **********
   useEffect(() => {
     dispatch(fetchGetTopics());
     dispatch(fetchGetNotesPinned({ limit: '8' }));
+    dispatch(fetchGetNotesOther());
   }, [dispatch]);
 
   // ********** Handle Event **********
@@ -61,6 +64,13 @@ const HomePage: FC<Props> = (props) => {
               );
             }
           })}
+
+          {/* Other Notes */}
+          <CardNoteContainer
+            heading="Others"
+            data={notesOther.data}
+            isLoading={notesOther.isLoading}
+          />
         </div>
       </div>
     </>
