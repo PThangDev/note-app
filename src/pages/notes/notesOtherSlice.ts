@@ -41,6 +41,18 @@ const notesOtherSlice = createSlice({
         state.data = [action.payload, ...state.data];
       }
     },
+    updateOtherNote(state, action: PayloadAction<Note>) {
+      state.data = state.data.map((note) => {
+        if (note._id === action.payload._id) {
+          return action.payload;
+        } else {
+          return note;
+        }
+      });
+    },
+    moveOtherNoteToTrash(state, action: PayloadAction<Note>) {
+      state.data = state.data.filter((note) => note._id !== action.payload._id);
+    },
   },
   extraReducers(builder) {
     builder

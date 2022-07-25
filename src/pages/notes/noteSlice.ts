@@ -6,6 +6,7 @@ import { CreateNote, Note, NotesOfTopicRequest, UpdateNote } from 'src/types/Not
 import sweetAlert from 'src/utils/sweetAlert';
 import { updateNote } from '../note_detail/noteDetailSlice';
 import notesPinnedSlice from '../pins/notesPinnedSlice';
+import notesOtherSlice from './notesOtherSlice';
 
 interface InitialState {
   isLoading: boolean;
@@ -66,6 +67,7 @@ export const fetchUpdateNote = createAsyncThunk<
     const response = await noteAPI.updateNotes(payload);
     if (response.data) {
       thunkAPI.dispatch(updateNote(response.data));
+      thunkAPI.dispatch(notesOtherSlice.actions.updateOtherNote(response.data));
     }
     return response;
   } catch (error) {
@@ -82,6 +84,7 @@ export const fetchUpdateNoteToTrash = createAsyncThunk<
 
     if (response.data) {
       thunkAPI.dispatch(notesPinnedSlice.actions.removeNoteToTrash(response.data));
+      thunkAPI.dispatch(notesOtherSlice.actions.moveOtherNoteToTrash(response.data));
     }
     return response;
   } catch (error) {

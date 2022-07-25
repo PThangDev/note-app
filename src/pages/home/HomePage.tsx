@@ -32,7 +32,7 @@ const HomePage: FC<Props> = (props) => {
   // ********** Handle Event **********
 
   // ********** Logic and render UI **********
-
+  console.log(topics);
   return (
     <>
       {/* Head */}

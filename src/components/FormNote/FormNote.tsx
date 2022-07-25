@@ -42,7 +42,6 @@ const FormNote: FC<Props> = ({ data, onFinishSubmit, onCloseModal = () => {} }) 
       return [];
     }
   });
-  console.log(data);
   const topics = useAppSelector((state) => state.topics);
   const location = useLocation();
   // ********** useEffect (Side Effect) **********
@@ -174,6 +173,13 @@ const FormNote: FC<Props> = ({ data, onFinishSubmit, onCloseModal = () => {} }) 
             </div>
           </div>
 
+          <div className={cx('actions')}>
+            <Button status="error" onClick={onCloseModal}>
+              Cancel
+            </Button>
+            <Button onClick={handleSubmitNote}>Save</Button>
+          </div>
+
           <div
             className={cx('preview')}
             style={{ backgroundColor: background }}
@@ -187,13 +193,6 @@ const FormNote: FC<Props> = ({ data, onFinishSubmit, onCloseModal = () => {} }) 
                 style={{ whiteSpace: 'pre-wrap' }}
               />
             </div>
-          </div>
-
-          <div className={cx('actions')}>
-            <Button status="error" onClick={onCloseModal}>
-              Cancel
-            </Button>
-            <Button onClick={handleSubmitNote}>Save</Button>
           </div>
         </div>
       </div>
