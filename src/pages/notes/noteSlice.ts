@@ -2,7 +2,13 @@ import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { toast } from 'react-toastify';
 import noteAPI from 'src/api/noteAPI';
 import { BaseDataResponse, ErrorResponse, Pagination, QueryParams } from 'src/types';
-import { CreateNote, Note, NotesOfTopicRequest, UpdateNote } from 'src/types/Note';
+import {
+  CreateNote,
+  Note,
+  NotesOfTopicRequest,
+  UpdateNote,
+  UpdateNotesRequest,
+} from 'src/types/Note';
 import sweetAlert from 'src/utils/sweetAlert';
 import { updateNote } from '../note_detail/noteDetailSlice';
 import notesPinnedSlice from '../pins/notesPinnedSlice';
@@ -64,12 +70,24 @@ export const fetchUpdateNote = createAsyncThunk<
   { rejectValue: ErrorResponse }
 >('/update/notes/:id', async (payload, thunkAPI) => {
   try {
-    const response = await noteAPI.updateNotes(payload);
+    const response = await noteAPI.updateNote(payload);
     if (response.data) {
       thunkAPI.dispatch(updateNote(response.data));
       thunkAPI.dispatch(notesOtherSlice.actions.updateOtherNote(response.data));
     }
     return response;
+  } catch (error) {
+    return thunkAPI.rejectWithValue(error as ErrorResponse);
+  }
+});
+export const fetchUpdateNotes = createAsyncThunk<
+  string[],
+  UpdateNotesRequest,
+  { rejectValue: ErrorResponse }
+>('/update/notes', async (payload, thunkAPI) => {
+  try {
+    const response = await noteAPI.updateNotes(payload);
+    return payload.noteIds;
   } catch (error) {
     return thunkAPI.rejectWithValue(error as ErrorResponse);
   }
@@ -80,7 +98,7 @@ export const fetchUpdateNoteToTrash = createAsyncThunk<
   { rejectValue: ErrorResponse }
 >('/update/notes/trash/:id', async (payload, thunkAPI) => {
   try {
-    const response = await noteAPI.updateNotes(payload);
+    const response = await noteAPI.updateNote(payload);
 
     if (response.data) {
       thunkAPI.dispatch(notesPinnedSlice.actions.removeNoteToTrash(response.data));

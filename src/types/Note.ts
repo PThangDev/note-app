@@ -44,6 +44,11 @@ export interface UpdateNote {
   data: Partial<NoteBase>;
 }
 
+export interface UpdateNotesRequest {
+  noteIds: string[];
+  update: Partial<NoteBase>;
+}
+
 export interface NotesOfTopicRequest {
   topicId: string;
   params: QueryParams;

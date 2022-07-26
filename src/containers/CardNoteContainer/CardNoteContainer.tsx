@@ -13,6 +13,7 @@ interface Props {
   is_trash?: boolean;
   to?: string;
   data: Note[];
+  onToggleCheckbox?: (id: string) => void;
 }
 
 const cx = classNames.bind(styles);
@@ -23,6 +24,7 @@ const CardNoteContainer: FC<Props> = ({
   isLoading = false,
   data = [],
   is_trash = false,
+  onToggleCheckbox,
 }) => {
   const renderHeading = () => {
     const headingText = typeof heading === 'string' ? heading : heading?.text;
@@ -56,7 +58,12 @@ const CardNoteContainer: FC<Props> = ({
         <Row>
           {data.map((note) => (
             <Col key={note._id} col={{ xs: 6, sm: 6, md: 6, lg: 4, xl: 3 }}>
-              <CardNote key={note._id} note={note} is_trash={is_trash} />
+              <CardNote
+                key={note._id}
+                note={note}
+                is_trash={is_trash}
+                onToggleCheckbox={onToggleCheckbox}
+              />
             </Col>
           ))}
         </Row>

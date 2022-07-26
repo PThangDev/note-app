@@ -1,7 +1,7 @@
 // Import library
 import MDEditor from '@uiw/react-md-editor';
 import classNames from 'classnames/bind';
-import { FC, useState } from 'react';
+import { ChangeEvent, FC, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useAppDispatch } from 'src/app/hooks';
 
@@ -24,11 +24,12 @@ import styles from './CardNote.module.scss';
 interface Props {
   note: Note;
   is_trash?: boolean;
+  onToggleCheckbox?: (id: string) => void;
 }
 
 const cx = classNames.bind(styles);
 
-const CardNote: FC<Props> = ({ note, is_trash = false }) => {
+const CardNote: FC<Props> = ({ note, is_trash = false, onToggleCheckbox }) => {
   const { _id, content, title, topics, background, user, createdAt, slug, is_pin } = note;
 
   const dispatch = useAppDispatch();
@@ -69,13 +70,18 @@ const CardNote: FC<Props> = ({ note, is_trash = false }) => {
       );
     }
   };
-
+  const handleChangeCheckbox = (e: ChangeEvent<HTMLInputElement>) => {
+    const id = e.target.id;
+    if (onToggleCheckbox) {
+      onToggleCheckbox(id);
+    }
+  };
   return (
     <>
       <div className={cx('wrapper')} style={{ background }}>
         <div className={cx('header')}>
           <div className={cx('header-inner')}>
-            <Checkbox id={_id} name="card" />
+            <Checkbox id={_id} name="card" onChange={handleChangeCheckbox} />
             <div className={cx('title')}>
               <label htmlFor={_id}>{title}</label>
             </div>

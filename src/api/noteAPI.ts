@@ -1,5 +1,11 @@
 import { BaseDataResponse, QueryParams } from 'src/types';
-import { CreateNote, Note, NotesOfTopicRequest, UpdateNote } from 'src/types/Note';
+import {
+  CreateNote,
+  Note,
+  NotesOfTopicRequest,
+  UpdateNote,
+  UpdateNotesRequest,
+} from 'src/types/Note';
 import axiosInstance from './axiosInstance';
 
 const noteAPI = {
@@ -28,10 +34,15 @@ const noteAPI = {
     const url = '/notes';
     return axiosInstance.post(url, data);
   },
-  updateNotes(payload: UpdateNote): Promise<BaseDataResponse<Note>> {
+  updateNote(payload: UpdateNote): Promise<BaseDataResponse<Note>> {
     const url = `/notes/${payload.id}`;
     return axiosInstance.put(url, payload.data);
   },
+  updateNotes(data: UpdateNotesRequest): Promise<BaseDataResponse<string[]>> {
+    const url = `/notes`;
+    return axiosInstance.put(url, data);
+  },
+
   updateTypeOfNote(payload: UpdateNote): Promise<BaseDataResponse<Note>> {
     const url = `/notes/${payload.id}`;
     return axiosInstance.put(url, payload.data);

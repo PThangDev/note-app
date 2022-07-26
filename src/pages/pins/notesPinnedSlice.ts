@@ -36,7 +36,7 @@ export const fetchTogglePinNote = createAsyncThunk<
   { rejectValue: ErrorResponse }
 >('/note/pins/:id#toggle', async (payload, thunkAPI) => {
   try {
-    const response = await noteAPI.updateNotes(payload);
+    const response = await noteAPI.updateNote(payload);
     if (response.data) {
       thunkAPI.dispatch(noteSlice.actions.togglePin(response.data));
       thunkAPI.dispatch(notesOtherSlice.actions.togglePinNote(response.data));

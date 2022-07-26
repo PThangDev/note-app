@@ -1,16 +1,16 @@
 import classNames from 'classnames/bind';
-import { FC, useEffect } from 'react';
+import queryString from 'query-string';
+import { FC, useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { useLocation } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from 'src/app/hooks';
 import ButtonCreate from 'src/components/CardNote/ButtonCreate';
+import ButtonDeleteMany from 'src/components/CardNote/ButtonDeleteMany';
+import Filters from 'src/components/Filters';
+import Pagination from 'src/components/Pagination';
 import CardNoteContainer from 'src/containers/CardNoteContainer';
 import { fetchGetNotes } from './noteSlice';
-import queryString from 'query-string';
 import styles from './NotesPage.module.scss';
-import Pagination from 'src/components/Pagination';
-import Filters from 'src/components/Filters';
-import { Button } from 'src/layouts/UI';
 
 interface Props {}
 
@@ -24,6 +24,7 @@ const NotesPage: FC<Props> = (props) => {
   const params = queryString.parse(location.search);
   // ********** use Hooks (useState, useRef, useCallback, useMemo,... Custom Hook,.... )**********
   const notes = useAppSelector((state) => state.notes);
+  const [notesChecked, setNotesChecked] = useState<string[]>([]);
   // ********** useEffect (Side Effect) **********
   useEffect(() => {
     dispatch(
@@ -36,7 +37,15 @@ const NotesPage: FC<Props> = (props) => {
   }, [dispatch, params.limit, params.page]);
 
   // ********** Handle Event **********
-
+  const handleToggleCheckbox = (id: string) => {
+    setNotesChecked((prevState) => {
+      if (prevState.includes(id)) {
+        return prevState.filter((noteId) => noteId !== id);
+      } else {
+        return [...prevState, id];
+      }
+    });
+  };
   // ********** Logic and render UI **********
   return (
     <>
@@ -53,12 +62,14 @@ const NotesPage: FC<Props> = (props) => {
           <div className={cx('actions')}>
             <ButtonCreate />
             <Filters />
-            <Button status="error" icon={() => <i className="fa-solid fa-trash"></i>}>
-              Delete Many
-            </Button>
+            <ButtonDeleteMany noteIds={notesChecked} />
           </div>
         </div>
-        <CardNoteContainer isLoading={notes.isLoading} data={notes.data} />
+        <CardNoteContainer
+          isLoading={notes.isLoading}
+          data={notes.data}
+          onToggleCheckbox={handleToggleCheckbox}
+        />
         <Pagination pagination={notes.pagination} />
       </div>
     </>
