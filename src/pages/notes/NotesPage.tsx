@@ -9,6 +9,8 @@ import { fetchGetNotes } from './noteSlice';
 import queryString from 'query-string';
 import styles from './NotesPage.module.scss';
 import Pagination from 'src/components/Pagination';
+import Filters from 'src/components/Filters';
+import { Button } from 'src/layouts/UI';
 
 interface Props {}
 
@@ -47,8 +49,14 @@ const NotesPage: FC<Props> = (props) => {
       {/* Body */}
       <div className={cx('wrapper')}>
         <div className={cx('header')}>
-          <h3 className={cx('heading')}>All Notes</h3>
-          <ButtonCreate />
+          {/* <h3 className={cx('heading')}>All Notes</h3> */}
+          <div className={cx('actions')}>
+            <ButtonCreate />
+            <Filters />
+            <Button status="error" icon={() => <i className="fa-solid fa-trash"></i>}>
+              Delete Many
+            </Button>
+          </div>
         </div>
         <CardNoteContainer isLoading={notes.isLoading} data={notes.data} />
         <Pagination pagination={notes.pagination} />

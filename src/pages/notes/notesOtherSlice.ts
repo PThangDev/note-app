@@ -42,6 +42,7 @@ const notesOtherSlice = createSlice({
       }
     },
     updateOtherNote(state, action: PayloadAction<Note>) {
+      console.log(action.payload);
       state.data = state.data.map((note) => {
         if (note._id === action.payload._id) {
           return action.payload;

@@ -3,6 +3,7 @@ import classNames from 'classnames/bind';
 import { FC, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useAppSelector } from 'src/app/hooks';
+import ButtonCreate from 'src/components/CardNote/ButtonCreate';
 import Pagination from 'src/components/Pagination';
 import CardNoteContainer from 'src/containers/CardNoteContainer';
 // Import src
@@ -19,6 +20,11 @@ const TopicDetailPageRender: FC<Props> = (props) => {
   const topicDetail = useAppSelector((state) => state.topicDetail);
   const notesOfTopic = useAppSelector((state) => state.notes);
 
+  const notesOfTopicData = notesOfTopic.data.filter((note) => {
+    const topicIds = note.topics?.map((topic) => topic._id);
+    return topicIds?.includes(topicDetail.data?._id as string);
+  });
+
   useEffect(() => {
     if (!topicDetail.data) {
       navigate(`/topics/${id}`, { replace: true });
@@ -27,6 +33,7 @@ const TopicDetailPageRender: FC<Props> = (props) => {
 
   return (
     <div className={cx('wrapper')}>
+      <ButtonCreate />
       <div className={cx('header')}>
         <h2 className={cx('heading')}>
           {topicDetail.data?.name}
@@ -36,7 +43,7 @@ const TopicDetailPageRender: FC<Props> = (props) => {
           ></span>
         </h2>
       </div>
-      <CardNoteContainer data={notesOfTopic.data} isLoading={notesOfTopic.isLoading} />
+      <CardNoteContainer data={notesOfTopicData} isLoading={notesOfTopic.isLoading} />
       <Pagination pagination={notesOfTopic.pagination} />
     </div>
   );

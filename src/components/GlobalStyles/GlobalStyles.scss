@@ -111,6 +111,9 @@ input,
 .md-editor-preview {
   min-height: 100px;
   background: transparent !important;
+  span.code-line {
+    color: var(--color-white);
+  }
 }
 
 // Custom sweet alert
