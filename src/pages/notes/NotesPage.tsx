@@ -4,6 +4,7 @@ import { FC, useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { useLocation } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from 'src/app/hooks';
+import ButtonSelect from 'src/components/CardNote/ButtonSelect';
 import ButtonCreate from 'src/components/CardNote/ButtonCreate';
 import ButtonDeleteMany from 'src/components/CardNote/ButtonDeleteMany';
 import Filters from 'src/components/Filters';
@@ -25,6 +26,8 @@ const NotesPage: FC<Props> = (props) => {
   // ********** use Hooks (useState, useRef, useCallback, useMemo,... Custom Hook,.... )**********
   const notes = useAppSelector((state) => state.notes);
   const [notesChecked, setNotesChecked] = useState<string[]>([]);
+  const [isShowSelect, setIsShowSelect] = useState<boolean>(false);
+
   // ********** useEffect (Side Effect) **********
   useEffect(() => {
     dispatch(
@@ -32,9 +35,10 @@ const NotesPage: FC<Props> = (props) => {
         is_trash: false,
         limit: (params.limit as string) || '8',
         page: params.page as string,
+        sort: params.sort as string,
       })
     );
-  }, [dispatch, params.limit, params.page]);
+  }, [dispatch, params.limit, params.page, params.sort]);
 
   // ********** Handle Event **********
   const handleToggleCheckbox = (id: string) => {
@@ -44,6 +48,14 @@ const NotesPage: FC<Props> = (props) => {
       } else {
         return [...prevState, id];
       }
+    });
+  };
+  const handleToggleSelect = () => {
+    setIsShowSelect((prevState) => {
+      if (prevState) {
+        setNotesChecked([]);
+      }
+      return !prevState;
     });
   };
   // ********** Logic and render UI **********
@@ -63,12 +75,14 @@ const NotesPage: FC<Props> = (props) => {
             <ButtonCreate />
             <Filters />
             <ButtonDeleteMany noteIds={notesChecked} />
+            <ButtonSelect onClick={handleToggleSelect} isActive={isShowSelect} />
           </div>
         </div>
         <CardNoteContainer
           isLoading={notes.isLoading}
           data={notes.data}
           onToggleCheckbox={handleToggleCheckbox}
+          isShowSelect={isShowSelect}
         />
         <Pagination pagination={notes.pagination} />
       </div>

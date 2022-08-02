@@ -10,10 +10,11 @@ import styles from './CardNoteContainer.module.scss';
 interface Props {
   heading?: string | { text: string; background?: string };
   isLoading?: boolean;
-  is_trash?: boolean;
+  isTrash?: boolean;
   to?: string;
-  data: Note[];
+  isShowSelect?: boolean;
   onToggleCheckbox?: (id: string) => void;
+  data: Note[];
 }
 
 const cx = classNames.bind(styles);
@@ -23,7 +24,8 @@ const CardNoteContainer: FC<Props> = ({
   to,
   isLoading = false,
   data = [],
-  is_trash = false,
+  isTrash = false,
+  isShowSelect = false,
   onToggleCheckbox,
 }) => {
   const renderHeading = () => {
@@ -61,7 +63,8 @@ const CardNoteContainer: FC<Props> = ({
               <CardNote
                 key={note._id}
                 note={note}
-                is_trash={is_trash}
+                isTrash={isTrash}
+                isShowSelect={isShowSelect}
                 onToggleCheckbox={onToggleCheckbox}
               />
             </Col>

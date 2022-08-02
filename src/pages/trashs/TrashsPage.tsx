@@ -39,7 +39,7 @@ const TrashsPage: FC<Props> = (props) => {
           heading="Note Trash"
           data={notes.data}
           isLoading={notes.isLoading}
-          is_trash
+          isTrash
         />
       </div>
     </>

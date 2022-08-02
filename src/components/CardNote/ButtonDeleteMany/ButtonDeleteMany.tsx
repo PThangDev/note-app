@@ -44,7 +44,7 @@ const ButtonDeleteMany: FC<Props> = ({ noteIds }) => {
       onClick={handleDeleteNotes}
       status="error"
     >
-      Delete Many {count > 0 && <span>({count})</span>}
+      Delete {count > 0 && <span>({count})</span>}
     </Button>
   );
 };

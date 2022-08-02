@@ -23,13 +23,14 @@ import styles from './CardNote.module.scss';
 
 interface Props {
   note: Note;
-  is_trash?: boolean;
+  isTrash?: boolean;
+  isShowSelect?: boolean;
   onToggleCheckbox?: (id: string) => void;
 }
 
 const cx = classNames.bind(styles);
 
-const CardNote: FC<Props> = ({ note, is_trash = false, onToggleCheckbox }) => {
+const CardNote: FC<Props> = ({ note, isTrash = false, isShowSelect = false, onToggleCheckbox }) => {
   const { _id, content, title, topics, background, user, createdAt, slug, is_pin } = note;
 
   const dispatch = useAppDispatch();
@@ -54,7 +55,7 @@ const CardNote: FC<Props> = ({ note, is_trash = false, onToggleCheckbox }) => {
   };
 
   const renderActionButtons = () => {
-    if (is_trash) {
+    if (isTrash) {
       return (
         <>
           <ButtonHardDelete id={_id} />
@@ -81,11 +82,12 @@ const CardNote: FC<Props> = ({ note, is_trash = false, onToggleCheckbox }) => {
       <div className={cx('wrapper')} style={{ background }}>
         <div className={cx('header')}>
           <div className={cx('header-inner')}>
-            <Checkbox id={_id} name="card" onChange={handleChangeCheckbox} />
+            {isShowSelect && <Checkbox id={_id} name="card" onChange={handleChangeCheckbox} />}
+
             <div className={cx('title')}>
               <label htmlFor={_id}>{title}</label>
             </div>
-            {!is_trash && (
+            {!isTrash && (
               <div className={cx('actions')}>
                 <span className={cx('btn-info')}>
                   {/* <i className="fa-solid fa-heart"></i> */}
