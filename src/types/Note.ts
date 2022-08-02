@@ -17,19 +17,8 @@ export interface NoteBase {
   __v: number;
 }
 
-export interface Note {
-  _id: string;
-  title: string;
-  content: string;
-  background: string;
+export interface Note extends Omit<NoteBase, 'topics'> {
   topics: Topic[] | null;
-  user: UserInfo;
-  is_trash: boolean;
-  is_pin: boolean;
-  slug: string;
-  createdAt: string;
-  updatedAt: string;
-  __v: number;
 }
 
 export interface CreateNote {

@@ -11,6 +11,7 @@ export interface UserInfo {
   status: UserStatus;
   createdAt: string;
   updatedAt: string;
+  __v: number;
 }
 
 export interface UserLogin {
@@ -26,13 +27,10 @@ export interface UserRegister {
 export interface UserResponse extends UserInfo {
   access_token: string;
   refresh_token: string;
-  __v: number;
 }
 
 export interface UserForgotPassword {
   email: string;
 }
 
-export interface ForgotPasswordResponse {
-  access_token: string;
-}
+export type ForgotPasswordResponse = Pick<UserResponse, 'access_token'>;

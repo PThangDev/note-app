@@ -1,5 +1,3 @@
-import { NoteBase } from './Note';
-
 export interface MessageResponse {
   message: string;
 }
