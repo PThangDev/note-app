@@ -1,11 +1,12 @@
 import classNames from 'classnames/bind';
-import styles from './TrashsPage.module.scss';
-import React, { FC, useEffect } from 'react';
+import { FC, useEffect } from 'react';
 import { Helmet } from 'react-helmet';
+
 import { useAppDispatch, useAppSelector } from 'src/app/hooks';
-import { fetchGetNotes } from '../notes/noteSlice';
-import CardNoteContainer from 'src/containers/CardNoteContainer';
 import EmptyItem from 'src/components/EmptyItem';
+import CardNoteContainer from 'src/containers/CardNoteContainer';
+import { fetchGetNotes } from '../notes/noteSlice';
+import styles from './TrashsPage.module.scss';
 
 interface Props {}
 

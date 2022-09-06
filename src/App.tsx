@@ -8,7 +8,7 @@ import ScrollToTop from './components/ScrollToTop';
 import DefaultLayout from './layouts/DefaultLayout';
 import { NotFoundPage } from './pages';
 import { authRoutes, privateRoutes } from './routes';
-import { AuthRoute, PrivateRoute } from './routes/Routes';
+import { AuthRoute, PrivateRoute } from './routes/OuterRoutes';
 
 interface Props {}
 

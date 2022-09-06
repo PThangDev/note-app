@@ -1,7 +1,6 @@
-// Import library
 import classNames from 'classnames/bind';
-import React, { FC } from 'react';
-// Import src
+import { FC } from 'react';
+
 import styles from './Spin.module.scss';
 
 interface Props {}

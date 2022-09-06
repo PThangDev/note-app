@@ -1,5 +1,5 @@
 import { Topic } from 'src/types/Topic';
-import { BaseDataResponse } from './../types/index';
+import { BaseDataResponse } from './../types';
 import axiosInstance from './axiosInstance';
 
 const topicAPI = {

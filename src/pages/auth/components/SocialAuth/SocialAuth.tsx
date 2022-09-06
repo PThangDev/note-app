@@ -1,6 +1,7 @@
 import classNames from 'classnames/bind';
+import { FC } from 'react';
+
 import styles from './SocialAuth.module.scss';
-import React, { FC } from 'react';
 
 interface Props {
   disabled?: boolean;

@@ -1,8 +1,7 @@
-// Import library
 import classNames from 'classnames/bind';
-import React, { FC } from 'react';
+import { FC } from 'react';
+
 import { Button, Link } from 'src/layouts/UI';
-// Import src
 import styles from './SuccessAuth.module.scss';
 
 interface Props {

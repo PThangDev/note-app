@@ -1,12 +1,11 @@
-// Import library
 import classNames from 'classnames/bind';
-import React, { ChangeEvent, FC, SyntheticEvent, useState } from 'react';
 import queryString from 'query-string';
-// Import src
+import { ChangeEvent, FC, SyntheticEvent, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
+import { useAppSelector } from 'src/app/hooks';
 import { Input } from 'src/layouts/UI/Form';
 import styles from './Search.module.scss';
-import { useNavigate } from 'react-router-dom';
-import { useAppSelector } from 'src/app/hooks';
 
 interface Props {}
 

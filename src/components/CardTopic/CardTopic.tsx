@@ -1,9 +1,7 @@
-// Import library
 import classNames from 'classnames/bind';
 import { FC } from 'react';
 import { Link } from 'react-router-dom';
 
-// Import src
 import { Topic } from 'src/types/Topic';
 import ButtonDelete from './ButtonDelete';
 import ButtonEdit from './ButtonEdit';

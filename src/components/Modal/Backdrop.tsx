@@ -1,5 +1,5 @@
-import React, { CSSProperties, FC, ReactNode, useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
+import { CSSProperties, FC, ReactNode, useEffect, useRef } from 'react';
 
 interface Props {
   children: ReactNode;

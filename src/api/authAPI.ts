@@ -1,3 +1,4 @@
+import { BaseDataResponse, MessageResponse } from 'src/types';
 import {
   ForgotPasswordResponse,
   UserForgotPassword,
@@ -5,7 +6,6 @@ import {
   UserRegister,
   UserResponse,
 } from 'src/types/User';
-import { BaseDataResponse, MessageResponse } from 'src/types';
 import axiosInstance from './axiosInstance';
 
 const authAPI = {

@@ -1,8 +1,7 @@
-// Import library
 import classNames from 'classnames/bind';
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { Button } from 'src/layouts/UI';
-// Import src
+
 import styles from './ButtonSelect.module.scss';
 
 interface Props {

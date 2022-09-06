@@ -1,6 +1,7 @@
 import classNames from 'classnames/bind';
+import { ChangeEvent, FC } from 'react';
+
 import styles from './Checkbox.module.scss';
-import React, { ChangeEvent, FC } from 'react';
 
 interface Props {
   name?: string;

@@ -1,10 +1,8 @@
-// Import library
 import classNames from 'classnames/bind';
-import React, { FC } from 'react';
-import { Input } from 'src/layouts/UI/Form';
+import { FC } from 'react';
+
 import Search from './components/Search';
 import Sort from './components/Sort';
-// Import src
 import styles from './Filters.module.scss';
 
 interface Props {}

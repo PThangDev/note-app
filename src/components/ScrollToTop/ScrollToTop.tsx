@@ -1,7 +1,5 @@
-// Import library
 import { FC, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-// Import src
 
 interface Props {}
 

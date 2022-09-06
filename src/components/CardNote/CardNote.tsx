@@ -1,11 +1,9 @@
-// Import library
 import MDEditor from '@uiw/react-md-editor';
 import classNames from 'classnames/bind';
 import { ChangeEvent, FC, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { useAppDispatch } from 'src/app/hooks';
 
-// Import src
+import { useAppDispatch } from 'src/app/hooks';
 import icons from 'src/assets/icons';
 import { Checkbox } from 'src/layouts/UI/Form';
 import Spin from 'src/layouts/UI/Loading/Spin';

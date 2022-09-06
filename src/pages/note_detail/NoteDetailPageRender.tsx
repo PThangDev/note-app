@@ -1,14 +1,13 @@
-// Import library
 import MDEditor from '@uiw/react-md-editor';
 import classNames from 'classnames/bind';
 import { FC, useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 import { useNavigate, useParams } from 'react-router-dom';
+
 import { useAppSelector } from 'src/app/hooks';
 import ButtonDelete from 'src/components/CardNote/ButtonDelete';
 import ButtonEdit from 'src/components/CardNote/ButtonEdit';
 import { formatDate } from 'src/utils';
-// Import src
 import styles from './NoteDetailPage.module.scss';
 
 interface Props {}

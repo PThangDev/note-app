@@ -1,11 +1,10 @@
-// Import library
 import classNames from 'classnames/bind';
-import React, { FC, useEffect, useState } from 'react';
 import queryString from 'query-string';
-// Import src
-import styles from './Pagination.module.scss';
-import { Pagination as IPagination } from 'src/types';
+import { FC, useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+
+import { Pagination as IPagination } from 'src/types';
+import styles from './Pagination.module.scss';
 
 interface Props {
   pagination?: IPagination;

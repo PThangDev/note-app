@@ -1,12 +1,11 @@
-// Import library
+import MDEditor from '@uiw/react-md-editor';
 import classNames from 'classnames/bind';
 import { FC } from 'react';
-// Import src
+
 import { Note } from 'src/types/Note';
-import styles from './NoteInfo.module.scss';
 import ButtonDelete from '../CardNote/ButtonDelete';
 import ButtonEdit from '../CardNote/ButtonEdit';
-import MDEditor from '@uiw/react-md-editor';
+import styles from './NoteInfo.module.scss';
 
 interface Props {
   data: Note;

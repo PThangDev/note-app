@@ -12,7 +12,7 @@ import {
   TopicDetailPage,
 } from 'src/pages';
 import { NoteDetailPageRender } from 'src/pages/note_detail';
-import { TopicDetailPageRender } from 'src/pages/topic_detail';
+import { TopicDetailPageRender } from 'src/pages/topic-detail';
 
 export const privateRoutes = [
   {

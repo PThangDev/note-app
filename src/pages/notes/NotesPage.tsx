@@ -3,10 +3,11 @@ import queryString from 'query-string';
 import { FC, useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { useLocation } from 'react-router-dom';
+
 import { useAppDispatch, useAppSelector } from 'src/app/hooks';
-import ButtonSelect from 'src/components/CardNote/ButtonSelect';
 import ButtonCreate from 'src/components/CardNote/ButtonCreate';
 import ButtonDeleteMany from 'src/components/CardNote/ButtonDeleteMany';
+import ButtonSelect from 'src/components/CardNote/ButtonSelect';
 import Filters from 'src/components/Filters';
 import Pagination from 'src/components/Pagination';
 import CardNoteContainer from 'src/containers/CardNoteContainer';

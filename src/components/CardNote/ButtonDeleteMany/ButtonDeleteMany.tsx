@@ -1,12 +1,10 @@
-// Import library
 import classNames from 'classnames/bind';
-import React, { FC } from 'react';
+import { FC } from 'react';
+
 import { useAppDispatch } from 'src/app/hooks';
 import { Button } from 'src/layouts/UI';
 import { fetchUpdateNotes } from 'src/pages/notes/noteSlice';
-import { UpdateNotesRequest } from 'src/types/Note';
 import sweetAlert from 'src/utils/sweetAlert';
-// Import src
 import styles from './ButtonDeleteMany.module.scss';
 
 interface Props {
