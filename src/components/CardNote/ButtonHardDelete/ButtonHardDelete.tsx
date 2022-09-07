@@ -1,8 +1,6 @@
-// Import library
 import classNames from 'classnames/bind';
 import { FC } from 'react';
 
-// Import src
 import { useAppDispatch } from 'src/app/hooks';
 import { Button } from 'src/layouts/UI';
 import { fetchDeleteNote } from 'src/pages/notes/noteSlice';

@@ -1,8 +1,6 @@
-// Import library
 import classNames from 'classnames/bind';
 import { FC, useState } from 'react';
 
-// Import src
 import FormNote from 'src/components/FormNote';
 import Modal from 'src/components/Modal';
 import { Button } from 'src/layouts/UI';

@@ -1,9 +1,9 @@
 import classNames from 'classnames/bind';
 import { FC, useEffect } from 'react';
 import { Helmet } from 'react-helmet';
+
 import { useAppDispatch, useAppSelector } from 'src/app/hooks';
 import CardNoteContainer from 'src/containers/CardNoteContainer';
-import { fetchGetNotes } from '../notes/noteSlice';
 import { fetchGetNotesPinned } from './notesPinnedSlice';
 import styles from './PinsPage.module.scss';
 

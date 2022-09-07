@@ -1,7 +1,8 @@
 import classNames from 'classnames/bind';
-import styles from './ProfilePage.module.scss';
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { Helmet } from 'react-helmet';
+
+import styles from './ProfilePage.module.scss';
 
 interface Props {}
 

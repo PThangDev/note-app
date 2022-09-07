@@ -1,12 +1,11 @@
-// Import library
 import classNames from 'classnames/bind';
 import queryString from 'query-string';
 import { FC, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
+
 import { useAppDispatch, useAppSelector } from 'src/app/hooks';
-import { fetchGetNotes } from '../notes/noteSlice';
-// Import src
 import CardNoteContainer from 'src/containers/CardNoteContainer';
+import { fetchGetNotes } from '../notes/noteSlice';
 import styles from './SearchPage.module.scss';
 
 interface Props {}

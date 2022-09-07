@@ -1,11 +1,10 @@
-// Import library
 import classNames from 'classnames/bind';
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { NavLink } from 'react-router-dom';
+
 import { useAppDispatch } from 'src/app/hooks';
 import { fetchLogout } from 'src/pages/auth/authSlice';
 import routes from './routes';
-// Import src
 import styles from './Sidebar.module.scss';
 
 interface Props {

@@ -1,12 +1,11 @@
-// Import library
 import classNames from 'classnames/bind';
 import { FC, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+
 import FormNote from 'src/components/FormNote';
 import Modal from 'src/components/Modal';
 import { Button } from 'src/layouts/UI';
 import { Note } from 'src/types/Note';
-// Import src
 import styles from './ButtonEdit.module.scss';
 
 interface Props {

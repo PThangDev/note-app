@@ -1,14 +1,12 @@
-// Import library
 import classNames from 'classnames/bind';
-import React, { ChangeEvent, FC, useState } from 'react';
+import { ChangeEvent, FC, useState } from 'react';
+
 import { useAppDispatch } from 'src/app/hooks';
-import Swal from 'sweetalert2';
-// Import src
 import { Button } from 'src/layouts/UI';
 import { Input } from 'src/layouts/UI/Form';
-import backgrounds from './backgrounds';
 import { fetchCreateTopic, fetchUpdateTopic } from 'src/pages/topics/topicSlice';
 import { Topic } from 'src/types/Topic';
+import backgrounds from './backgrounds';
 import styles from './FormTopic.module.scss';
 
 interface Props {
@@ -25,10 +23,10 @@ const FormTopic: FC<Props> = ({ data, onCloseModal }) => {
   const dispatch = useAppDispatch();
 
   const [name, setName] = useState<string>(() => {
-    if(data) {
+    if (data) {
       return data.name;
     }
-    return ''
+    return '';
   });
   const [background, setBackground] = useState<string>(() => {
     if (data) {
@@ -50,10 +48,10 @@ const FormTopic: FC<Props> = ({ data, onCloseModal }) => {
   const handleSubmitFormTopic = async () => {
     if (data) {
       // Update Topic
-     await dispatch(fetchUpdateTopic({_id: data._id, name, background})).unwrap();
-     if(onCloseModal) {
-      onCloseModal();
-     }
+      await dispatch(fetchUpdateTopic({ _id: data._id, name, background })).unwrap();
+      if (onCloseModal) {
+        onCloseModal();
+      }
     } else {
       // Create Topic
       try {

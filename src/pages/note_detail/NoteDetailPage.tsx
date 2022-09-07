@@ -1,12 +1,9 @@
-// Import library
 import classNames from 'classnames/bind';
-
 import { FC, useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 import { useNavigate, useParams } from 'react-router-dom';
+
 import useGetNoteDetail from 'src/hooks/useGetNoteDetail';
-import { delay } from 'src/utils';
-// Import src
 import styles from './NoteDetailPage.module.scss';
 
 interface Props {}

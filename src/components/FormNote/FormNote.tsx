@@ -1,11 +1,10 @@
-// Import library
 import MDEditor from '@uiw/react-md-editor';
 import classNames from 'classnames/bind';
-import { ChangeEvent, FC, KeyboardEvent, KeyboardEventHandler, useEffect, useState } from 'react';
-import { useAppDispatch, useAppSelector } from 'src/app/hooks';
+import { ChangeEvent, FC, useEffect, useState } from 'react';
 
-// Import src
 import { Helmet } from 'react-helmet';
+import { useLocation } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from 'src/app/hooks';
 import { Button } from 'src/layouts/UI';
 import { Input } from 'src/layouts/UI/Form';
 import { fetchCreateNote, fetchUpdateNote } from 'src/pages/notes/noteSlice';
@@ -16,7 +15,6 @@ import sweetAlert from 'src/utils/sweetAlert';
 import ButtonCreate from '../CardTopic/ButtonCreate';
 import backgrounds from './backgrounds';
 import styles from './FormNote.module.scss';
-import { useLocation } from 'react-router-dom';
 interface Props {
   data?: Note;
   onFinishSubmit?: (note?: Note) => void;

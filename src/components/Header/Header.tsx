@@ -1,9 +1,10 @@
 import classNames from 'classnames/bind';
-import styles from './Header.module.scss';
-import React, { FC } from 'react';
-import images from 'src/assets/images';
+import { FC } from 'react';
 import { Link } from 'react-router-dom';
+
 import { useAppSelector } from 'src/app/hooks';
+import images from 'src/assets/images';
+import styles from './Header.module.scss';
 import Search from './Search';
 
 interface Props {

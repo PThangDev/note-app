@@ -1,10 +1,9 @@
-// Lib
 import { yupResolver } from '@hookform/resolvers/yup';
 import classNames from 'classnames/bind';
 import { FC } from 'react';
 import { Helmet } from 'react-helmet';
 import { Controller, useForm } from 'react-hook-form';
-// End Lib
+
 import { useAppDispatch, useAppSelector } from 'src/app/hooks';
 import { Button, Link } from 'src/layouts/UI';
 import { Checkbox, Input } from 'src/layouts/UI/Form';

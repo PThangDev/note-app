@@ -1,8 +1,7 @@
-// Import library
 import classNames from 'classnames/bind';
-import React, { FC, MouseEvent, ReactNode } from 'react';
+import { FC, MouseEvent, ReactNode } from 'react';
 import { Link as RRDLink } from 'react-router-dom';
-// Import src
+
 import styles from './Link.module.scss';
 
 interface Props {

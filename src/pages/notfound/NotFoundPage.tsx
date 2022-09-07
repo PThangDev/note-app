@@ -1,7 +1,8 @@
 import classNames from 'classnames/bind';
-import styles from './NotFoundPage.module.scss';
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { Helmet } from 'react-helmet';
+
+import styles from './NotFoundPage.module.scss';
 
 interface Props {}
 

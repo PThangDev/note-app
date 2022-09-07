@@ -4,6 +4,7 @@ import { FC, useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { Controller, useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
+
 import { useAppDispatch } from 'src/app/hooks';
 import { Link } from 'src/layouts/UI';
 import Button from 'src/layouts/UI/Button';
@@ -14,6 +15,7 @@ import SuccessAuth from '../components/SuccessAuth';
 import styles from './Register.module.scss';
 import registerSchema from './registerSchema';
 import { fetchRegister } from './registerSlice';
+
 interface Props {}
 
 const cx = classNames.bind(styles);

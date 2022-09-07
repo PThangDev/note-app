@@ -1,9 +1,7 @@
-// Import library
 import classNames from 'classnames/bind';
 import { FC } from 'react';
 import { useLocation } from 'react-router-dom';
 
-// Import src
 import { useAppDispatch } from 'src/app/hooks';
 import { Button } from 'src/layouts/UI';
 import { fetchUpdateNoteToTrash } from 'src/pages/notes/noteSlice';
