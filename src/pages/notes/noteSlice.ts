@@ -122,6 +122,18 @@ export const fetchDeleteNote = createAsyncThunk<
     return thunkAPI.rejectWithValue(error as ErrorResponse);
   }
 });
+export const fetchDeleteManyNotes = createAsyncThunk<
+  string[],
+  { notes: string[] },
+  { rejectValue: ErrorResponse }
+>('/delete-many/notes', async (payload, thunkAPI) => {
+  try {
+    const response = await noteAPI.deleteManyNotes(payload);
+    return payload.notes;
+  } catch (error) {
+    return thunkAPI.rejectWithValue(error as ErrorResponse);
+  }
+});
 const noteSlice = createSlice({
   name: 'note',
   initialState,
@@ -220,6 +232,22 @@ const noteSlice = createSlice({
         sweetAlert.success(action.payload.message);
       })
       .addCase(fetchDeleteNote.rejected, (state, action) => {
+        sweetAlert.error(action.payload?.errors?.message);
+      })
+      // Delete many notes
+      .addCase(fetchDeleteManyNotes.pending, (state, action) => {
+        sweetAlert.loading();
+      })
+      .addCase(fetchDeleteManyNotes.fulfilled, (state, action) => {
+        if (action.payload) {
+          state.data = state.data.filter((note) => !action.payload.includes(note._id));
+        }
+        // if (action.payload.data) {
+        //   state.data = state.data.filter((note) => note._id !== action.payload.data?._id);
+        // }
+        sweetAlert.success(`Delete many notes successfully`);
+      })
+      .addCase(fetchDeleteManyNotes.rejected, (state, action) => {
         sweetAlert.error(action.payload?.errors?.message);
       });
   },

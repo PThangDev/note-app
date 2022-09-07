@@ -1,7 +1,12 @@
 .wrapper {
 }
+.actions {
+  display: flex;
+  align-items: stretch;
+}
 .header {
   display: flex;
+  margin-top: 15px;
 }
 .heading {
   font-size: 35px;

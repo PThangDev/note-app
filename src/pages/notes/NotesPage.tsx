@@ -4,12 +4,14 @@ import { FC, useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { useLocation } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from 'src/app/hooks';
-import ButtonSelect from 'src/components/CardNote/ButtonSelect';
 import ButtonCreate from 'src/components/CardNote/ButtonCreate';
 import ButtonDeleteMany from 'src/components/CardNote/ButtonDeleteMany';
-import Filters from 'src/components/Filters';
+import ButtonSelect from 'src/components/CardNote/ButtonSelect';
+import { Search } from 'src/components/Filters';
+import Sort from 'src/components/Filters/Sort';
 import Pagination from 'src/components/Pagination';
 import CardNoteContainer from 'src/containers/CardNoteContainer';
+import useDebounce from 'src/hooks/useDebounce';
 import { fetchGetNotes } from './noteSlice';
 import styles from './NotesPage.module.scss';
 
@@ -27,37 +29,45 @@ const NotesPage: FC<Props> = (props) => {
   const notes = useAppSelector((state) => state.notes);
   const [notesChecked, setNotesChecked] = useState<string[]>([]);
   const [isShowSelect, setIsShowSelect] = useState<boolean>(false);
+  const [keywordSearch, setKeywordSearch] = useState<string>('');
+
+  const keywordSearchDebounce = useDebounce(keywordSearch);
 
   // ********** useEffect (Side Effect) **********
   useEffect(() => {
-    dispatch(
-      fetchGetNotes({
-        is_trash: false,
-        limit: (params.limit as string) || '8',
-        page: params.page as string,
-        sort: params.sort as string,
-      })
-    );
-  }, [dispatch, params.limit, params.page, params.sort]);
+    const queryParams = {
+      is_trash: false,
+      limit: (params.limit as string) || '8',
+      page: params.page as string,
+      sort: params.sort as string,
+      q: keywordSearchDebounce,
+    };
+    dispatch(fetchGetNotes(queryParams));
+  }, [dispatch, keywordSearchDebounce, params.limit, params.page, params.sort]);
 
   // ********** Handle Event **********
   const handleToggleCheckbox = (id: string) => {
-    setNotesChecked((prevState) => {
-      if (prevState.includes(id)) {
-        return prevState.filter((noteId) => noteId !== id);
+    setNotesChecked((prevNotesChecked) => {
+      if (prevNotesChecked.includes(id)) {
+        return prevNotesChecked.filter((noteId) => noteId !== id);
       } else {
-        return [...prevState, id];
+        return [...prevNotesChecked, id];
       }
     });
   };
   const handleToggleSelect = () => {
-    setIsShowSelect((prevState) => {
-      if (prevState) {
+    setIsShowSelect((prevIsShowSelect) => {
+      if (prevIsShowSelect) {
         setNotesChecked([]);
       }
-      return !prevState;
+      return !prevIsShowSelect;
     });
   };
+
+  const handleChangeSearch = (value: string) => {
+    setKeywordSearch(value);
+  };
+
   // ********** Logic and render UI **********
   return (
     <>
@@ -73,7 +83,8 @@ const NotesPage: FC<Props> = (props) => {
           {/* <h3 className={cx('heading')}>All Notes</h3> */}
           <div className={cx('actions')}>
             <ButtonCreate />
-            <Filters />
+            <Search onChange={handleChangeSearch} value={keywordSearch} />
+            <Sort />
             <ButtonDeleteMany noteIds={notesChecked} />
             <ButtonSelect onClick={handleToggleSelect} isActive={isShowSelect} />
           </div>
