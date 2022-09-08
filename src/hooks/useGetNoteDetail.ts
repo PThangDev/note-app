@@ -1,8 +1,7 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from 'src/app/hooks';
 import { fetchGetNoteDetail } from 'src/pages/note_detail/noteDetailSlice';
-import { getIdFormSlug } from 'src/utils';
 
 type Props = {};
 

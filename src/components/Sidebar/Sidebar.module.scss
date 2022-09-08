@@ -1,12 +1,14 @@
 .wrapper {
   width: var(--width-sidebar);
+  padding: 0 10px;
+  padding-top: 10px;
   min-height: 100vh;
   background-color: var(--color-primary);
   position: fixed;
   top: var(--height-header);
   left: 0;
   bottom: 0;
-  box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.2);
+  // box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.2);
   transition: all 0.5s;
   &.close {
     .label {
@@ -31,21 +33,24 @@
 }
 .link {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  padding: 12px;
-  color: var(--color-white);
+  padding: 10px;
   font-size: 2rem;
   transition: all 0.5s;
+  border-radius: 10px;
+  color: var(--color-white);
+
   // transition-delay: justify-content 0.5s;
   text-align: center;
   cursor: pointer;
 
   &:hover {
-    background-color: rgb(9, 234, 9);
+    background-color: var(--color-primary-bold);
   }
   &.active {
-    background-color: rgb(9, 234, 9);
+    background-color: var(--color-primary-bold);
     .icon {
       font-size: 2.1rem;
     }
