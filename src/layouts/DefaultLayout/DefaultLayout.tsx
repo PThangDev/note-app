@@ -1,5 +1,5 @@
 import classNames from 'classnames/bind';
-import { FC, ReactNode, useState } from 'react';
+import { FC, ReactNode } from 'react';
 
 import Header from 'src/components/Header';
 import Sidebar from 'src/components/Sidebar';

@@ -20,10 +20,10 @@ const Header: FC<Props> = (props) => {
     <header className={cx('wrapper')}>
       <div className={cx('inner')}>
         <div className={cx('left')}>
-          <Link to={config.routePath.home} className={cx('logo')}>
+          <a href={config.routePath.home} className={cx('logo')}>
             <NoteIcon width={28} height={28} className={cx('note-icon')} />
             <p>NOTE APP</p>
-          </Link>
+          </a>
           {/* Search */}
           <Search />
         </div>

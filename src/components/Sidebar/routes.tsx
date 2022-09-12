@@ -8,11 +8,6 @@ const routes = [
     icon: () => <i className="fa-solid fa-house-user"></i>,
   },
   {
-    to: configs.routePath.pins,
-    label: 'Pins',
-    icon: () => <img src={icons.iconPinnedActive} alt="" />,
-  },
-  {
     to: configs.routePath.notes,
     label: 'Notes',
     icon: () => <i className="fa-solid fa-book"></i>,
@@ -23,12 +18,17 @@ const routes = [
     icon: () => <i className="fa-solid fa-biohazard"></i>,
   },
   {
+    to: configs.routePath.pins,
+    label: 'Pins',
+    icon: () => <img src={icons.iconPinnedActive} alt="" />,
+  },
+  {
     to: configs.routePath.profile,
     label: 'Profile',
     icon: () => <i className="fa-solid fa-id-card"></i>,
   },
   {
-    to: configs.routePath.trash,
+    to: configs.routePath.trashs,
     label: 'Trashs',
     icon: () => <i className="fa-solid fa-trash"></i>,
   },

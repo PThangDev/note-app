@@ -4,7 +4,7 @@ const routePath = {
   topics: '/topics',
   pins: '/pins',
   profile: '/profile',
-  trash: '/trash',
+  trashs: '/trashs',
   login: '/auth/login',
   register: '/auth/register',
   forgotPassword: '/forgot-password',

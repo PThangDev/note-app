@@ -1,15 +1,16 @@
 .wrapper {
   width: var(--sidebar-width);
   padding: 0 10px;
-  padding-top: 10px;
   min-height: 100vh;
   background-color: var(--primary-color);
   position: fixed;
-  top: var(--header-height);
+  padding-top: calc(var(--header-height) + 10px);
+  top: 0;
   left: 0;
   bottom: 0;
   // box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.2);
   transition: all 0.5s;
+  z-index: 5;
 }
 .list {
 }
