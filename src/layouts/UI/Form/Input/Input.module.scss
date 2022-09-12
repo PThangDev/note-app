@@ -12,10 +12,10 @@
   }
   &.error {
     input {
-      border-bottom-color: var(--color-error);
+      border-bottom-color: var(--error-color);
       &:focus,
       &:not(:placeholder-shown) {
-        $color-active: var(--color-error);
+        $color-active: var(--error-color);
         border-bottom-color: $color-active;
         & ~ .icon {
           color: $color-active;
@@ -23,10 +23,10 @@
       }
     }
     .icon {
-      color: var(--color-error);
+      color: var(--error-color);
     }
     .helper-text {
-      color: var(--color-error);
+      color: var(--error-color);
     }
   }
   &.disabled {

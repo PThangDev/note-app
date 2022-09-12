@@ -5,6 +5,7 @@ import { Helmet } from 'react-helmet';
 import { useAppDispatch, useAppSelector } from 'src/app/hooks';
 import CardTopic from 'src/components/CardTopic';
 import ButtonCreate from 'src/components/CardTopic/ButtonCreate';
+import { Col, Row } from 'src/layouts/UI/Grid';
 import styles from './TopicPage.module.scss';
 import { fetchGetTopics } from './topicSlice';
 
@@ -31,9 +32,13 @@ const TopicPage: FC<Props> = (props) => {
         {/* <h2 className={cx('heading')}>All Topics</h2> */}
         <ButtonCreate />
         <div className={cx('list')}>
-          {topics.data.map((topic) => (
-            <CardTopic key={topic._id} data={topic} />
-          ))}
+          <Row>
+            {topics.data.map((topic) => (
+              <Col col={{ xs: 12, sm: 12, md: 12, lg: 6, xl: 6 }} key={topic._id}>
+                <CardTopic data={topic} />
+              </Col>
+            ))}
+          </Row>
         </div>
       </div>
     </>

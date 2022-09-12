@@ -5,6 +5,7 @@ import { Helmet } from 'react-helmet';
 import { Controller, useForm } from 'react-hook-form';
 
 import { useAppDispatch, useAppSelector } from 'src/app/hooks';
+import configs from 'src/configs';
 import { Button, Link } from 'src/layouts/UI';
 import { Checkbox, Input } from 'src/layouts/UI/Form';
 import { UserLogin } from 'src/types/User';
@@ -86,7 +87,7 @@ const LoginPage: FC<Props> = (props) => {
 
           <div className={cx('options')}>
             <Checkbox className={cx('checkbox')} label="Remember me" name="remember" />
-            <Link to="/auth/forgot-password" disabled={isLoading}>
+            <Link to={configs.routePath.forgotPassword} disabled={isLoading}>
               Forgot Password ?
             </Link>
           </div>
@@ -103,7 +104,7 @@ const LoginPage: FC<Props> = (props) => {
           <SocialAuth />
           <div className={cx('note')}>
             Don't have an account?
-            <Link to="/auth/register" disabled={isLoading}>
+            <Link to={configs.routePath.register} disabled={isLoading}>
               Register
             </Link>
           </div>

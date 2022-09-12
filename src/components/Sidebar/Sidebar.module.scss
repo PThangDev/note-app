@@ -1,28 +1,15 @@
 .wrapper {
-  width: var(--width-sidebar);
+  width: var(--sidebar-width);
   padding: 0 10px;
   padding-top: 10px;
   min-height: 100vh;
-  background-color: var(--color-primary);
+  background-color: var(--primary-color);
   position: fixed;
-  top: var(--height-header);
+  top: var(--header-height);
   left: 0;
   bottom: 0;
   // box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.2);
   transition: all 0.5s;
-  &.close {
-    .label {
-      width: 0;
-      overflow: hidden;
-      margin-left: 0;
-    }
-    .link {
-      padding-left: 0;
-      padding-right: 0;
-      justify-content: center;
-      text-align: center;
-    }
-  }
 }
 .list {
 }
@@ -40,17 +27,17 @@
   font-size: 2rem;
   transition: all 0.5s;
   border-radius: 10px;
-  color: var(--color-white);
+  color: var(--white-color);
 
   // transition-delay: justify-content 0.5s;
   text-align: center;
   cursor: pointer;
 
   &:hover {
-    background-color: var(--color-primary-bold);
+    background-color: var(--primary-bold-color);
   }
   &.active {
-    background-color: var(--color-primary-bold);
+    background-color: var(--primary-bold-color);
     .icon {
       font-size: 2.1rem;
     }
@@ -65,7 +52,6 @@
   }
 
   .label {
-    margin-left: 8px;
     transition: all 0.5s;
     max-width: 400px;
   }

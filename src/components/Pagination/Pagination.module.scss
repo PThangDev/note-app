@@ -17,14 +17,14 @@
   justify-content: center;
   margin: 0 5px;
   border-radius: 4px;
-  color: var(--color-white);
+  color: var(--white-color);
   cursor: pointer;
-  background-color: var(--color-grey-light);
+  background-color: var(--grey-light-color);
   &:hover {
-    background-color: var(--color-primary);
+    background-color: var(--primary-color);
   }
   &.active {
-    background-color: var(--color-primary);
+    background-color: var(--primary-color);
   }
   &.disabled {
     cursor: not-allowed;

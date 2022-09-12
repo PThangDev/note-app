@@ -1,16 +1,13 @@
 .wrapper {
-  margin-top: calc(var(--height-header) + 20px);
+  margin-top: calc(var(--header-height) + 20px);
   padding-bottom: 50px;
-  &.close-sidebar {
-    --width-sidebar: var(--width-sidebar-close);
-  }
 }
 .inner {
   display: flex;
 }
 .main {
   flex: 1;
-  margin-left: var(--width-sidebar);
+  margin-left: var(--sidebar-width);
   padding: 0 10px;
   transition: margin-left 0.5s, padding 0.5s;
 }

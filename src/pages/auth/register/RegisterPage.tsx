@@ -6,6 +6,7 @@ import { Controller, useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 
 import { useAppDispatch } from 'src/app/hooks';
+import configs from 'src/configs';
 import { Link } from 'src/layouts/UI';
 import Button from 'src/layouts/UI/Button';
 import { Checkbox, Input } from 'src/layouts/UI/Form';
@@ -153,7 +154,7 @@ const RegisterPage: FC<Props> = (props) => {
             <SocialAuth disabled={isSubmitting} />
             <div className={cx('note')}>
               Already have an account?
-              <Link to="/auth/login" disabled={isSubmitting}>
+              <Link to={configs.routePath.login} disabled={isSubmitting}>
                 Login
               </Link>
             </div>

@@ -7,19 +7,17 @@ import { fetchLogout } from 'src/pages/auth/authSlice';
 import routes from './routes';
 import styles from './Sidebar.module.scss';
 
-interface Props {
-  isOpen: boolean;
-}
+interface Props {}
 
 const cx = classNames.bind(styles);
 
-const Sidebar: FC<Props> = ({ isOpen }) => {
+const Sidebar: FC<Props> = (props) => {
   const dispatch = useAppDispatch();
   const handleLogout = () => {
     dispatch(fetchLogout());
   };
   return (
-    <div className={cx('wrapper', { close: !isOpen })}>
+    <div className={cx('wrapper')}>
       <ul className={cx('list')}>
         {routes.map((route, index) => {
           const { icon: Icon, to, label } = route;

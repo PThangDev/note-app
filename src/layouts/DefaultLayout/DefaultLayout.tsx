@@ -9,17 +9,11 @@ interface Props {
 }
 const cx = classNames.bind(styles);
 const DefaultLayout: FC<Props> = ({ children }) => {
-  const [isOpenSidebar, setIsOpenSidebar] = useState<boolean>(true);
-
-  const handleToggleSidebar = () => {
-    setIsOpenSidebar(!isOpenSidebar);
-  };
-
   return (
-    <div className={cx('wrapper', { 'close-sidebar': !isOpenSidebar })}>
-      <Header isOpenSidebar={isOpenSidebar} onToggleSidebar={handleToggleSidebar} />
+    <div className={cx('wrapper')}>
+      <Header />
       <div className={cx('inner')}>
-        <Sidebar isOpen={isOpenSidebar} />
+        <Sidebar />
         <main className={cx('main')}>{children}</main>
       </div>
       {/* <Menubar /> */}

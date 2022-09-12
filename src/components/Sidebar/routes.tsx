@@ -1,33 +1,34 @@
 import icons from 'src/assets/icons';
+import configs from 'src/configs';
 
 const routes = [
   {
-    to: '/',
+    to: configs.routePath.home,
     label: 'Home',
     icon: () => <i className="fa-solid fa-house-user"></i>,
   },
   {
-    to: '/pins',
+    to: configs.routePath.pins,
     label: 'Pins',
     icon: () => <img src={icons.iconPinnedActive} alt="" />,
   },
   {
-    to: '/notes',
+    to: configs.routePath.notes,
     label: 'Notes',
     icon: () => <i className="fa-solid fa-book"></i>,
   },
   {
-    to: '/topics',
+    to: configs.routePath.topics,
     label: 'Topics',
     icon: () => <i className="fa-solid fa-biohazard"></i>,
   },
   {
-    to: '/profile',
+    to: configs.routePath.profile,
     label: 'Profile',
     icon: () => <i className="fa-solid fa-id-card"></i>,
   },
   {
-    to: '/trashs',
+    to: configs.routePath.trash,
     label: 'Trashs',
     icon: () => <i className="fa-solid fa-trash"></i>,
   },
