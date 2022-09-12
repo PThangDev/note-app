@@ -1,8 +1,10 @@
 import classNames from 'classnames/bind';
-import { FC, useEffect } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet';
 
 import { useAppDispatch, useAppSelector } from 'src/app/hooks';
+import ButtonDeleteMany from 'src/components/CardNote/ButtonDeleteMany';
+import ButtonSelect from 'src/components/CardNote/ButtonSelect';
 import EmptyItem from 'src/components/EmptyItem';
 import CardNoteContainer from 'src/containers/CardNoteContainer';
 import { fetchGetNotes } from '../notes/noteSlice';
@@ -17,13 +19,31 @@ const TrashsPage: FC<Props> = (props) => {
   const dispatch = useAppDispatch();
   // ********** use Hooks (useState, useRef, useCallback, useMemo,... Custom Hook,.... )**********
   const notes = useAppSelector((state) => state.notes);
+  const [isShowSelect, setIsShowSelect] = useState<boolean>(false);
+  const [notesChecked, setNotesChecked] = useState<string[]>([]);
   // ********** useEffect (Side Effect) **********
   useEffect(() => {
     dispatch(fetchGetNotes({ is_trash: true, sort: '-updatedAt' }));
   }, [dispatch]);
 
   // ********** Handle Event **********
-
+  const handleToggleCheckbox = (id: string) => {
+    setNotesChecked((prevNotesChecked) => {
+      if (prevNotesChecked.includes(id)) {
+        return prevNotesChecked.filter((note) => note !== id);
+      } else {
+        return [...prevNotesChecked, id];
+      }
+    });
+  };
+  const handleToggleSelect = () => {
+    setIsShowSelect((prevIsShowSelect) => {
+      if (prevIsShowSelect) {
+        setNotesChecked([]);
+      }
+      return !prevIsShowSelect;
+    });
+  };
   // ********** Logic and render UI **********
 
   return (
@@ -35,12 +55,18 @@ const TrashsPage: FC<Props> = (props) => {
       </Helmet>
       {/* Body */}
       <div className={cx('wrapper')}>
+        <div className={cx('actions')}>
+          <ButtonDeleteMany hardDelete noteIds={notesChecked} />
+          <ButtonSelect isActive={isShowSelect} onClick={handleToggleSelect} />
+        </div>
         {notes.data.length === 0 && <EmptyItem />}
         <CardNoteContainer
           heading="Note Trash"
           data={notes.data}
           isLoading={notes.isLoading}
           isTrash
+          isShowSelect={isShowSelect}
+          onToggleCheckbox={handleToggleCheckbox}
         />
       </div>
     </>

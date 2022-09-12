@@ -15,8 +15,9 @@ import topicDetailSlice from 'src/pages/topic-detail/topicDetailSlice';
 const checkUnAuthorization: Middleware = (store) => (next) => (action) => {
   if (action.payload?.status === 401) {
     return store.dispatch(logout(action.payload?.errors.message));
+  } else {
+    next(action);
   }
-  next(action);
 };
 
 const store = configureStore({

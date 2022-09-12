@@ -18,7 +18,7 @@ const TopicDetailPage: FC<Props> = (props) => {
   useEffect(() => {
     if (!id) return;
     dispatch(fetchGetTopicDetail(id));
-    dispatch(fetchGetNotes({ topics: id }));
+    dispatch(fetchGetNotes({ topics: id, is_trash: false }));
   }, [dispatch, id]);
 
   useEffect(() => {

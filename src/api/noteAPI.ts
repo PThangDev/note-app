@@ -51,5 +51,10 @@ const noteAPI = {
     const url = `/notes/${id}`;
     return axiosInstance.delete(url);
   },
+  deleteManyNotes(data: { notes: string[] }): Promise<BaseDataResponse<any>> {
+    const url = `/notes`;
+
+    return axiosInstance.delete(url, { data });
+  },
 };
 export default noteAPI;

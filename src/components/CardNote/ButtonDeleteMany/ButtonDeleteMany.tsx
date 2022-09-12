@@ -3,29 +3,39 @@ import { FC } from 'react';
 
 import { useAppDispatch } from 'src/app/hooks';
 import { Button } from 'src/layouts/UI';
-import { fetchUpdateNotes } from 'src/pages/notes/noteSlice';
+import { fetchDeleteManyNotes, fetchUpdateNotes } from 'src/pages/notes/noteSlice';
 import sweetAlert from 'src/utils/sweetAlert';
 import styles from './ButtonDeleteMany.module.scss';
 
 interface Props {
   noteIds: string[];
+  hardDelete?: boolean;
 }
 
 const cx = classNames.bind(styles);
 
-const ButtonDeleteMany: FC<Props> = ({ noteIds }) => {
+const ButtonDeleteMany: FC<Props> = ({ noteIds, hardDelete = false }) => {
   const count = noteIds.length;
   const dispatch = useAppDispatch();
 
   const handleDeleteNotes = async () => {
     try {
-      const result = await sweetAlert.confirm({
-        text: `Do you want to remove ${count} note to trash ?`,
-      });
-      if (result.isConfirmed) {
-        sweetAlert.loading();
-        await dispatch(fetchUpdateNotes({ noteIds, update: { is_trash: true } })).unwrap();
-        sweetAlert.success(`Remove ${count} note to trash successfully`);
+      if (!hardDelete) {
+        const result = await sweetAlert.confirm({
+          text: `Do you want to remove ${count} note to trash ?`,
+        });
+        if (result.isConfirmed) {
+          sweetAlert.loading();
+          await dispatch(fetchUpdateNotes({ noteIds, update: { is_trash: true } })).unwrap();
+          sweetAlert.success(`Remove ${count} note to trash successfully`);
+        }
+      } else {
+        const result = await sweetAlert.confirm({
+          text: `Do you want to permanently delete ${count} note ?`,
+        });
+        if (result.isConfirmed) {
+          await dispatch(fetchDeleteManyNotes({ notes: noteIds })).unwrap();
+        }
       }
     } catch (error) {
       sweetAlert.close();

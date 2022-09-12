@@ -20,17 +20,15 @@ const ButtonCreate: FC<Props> = (props) => {
   };
   return (
     <>
-      <div className={cx('wrapper')}>
-        <Button
-          icon={() => <i className="fa-solid fa-circle-plus"></i>}
-          onClick={() => setIsOpen(true)}
-        >
-          Add new note
-        </Button>
-        <Modal className={cx('custom-modal')} isOpen={isOpen} onClose={handleCloseModal}>
-          <FormNote onFinishSubmit={handleFinishSubmit} onCloseModal={handleCloseModal} />
-        </Modal>
-      </div>
+      <Button
+        icon={() => <i className="fa-solid fa-circle-plus"></i>}
+        onClick={() => setIsOpen(true)}
+      >
+        Add new note
+      </Button>
+      <Modal className={cx('custom-modal')} isOpen={isOpen} onClose={handleCloseModal}>
+        <FormNote onFinishSubmit={handleFinishSubmit} onCloseModal={handleCloseModal} />
+      </Modal>
     </>
   );
 };
