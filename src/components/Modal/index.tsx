@@ -47,7 +47,7 @@ const Modal: FC<Props> = ({
             animate="visible"
             exit="exit"
             onClick={(e) => e.stopPropagation()}
-            tabIndex={0}
+            tabIndex={1}
           >
             <span className="modal-btn-close" onClick={onClose}></span>
             <h3 className="modal-heading">{heading}</h3>

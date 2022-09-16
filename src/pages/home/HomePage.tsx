@@ -40,6 +40,7 @@ const HomePage: FC<Props> = (props) => {
         <meta name="description" content="Home page note app - PThangDev"></meta>
       </Helmet>
       {/* Body */}
+
       <div className={cx('wrapper')}>
         <div className={cx('notes')}>
           {/* Notes Pinned */}

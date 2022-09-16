@@ -27,7 +27,7 @@ const Header: FC<Props> = (props) => {
           {/* Search */}
           <Search />
         </div>
-
+        <div id="target"></div>
         <Link to="/profile" className={cx('user')}>
           <img className={cx('avatar')} src={user?.avatar || images.avatarDefault} alt="" />
           <p className={cx('username')}>{user?.username}</p>

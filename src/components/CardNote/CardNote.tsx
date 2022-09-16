@@ -106,11 +106,11 @@ const CardNote: FC<Props> = ({ note, isTrash = false, isShowSelect = false, onTo
           </div>
         </div>
         <div className={cx('content')} data-color-mode="dark">
-          {/* <MDEditor.Markdown
+          <MDEditor.Markdown
             className="md-editor-preview"
             source={content}
             style={{ whiteSpace: 'pre-wrap' }}
-          /> */}
+          />
           <Link to={`/notes/${_id}`} />
         </div>
         <div className={cx('options')}>
